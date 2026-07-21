@@ -164,40 +164,65 @@ function initShowcase() {
   });
 }
 
-/* ---------- edge perf HUD count-up ---------- */
-function initPerfHud() {
-  const hud = document.querySelector('[data-perf-hud]');
-  if (!hud) return;
+/* ---------- edge speed-race demo loop ---------- */
+function initSpeedRace() {
+  const root = document.querySelector('[data-race]');
+  if (!root) return;
 
-  const num = hud.querySelector('[data-gauge-num]');
-  const ring = hud.querySelector('[data-gauge-ring]');
-  const bars = hud.querySelectorAll('[data-bar]');
-  const target = 98;
-  const circumference = 326.7;
+  const els = root.querySelectorAll('[data-race-el]');
+  const sale = root.querySelector('[data-race-sale]');
+  const leave = root.querySelector('[data-race-leave]');
+  const timer = root.querySelector('[data-race-timer]');
+  const spin = root.querySelector('[data-race-spin]');
+  const clock = { v: 0 };
 
-  const counter = { v: 0 };
-  gsap
-    .timeline({
-      defaults: { duration: 1.6, ease: 'expo.out' },
-      scrollTrigger: { trigger: hud, start: 'top 80%' },
-    })
-    .fromTo(
-      ring,
-      { strokeDashoffset: circumference },
-      { strokeDashoffset: circumference * (1 - target / 100) },
-      0
-    )
+  const tl = gsap.timeline({
+    repeat: -1,
+    repeatDelay: 1.6,
+    paused: true,
+    defaults: { ease: 'expo.out' },
+  });
+
+  tl.set(els, { opacity: 0, y: 10, scale: 0.94 })
+    .set([sale, leave], { opacity: 0, scale: 0.6, y: 4 })
+    .set(spin, { opacity: 1 })
+    .set(clock, { v: 0 })
+    // your site: content pops in almost immediately
+    .to(els, { opacity: 1, y: 0, scale: 1, duration: 0.45, stagger: 0.07 }, 0.35)
+    // competitor: the clock just keeps running
     .to(
-      counter,
+      clock,
       {
-        v: target,
+        v: 6,
+        duration: 6,
+        ease: 'none',
         onUpdate: () => {
-          num.textContent = String(Math.round(counter.v));
+          timer.textContent = `${clock.v.toFixed(1)}s`;
         },
       },
       0
     )
-    .fromTo(bars, { scaleX: 0 }, { scaleX: 1, stagger: 0.08 }, 0.1);
+    // first order lands while the other side still shows bones
+    .to(sale, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(2.4)' }, 1.5)
+    // a second order pulse
+    .to(sale, { scale: 1.1, duration: 0.16, yoyo: true, repeat: 1, ease: 'power2.inOut' }, 4.4)
+    // competitor's visitor walks
+    .to(leave, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(2)' }, 3.4)
+    .to(spin, { opacity: 0.22, duration: 0.4 }, 3.4)
+    // reset beat
+    .to(root, { opacity: 0, duration: 0.4, ease: 'power2.in' }, 7.0)
+    .set(els, { opacity: 0 })
+    .set([sale, leave], { opacity: 0, scale: 0.6 })
+    .to(root, { opacity: 1, duration: 0.3 }, 7.5);
+
+  ScrollTrigger.create({
+    trigger: root,
+    start: 'top 88%',
+    onEnter: () => tl.play(),
+    onLeave: () => tl.pause(),
+    onEnterBack: () => tl.play(),
+    onLeaveBack: () => tl.pause(),
+  });
 }
 
 /* ---------- footer wordmark slide-up ---------- */
@@ -242,7 +267,7 @@ function boot() {
   initSplitHeadings();
   initManifesto();
   initShowcase();
-  initPerfHud();
+  initSpeedRace();
   initWordmark();
 
   // fonts shift line metrics — recalc pin distances once loaded

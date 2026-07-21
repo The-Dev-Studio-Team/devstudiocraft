@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import edgeTemplates from '../assets/gen/edge-templates.jpg';
 import edgeLine from '../assets/gen/edge-line.jpg';
 import edgeFast from '../assets/gen/edge-fast.jpg';
+import edgeCanyon from '../assets/gen/edge-canyon.jpg';
 ---
 
 <section class="section edge" id="edge" aria-labelledby="edge-heading">
@@ -17,51 +18,64 @@ import edgeFast from '../assets/gen/edge-fast.jpg';
     <div class="bento">
       <article class="cell cell-big" data-reveal>
         <div class="cell-media" aria-hidden="true">
-          <video data-ambient-video muted loop playsinline preload="none" width="1280" height="507">
-            <source src="/media/edge-veins-loop.webm" type="video/webm" />
-            <source src="/media/edge-veins-loop.mp4" type="video/mp4" />
-          </video>
+          <Image
+            class="canyon-img"
+            src={edgeCanyon}
+            alt=""
+            width={1400}
+            densities={[1, 1.5]}
+            quality={74}
+            loading="lazy"
+          />
+          <div class="mist mist-a"></div>
+          <div class="mist mist-b"></div>
           <div class="cell-media-scrim"></div>
         </div>
-        <div class="perf-hud" aria-hidden="true" data-perf-hud>
-          <div class="hud-gauge">
-            <svg viewBox="0 0 120 120" fill="none">
-              <circle class="gauge-track" cx="60" cy="60" r="52"></circle>
-              <circle class="gauge-fill" data-gauge-ring cx="60" cy="60" r="52"></circle>
-            </svg>
-            <div class="gauge-num"><span data-gauge-num>98</span></div>
+
+        <div class="race" aria-hidden="true" data-race>
+          <div class="race-track">
+            <div class="mini">
+              <div class="mini-top">
+                <i></i><i></i><i></i>
+                <span class="mini-url">everyone-else.com</span>
+              </div>
+              <div class="mini-body">
+                <span class="skel" style="--w: 42%"></span>
+                <span class="skel" style="--w: 86%"></span>
+                <span class="skel" style="--w: 68%"></span>
+                <span class="skel" style="--w: 55%"></span>
+                <span class="mini-spin" data-race-spin></span>
+              </div>
+              <span class="race-chip chip-bad" data-race-leave>Visitor gave up</span>
+              <p class="race-cap"><span data-race-timer>6.0s</span> · still loading</p>
+            </div>
+            <div class="mini mini-fast">
+              <div class="mini-top">
+                <i></i><i></i><i></i>
+                <span class="mini-url">yourbrand.com</span>
+              </div>
+              <div class="mini-body">
+                <span class="mf mf-logo" data-race-el></span>
+                <span class="mf mf-h1" data-race-el></span>
+                <span class="mf mf-h2" data-race-el></span>
+                <span class="mf mf-img" data-race-el></span>
+                <span class="mf mf-cta" data-race-el></span>
+              </div>
+              <span class="race-chip chip-good" data-race-sale>New order · just now</span>
+              <p class="race-cap race-cap-good"><strong>0.4s</strong> · already selling</p>
+            </div>
           </div>
-          <div class="hud-side">
-            <span class="hud-title">Lighthouse — performance</span>
-            <ul class="hud-metrics">
-              <li>
-                <span class="m-name">LCP</span>
-                <span class="m-bar"><i data-bar style="--v: 0.92"></i></span>
-                <span class="m-val">0.6s</span>
-              </li>
-              <li>
-                <span class="m-name">CLS</span>
-                <span class="m-bar"><i data-bar style="--v: 1"></i></span>
-                <span class="m-val">0.00</span>
-              </li>
-              <li>
-                <span class="m-name">INP</span>
-                <span class="m-bar"><i data-bar style="--v: 0.96"></i></span>
-                <span class="m-val">38ms</span>
-              </li>
-              <li>
-                <span class="m-name">TTFB</span>
-                <span class="m-bar"><i data-bar style="--v: 0.97"></i></span>
-                <span class="m-val">90ms</span>
-              </li>
-            </ul>
-            <span class="hud-note">median of last 12 builds — real audits, not vibes</span>
-          </div>
+          <p class="race-note">
+            Every extra second of loading costs you roughly <strong>7% of your sales</strong>.
+            Your site will never pay that tax.
+          </p>
         </div>
-        <h3>Performance is the product</h3>
+
+        <h3>Fast sites sell more</h3>
         <p>
-          Slow sites lose sales. Every build targets 95+ Lighthouse, sub-second loads and
-          Core Web Vitals in the green — because speed is a feature your customers feel.
+          People decide in seconds. Your site shows up instantly, feels effortless on any
+          phone, and turns attention into orders — while slower competitors watch customers
+          walk away.
         </p>
       </article>
 
@@ -248,7 +262,8 @@ import edgeFast from '../assets/gen/edge-fast.jpg';
     grid-column: span 2;
     grid-row: span 2;
     justify-content: flex-end;
-    min-height: 24rem;
+    min-height: 28rem;
+    gap: 1.1rem;
   }
 
   .cell-big h3 {
@@ -269,135 +284,279 @@ import edgeFast from '../assets/gen/edge-fast.jpg';
     background-position: center;
   }
 
-  .perf-hud {
-    z-index: 1;
-    position: absolute;
-    top: clamp(1.6rem, 3vw, 2.4rem);
-    left: clamp(1.6rem, 3vw, 2.4rem);
-    right: clamp(1.6rem, 3vw, 2.4rem);
-    display: flex;
-    align-items: center;
-    gap: clamp(1.6rem, 3vw, 3rem);
-    padding: clamp(1rem, 2vw, 1.6rem);
-    border: 1px solid var(--line);
-    border-radius: 1rem;
-    background: rgba(11, 11, 14, 0.55);
-    backdrop-filter: blur(6px);
-  }
-
-  .hud-gauge {
-    position: relative;
-    width: clamp(6.5rem, 10vw, 9rem);
-    flex-shrink: 0;
-  }
-
-  .hud-gauge svg {
-    width: 100%;
-    transform: rotate(-90deg);
-  }
-
-  .gauge-track,
-  .gauge-fill {
-    fill: none;
-    stroke-width: 6;
-    stroke-linecap: round;
-  }
-
-  .gauge-track {
-    stroke: rgba(242, 239, 232, 0.1);
-  }
-
-  .gauge-fill {
-    stroke: var(--acid);
-    stroke-dasharray: 326.7;
-    stroke-dashoffset: 6.5; /* 98/100 */
-    filter: drop-shadow(0 0 6px rgba(201, 242, 75, 0.45));
-  }
-
-  .gauge-num {
+  .cell-media :global(.canyon-img) {
     position: absolute;
     inset: 0;
-    display: grid;
-    place-items: center;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.6rem, 2.4vw, 2.3rem);
-    color: var(--acid);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 70%;
+    animation: canyon-drift 36s ease-in-out infinite alternate;
+    will-change: transform;
   }
 
-  .hud-side {
-    flex: 1;
-    display: grid;
-    gap: 0.7rem;
-    min-width: 0;
+  @keyframes canyon-drift {
+    from {
+      transform: scale(1.05) translate3d(-1.2%, 0.8%, 0);
+    }
+    to {
+      transform: scale(1.16) translate3d(1.4%, -1.2%, 0);
+    }
   }
 
-  .hud-title {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+  .mist {
+    position: absolute;
+    width: 70%;
+    height: 55%;
+    border-radius: 50%;
+    filter: blur(46px);
+    mix-blend-mode: screen;
+    will-change: transform;
+  }
+
+  .mist-a {
+    left: -12%;
+    bottom: -8%;
+    background: radial-gradient(ellipse at center, rgba(201, 242, 75, 0.13), transparent 68%);
+    animation: mist-a 28s ease-in-out infinite alternate;
+  }
+
+  .mist-b {
+    right: -15%;
+    bottom: 6%;
+    background: radial-gradient(ellipse at center, rgba(180, 200, 210, 0.1), transparent 68%);
+    animation: mist-b 34s ease-in-out infinite alternate;
+  }
+
+  @keyframes mist-a {
+    to {
+      transform: translate3d(26%, -8%, 0) scale(1.18);
+    }
+  }
+
+  @keyframes mist-b {
+    to {
+      transform: translate3d(-24%, -5%, 0) scale(1.12);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cell-media :global(.canyon-img),
+    .mist {
+      animation: none;
+    }
+  }
+
+  /* ---- speed race demo ---- */
+  .race {
+    position: relative;
+    z-index: 1;
+    margin-bottom: auto;
+    padding: clamp(1rem, 2vw, 1.4rem);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: rgba(11, 11, 14, 0.58);
+    backdrop-filter: blur(8px);
+  }
+
+  .race-track {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(0.9rem, 2vw, 1.4rem);
+  }
+
+  .mini {
+    position: relative;
+  }
+
+  .mini-top {
+    display: flex;
+    align-items: center;
+    gap: 0.28rem;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid var(--line);
+    border-bottom: none;
+    border-radius: 0.7rem 0.7rem 0 0;
+    background: rgba(22, 22, 29, 0.9);
+  }
+
+  .mini-top i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(242, 239, 232, 0.18);
+  }
+
+  .mini-fast .mini-top i:first-child {
+    background: var(--acid);
+  }
+
+  .mini-url {
+    margin-left: 0.45rem;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 0.12rem 0.55rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mini-fast .mini-url {
     color: var(--ink-dim);
   }
 
-  .hud-metrics {
-    list-style: none;
+  .mini-body {
+    position: relative;
+    height: clamp(6.4rem, 9vw, 8rem);
+    padding: 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 0 0 0.7rem 0.7rem;
+    background: rgba(16, 16, 21, 0.92);
     display: grid;
-    gap: 0.55rem;
-  }
-
-  .hud-metrics li {
-    display: grid;
-    grid-template-columns: 3.2rem 1fr 3.4rem;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  .m-name {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    color: var(--ink-faint);
-  }
-
-  .m-bar {
-    height: 4px;
-    border-radius: 100px;
-    background: rgba(242, 239, 232, 0.09);
+    gap: 0.5rem;
+    align-content: start;
     overflow: clip;
   }
 
-  .m-bar i {
+  .skel {
     display: block;
-    height: 100%;
-    width: calc(var(--v) * 100%);
-    border-radius: inherit;
-    background: linear-gradient(90deg, rgba(201, 242, 75, 0.55), var(--acid));
-    transform-origin: left center;
+    width: var(--w, 60%);
+    height: 0.55rem;
+    border-radius: 100px;
+    background: linear-gradient(
+      90deg,
+      rgba(242, 239, 232, 0.07) 25%,
+      rgba(242, 239, 232, 0.15) 50%,
+      rgba(242, 239, 232, 0.07) 75%
+    );
+    background-size: 200% 100%;
+    animation: skel-shimmer 1.7s linear infinite;
   }
 
-  .m-val {
-    font-size: 0.78rem;
+  @keyframes skel-shimmer {
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  .mini-spin {
+    position: absolute;
+    right: 0.65rem;
+    bottom: 0.65rem;
+    width: 1.05rem;
+    height: 1.05rem;
+    border-radius: 50%;
+    border: 2px solid rgba(242, 239, 232, 0.14);
+    border-top-color: rgba(242, 239, 232, 0.55);
+    animation: spin 0.9s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  .mf {
+    display: block;
+    border-radius: 100px;
+  }
+
+  .mf-logo {
+    width: 1.9rem;
+    height: 0.5rem;
+    background: var(--acid);
+  }
+
+  .mf-h1 {
+    width: 78%;
+    height: 0.68rem;
+    background: rgba(242, 239, 232, 0.92);
+  }
+
+  .mf-h2 {
+    width: 52%;
+    height: 0.68rem;
+    background: rgba(242, 239, 232, 0.55);
+  }
+
+  .mf-img {
+    width: 100%;
+    height: 2.1rem;
+    border-radius: 0.45rem;
+    border: 1px solid var(--line);
+    background: linear-gradient(120deg, rgba(201, 242, 75, 0.22), rgba(139, 106, 255, 0.22));
+  }
+
+  .mf-cta {
+    width: 44%;
+    height: 0.8rem;
+    background: var(--acid);
+  }
+
+  .race-chip {
+    position: absolute;
+    top: -0.6rem;
+    right: -0.35rem;
+    z-index: 2;
+    font-size: 0.62rem;
     font-weight: 700;
-    color: var(--ink);
-    text-align: right;
+    letter-spacing: 0.04em;
+    padding: 0.32rem 0.65rem;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .chip-good {
+    background: var(--acid);
+    color: var(--acid-ink);
+    box-shadow: 0 8px 24px rgba(201, 242, 75, 0.25);
+  }
+
+  .chip-bad {
+    background: #26262e;
+    color: rgba(242, 239, 232, 0.7);
+    border: 1px solid var(--line);
+  }
+
+  .race-cap {
+    margin-top: 0.55rem;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
     font-variant-numeric: tabular-nums;
   }
 
-  .hud-note {
-    font-size: 0.72rem;
-    color: var(--ink-faint);
+  .race-cap-good {
+    color: var(--ink-dim);
+  }
+
+  .race-cap-good strong {
+    color: var(--acid);
+  }
+
+  .race-note {
+    margin-top: 0.95rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.82rem;
+    color: var(--ink-dim);
+  }
+
+  .race-note strong {
+    color: var(--ink);
   }
 
   @media (max-width: 560px) {
-    .perf-hud {
-      position: relative;
-      top: auto;
-      left: auto;
-      right: auto;
-      flex-direction: column;
-      align-items: flex-start;
-      margin-bottom: 1rem;
+    .mini-url {
+      display: none;
+    }
+
+    .race-chip {
+      right: 0.3rem;
     }
   }
 
