@@ -1,0 +1,241 @@
+<section class="hero" id="top" aria-labelledby="hero-heading">
+  <div class="hero-orbs" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+  </div>
+
+  <div class="container hero-inner">
+    <p class="eyebrow hero-eyebrow" data-reveal>Digital studio — Cairo, shipping worldwide</p>
+
+    <h1 class="h-display hero-title split-mask" id="hero-heading" data-hero-title>
+      <span class="line-wrap"><span class="hl outline-text">We craft</span></span>
+      <span class="line-wrap"><span class="hl">digital experiences</span></span>
+      <span class="line-wrap"
+        ><span class="hl">that <em class="serif-i text-acid">sell.</em></span></span
+      >
+    </h1>
+
+    <div class="hero-row">
+      <p class="hero-sub" data-reveal>
+        We partner with ambitious brands to design, build and launch e-commerce stores,
+        landing pages, websites and mobile apps — engineered to turn attention into revenue.
+      </p>
+
+      <div class="hero-ctas" data-reveal>
+        <a href="#contact" class="btn btn-acid" data-magnetic data-cursor="Let's go">
+          <span class="btn-fill"></span>
+          <span>Start your project</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </a>
+        <a href="#services" class="btn btn-ghost" data-magnetic>
+          <span class="btn-fill"></span>
+          <span>See what we do</span>
+        </a>
+      </div>
+    </div>
+
+    <ul class="hero-stats" data-reveal>
+      <li><strong>48h</strong><span>to first concept</span></li>
+      <li><strong>95+</strong><span>Lighthouse target, every build</span></li>
+      <li><strong>100%</strong><span>custom — zero templates</span></li>
+      <li><strong>1</strong><span>team, design to deploy</span></li>
+    </ul>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: clip;
+    padding-block: clamp(7rem, 12vh, 10rem) clamp(4rem, 8vh, 6rem);
+  }
+
+  .hero-orbs {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.5;
+    will-change: transform;
+  }
+
+  .orb-a {
+    width: 44vw;
+    height: 44vw;
+    right: -12vw;
+    top: -14vw;
+    background: radial-gradient(circle at 30% 30%, rgba(201, 242, 75, 0.24), transparent 65%);
+    animation: float-a 14s ease-in-out infinite alternate;
+  }
+
+  .orb-b {
+    width: 34vw;
+    height: 34vw;
+    left: -10vw;
+    bottom: -8vw;
+    background: radial-gradient(circle at 60% 40%, rgba(120, 90, 255, 0.16), transparent 65%);
+    animation: float-b 18s ease-in-out infinite alternate;
+  }
+
+  .orb-c {
+    width: 22vw;
+    height: 22vw;
+    left: 38vw;
+    top: 8vh;
+    background: radial-gradient(circle at 50% 50%, rgba(242, 239, 232, 0.05), transparent 70%);
+    animation: float-a 22s ease-in-out infinite alternate-reverse;
+  }
+
+  @keyframes float-a {
+    to {
+      transform: translate3d(-6%, 9%, 0) scale(1.08);
+    }
+  }
+
+  @keyframes float-b {
+    to {
+      transform: translate3d(8%, -7%, 0) scale(1.12);
+    }
+  }
+
+  .hero-eyebrow {
+    margin-bottom: clamp(1.2rem, 3vh, 2rem);
+  }
+
+  .hero-title {
+    font-size: var(--text-hero);
+  }
+
+  .hero-title .line-wrap {
+    display: block;
+    overflow: clip;
+    padding-block: 0.04em;
+  }
+
+  .hero-title .hl {
+    display: block;
+    will-change: transform;
+  }
+
+  .hero-title em {
+    font-size: 1.04em;
+    line-height: 0;
+  }
+
+  .hero-row {
+    margin-top: clamp(1.6rem, 4vh, 2.8rem);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-sub {
+    max-width: 34rem;
+    font-size: var(--text-lg);
+    line-height: 1.5;
+    color: var(--ink-dim);
+    text-wrap: pretty;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-stats {
+    list-style: none;
+    margin-top: clamp(3rem, 7vh, 5rem);
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .hero-stats li {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .hero-stats strong {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.6rem, 1rem + 2vw, 2.6rem);
+    line-height: 1;
+    color: var(--acid);
+  }
+
+  .hero-stats span {
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    right: var(--gutter);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .hero-scroll-line {
+    width: 1px;
+    height: 3.4rem;
+    background: var(--line);
+    position: relative;
+    overflow: clip;
+  }
+
+  .hero-scroll-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--acid);
+    animation: scroll-drip 2.2s var(--ease-expo) infinite;
+  }
+
+  @keyframes scroll-drip {
+    0% {
+      transform: translateY(-100%);
+    }
+    60%,
+    100% {
+      transform: translateY(100%);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .hero-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero-scroll {
+      display: none;
+    }
+  }
+</style>

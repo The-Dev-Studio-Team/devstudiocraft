@@ -1,0 +1,129 @@
+---
+const steps = [
+  {
+    n: '01',
+    title: 'Discover',
+    desc: 'Strategy call, market and competitor audit, clear goals. We learn what winning looks like for your business before a single pixel moves.',
+  },
+  {
+    n: '02',
+    title: 'Design',
+    desc: 'Direction, UI design and interactive prototypes. You see and feel the product early — no surprises at the end.',
+  },
+  {
+    n: '03',
+    title: 'Build',
+    desc: 'Custom code, CMS and integrations. Performance-obsessed engineering with a 95+ Lighthouse target on every build.',
+  },
+  {
+    n: '04',
+    title: 'Launch & Grow',
+    desc: 'Deploy, analytics, SEO and iteration. Launch is day one — we keep optimizing what the data tells us.',
+  },
+];
+---
+
+<section class="section process" id="process" aria-labelledby="process-heading">
+  <div class="container process-grid">
+    <div class="process-side">
+      <p class="eyebrow" data-reveal>How we work</p>
+      <h2 class="h-display h2" id="process-heading" data-split-lines>
+        From idea to <em class="serif-i text-acid">income</em> in four moves.
+      </h2>
+      <p class="process-note" data-reveal>
+        A tight, transparent process. You always know what's happening, what's next, and
+        what it costs.
+      </p>
+    </div>
+
+    <ol class="process-steps">
+      {
+        steps.map((s) => (
+          <li class="process-step" data-reveal>
+            <span class="step-n" aria-hidden="true">{s.n}</span>
+            <div>
+              <h3 class="step-title">{s.title}</h3>
+              <p class="step-desc">{s.desc}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process {
+    background: var(--bg);
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .process-side {
+    position: sticky;
+    top: 8rem;
+    display: grid;
+    gap: 1.8rem;
+  }
+
+  .process-note {
+    color: var(--ink-dim);
+    max-width: 26rem;
+  }
+
+  .process-steps {
+    list-style: none;
+    display: grid;
+    counter-reset: step;
+  }
+
+  .process-step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    padding-block: clamp(2rem, 4vw, 3rem);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .process-step:first-child {
+    border-top: 1px solid var(--line);
+  }
+
+  .step-n {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.4rem, 2rem + 2vw, 4rem);
+    line-height: 0.9;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--ink-faint);
+  }
+
+  .step-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: clamp(1.3rem, 1rem + 1.4vw, 2rem);
+    margin-bottom: 0.6rem;
+  }
+
+  .step-desc {
+    color: var(--ink-dim);
+    max-width: 30rem;
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 900px) {
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .process-side {
+      position: static;
+    }
+  }
+</style>

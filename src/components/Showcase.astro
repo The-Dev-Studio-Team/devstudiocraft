@@ -1,0 +1,292 @@
+---
+const cards = [
+  {
+    n: '001',
+    title: 'Commerce',
+    line: 'Full-funnel stores with custom checkout flows.',
+    tags: ['Storefront', 'CRO', 'Payments'],
+    theme: 'theme-acid',
+  },
+  {
+    n: '002',
+    title: 'Launch',
+    line: 'Campaign landing pages that convert from day one.',
+    tags: ['Landing', 'Speed', 'Analytics'],
+    theme: 'theme-violet',
+  },
+  {
+    n: '003',
+    title: 'Identity',
+    line: 'Brand systems built to scale across every channel.',
+    tags: ['Logo', 'System', 'Voice'],
+    theme: 'theme-ember',
+  },
+  {
+    n: '004',
+    title: 'Product',
+    line: 'Web & mobile apps your users come back to.',
+    tags: ['iOS', 'Android', 'Web app'],
+    theme: 'theme-ice',
+  },
+];
+---
+
+<section class="showcase" id="work" aria-labelledby="work-heading">
+  <div class="showcase-pin" data-showcase-pin>
+    <div class="container showcase-head">
+      <p class="eyebrow" data-reveal>Capabilities</p>
+      <h2 class="h-display h2" id="work-heading" data-split-lines>
+        Built for every way <em class="serif-i text-acid">you sell.</em>
+      </h2>
+    </div>
+
+    <div class="showcase-track" data-showcase-track>
+      {
+        cards.map((c) => (
+          <article class={`show-card ${c.theme}`} data-cursor="Drag">
+            <div class="show-card-art" aria-hidden="true">
+              <div class="art-glow" />
+              <div class="art-ring" />
+              <div class="art-grid" />
+            </div>
+            <div class="show-card-body">
+              <span class="show-card-n">{c.n}</span>
+              <h3 class="show-card-title">{c.title}</h3>
+              <p class="show-card-line">{c.line}</p>
+              <div class="show-card-tags">
+                {c.tags.map((t) => (
+                  <span>{t}</span>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+      <article class="show-card show-card-cta theme-ink">
+        <a href="#contact" class="show-cta-link" data-cursor="Start">
+          <span class="h-display">Your project<br />goes <em class="serif-i text-acid">here.</em></span>
+          <span class="show-cta-arrow" aria-hidden="true">→</span>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .showcase {
+    background: var(--bg-soft);
+    border-block: 1px solid var(--line);
+    overflow: clip;
+  }
+
+  .showcase-pin {
+    min-height: 100svh;
+    padding-block: clamp(2rem, 5vh, 3.5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(2rem, 4.5vh, 3.5rem);
+  }
+
+  .showcase-head {
+    display: grid;
+    gap: 1.8rem;
+    max-width: 56rem;
+    margin-right: auto;
+  }
+
+  .showcase-track {
+    display: flex;
+    gap: clamp(1.2rem, 2.5vw, 2rem);
+    padding-inline: var(--gutter);
+    width: max-content;
+    will-change: transform;
+  }
+
+  .show-card {
+    width: clamp(17rem, 30vw, 24rem);
+    aspect-ratio: 3 / 3.6;
+    max-height: 60vh;
+    border-radius: 1.4rem;
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    position: relative;
+    overflow: clip;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: transform 0.6s var(--ease-expo), border-color 0.6s var(--ease-expo);
+  }
+
+  .show-card:hover {
+    transform: translateY(-0.6rem);
+    border-color: var(--ink-faint);
+  }
+
+  .show-card-art {
+    position: absolute;
+    inset: 0;
+  }
+
+  .art-glow {
+    position: absolute;
+    width: 130%;
+    aspect-ratio: 1;
+    left: 50%;
+    top: -46%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+
+  .theme-acid .art-glow {
+    background: radial-gradient(circle, rgba(201, 242, 75, 0.35), transparent 65%);
+  }
+
+  .theme-violet .art-glow {
+    background: radial-gradient(circle, rgba(139, 106, 255, 0.4), transparent 65%);
+  }
+
+  .theme-ember .art-glow {
+    background: radial-gradient(circle, rgba(255, 122, 61, 0.35), transparent 65%);
+  }
+
+  .theme-ice .art-glow {
+    background: radial-gradient(circle, rgba(97, 205, 255, 0.32), transparent 65%);
+  }
+
+  .art-ring {
+    position: absolute;
+    width: 58%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px solid rgba(242, 239, 232, 0.18);
+    left: 50%;
+    top: 26%;
+    transform: translateX(-50%);
+    transition: transform 1s var(--ease-expo);
+  }
+
+  .art-ring::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--acid);
+    top: -5px;
+    left: 50%;
+  }
+
+  .show-card:hover .art-ring {
+    transform: translateX(-50%) rotate(160deg);
+  }
+
+  .art-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(242, 239, 232, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242, 239, 232, 0.05) 1px, transparent 1px);
+    background-size: 2.4rem 2.4rem;
+    mask-image: radial-gradient(circle at 50% 30%, black, transparent 75%);
+  }
+
+  .show-card-body {
+    position: relative;
+    padding: 1.8rem;
+    display: grid;
+    gap: 0.6rem;
+    background: linear-gradient(transparent, rgba(11, 11, 14, 0.88) 38%);
+  }
+
+  .show-card-n {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+  }
+
+  .show-card-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .show-card-line {
+    color: var(--ink-dim);
+    font-size: 0.92rem;
+    max-width: 18rem;
+  }
+
+  .show-card-tags {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .show-card-tags span {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+  }
+
+  .show-card-cta {
+    background: var(--acid);
+    border-color: var(--acid);
+    justify-content: center;
+  }
+
+  .show-cta-link {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.8rem;
+    color: var(--acid-ink);
+  }
+
+  .show-cta-link .h-display {
+    font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+  }
+
+  .show-cta-link .serif-i {
+    color: var(--acid-ink);
+  }
+
+  .show-cta-arrow {
+    font-size: 3rem;
+    line-height: 1;
+    align-self: flex-end;
+    transition: transform 0.5s var(--ease-expo);
+  }
+
+  .show-card-cta:hover .show-cta-arrow {
+    transform: translateX(0.6rem);
+  }
+
+  /* mobile fallback: horizontal swipe */
+  @media (max-width: 900px) {
+    .showcase-track {
+      width: auto;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 1rem;
+    }
+
+    .show-card {
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      width: 78vw;
+    }
+  }
+</style>

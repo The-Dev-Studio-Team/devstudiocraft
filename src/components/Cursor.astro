@@ -1,0 +1,76 @@
+<div class="cursor" id="cursor" aria-hidden="true">
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-ring" id="cursor-ring"><span class="cursor-label" id="cursor-label"></span></div>
+</div>
+
+<style>
+  .cursor {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .cursor {
+      display: block;
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4000;
+    }
+
+    .cursor-dot {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      margin: -4px 0 0 -4px;
+      border-radius: 50%;
+      background: var(--acid);
+    }
+
+    .cursor-ring {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 44px;
+      height: 44px;
+      margin: -22px 0 0 -22px;
+      border-radius: 50%;
+      border: 1px solid var(--ink-faint);
+      display: grid;
+      place-items: center;
+      transition:
+        width 0.35s var(--ease-expo),
+        height 0.35s var(--ease-expo),
+        margin 0.35s var(--ease-expo),
+        background-color 0.35s var(--ease-expo),
+        border-color 0.35s var(--ease-expo);
+    }
+
+    .cursor.is-hover .cursor-ring {
+      width: 88px;
+      height: 88px;
+      margin: -44px 0 0 -44px;
+      background: var(--acid);
+      border-color: var(--acid);
+    }
+
+    .cursor-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--acid-ink);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .cursor.is-hover .cursor-label {
+      opacity: 1;
+    }
+
+    html.reduced-motion .cursor {
+      display: none;
+    }
+  }
+</style>

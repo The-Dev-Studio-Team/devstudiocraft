@@ -1,0 +1,215 @@
+<section class="section edge" id="edge" aria-labelledby="edge-heading">
+  <div class="container">
+    <div class="edge-head">
+      <p class="eyebrow" data-reveal>Why DevCraft</p>
+      <h2 class="h-display h2" id="edge-heading" data-split-lines>
+        The unfair <em class="serif-i text-acid">advantage.</em>
+      </h2>
+    </div>
+
+    <div class="bento">
+      <article class="cell cell-big" data-reveal>
+        <div class="cell-orbit" aria-hidden="true">
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring orbit-ring-2"></div>
+          <div class="orbit-core"></div>
+        </div>
+        <h3>Performance is the product</h3>
+        <p>
+          Slow sites lose sales. Every build targets 95+ Lighthouse, sub-second loads and
+          Core Web Vitals in the green — because speed is a feature your customers feel.
+        </p>
+      </article>
+
+      <article class="cell" data-reveal>
+        <span class="cell-stat">0</span>
+        <h3>Templates used</h3>
+        <p>Everything is designed and coded for your brand. You own the stack — no lock-in.</p>
+      </article>
+
+      <article class="cell" data-reveal>
+        <span class="cell-stat">1:1</span>
+        <h3>Direct line to the builders</h3>
+        <p>No account managers, no telephone game. You talk to the people doing the work.</p>
+      </article>
+
+      <article class="cell" data-reveal>
+        <span class="cell-stat">48h</span>
+        <h3>First concept, fast</h3>
+        <p>A visual direction on your screen within two days of kickoff. Momentum from day one.</p>
+      </article>
+
+      <article class="cell cell-acid" data-reveal>
+        <h3>Design that converts</h3>
+        <p>
+          Award-level craft in service of one metric: revenue. Motion, story and psychology —
+          all aimed at the buy button.
+        </p>
+        <a href="#contact" class="cell-link" data-cursor="Go">Let's talk →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .edge {
+    background: var(--bg-soft);
+    border-block: 1px solid var(--line);
+  }
+
+  .edge-head {
+    display: grid;
+    gap: 1.8rem;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+    max-width: 56rem;
+  }
+
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+
+  .cell {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 1.4rem;
+    padding: clamp(1.6rem, 3vw, 2.4rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    position: relative;
+    overflow: clip;
+    transition: border-color 0.5s var(--ease-expo), transform 0.5s var(--ease-expo);
+  }
+
+  .cell:hover {
+    border-color: var(--ink-faint);
+    transform: translateY(-4px);
+  }
+
+  .cell h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    line-height: 1.15;
+  }
+
+  .cell p {
+    color: var(--ink-dim);
+    font-size: 0.95rem;
+    text-wrap: pretty;
+  }
+
+  .cell-stat {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.6rem, 2rem + 2.4vw, 4.4rem);
+    line-height: 0.9;
+    color: var(--acid);
+  }
+
+  .cell-big {
+    grid-column: span 2;
+    grid-row: span 2;
+    justify-content: flex-end;
+    min-height: 24rem;
+  }
+
+  .cell-big h3 {
+    font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+    max-width: 20ch;
+  }
+
+  .cell-big p {
+    max-width: 40rem;
+    font-size: 1.02rem;
+  }
+
+  .cell-orbit {
+    position: absolute;
+    top: -18%;
+    right: -10%;
+    width: 60%;
+    aspect-ratio: 1;
+  }
+
+  .orbit-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px dashed rgba(242, 239, 232, 0.16);
+    animation: orbit-spin 30s linear infinite;
+  }
+
+  .orbit-ring::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--acid);
+    top: -6px;
+    left: 50%;
+  }
+
+  .orbit-ring-2 {
+    inset: 18%;
+    animation-direction: reverse;
+    animation-duration: 20s;
+    border-style: solid;
+    border-color: rgba(242, 239, 232, 0.1);
+  }
+
+  .orbit-ring-2::after {
+    background: #8b6aff;
+    width: 8px;
+    height: 8px;
+  }
+
+  .orbit-core {
+    position: absolute;
+    inset: 42%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201, 242, 75, 0.5), transparent 70%);
+    filter: blur(8px);
+  }
+
+  @keyframes orbit-spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  .cell-acid {
+    background: var(--acid);
+    border-color: var(--acid);
+    color: var(--acid-ink);
+  }
+
+  .cell-acid p {
+    color: rgba(12, 14, 4, 0.72);
+  }
+
+  .cell-link {
+    margin-top: auto;
+    font-weight: 700;
+    font-size: 0.95rem;
+    width: fit-content;
+    border-bottom: 1.5px solid currentColor;
+    padding-bottom: 0.15rem;
+  }
+
+  @media (max-width: 900px) {
+    .bento {
+      grid-template-columns: 1fr;
+    }
+
+    .cell-big {
+      grid-column: auto;
+      grid-row: auto;
+      min-height: 20rem;
+    }
+  }
+</style>

@@ -1,0 +1,79 @@
+---
+const items = [
+  'E-Commerce',
+  'Landing Pages',
+  'Brand Identity',
+  'Mobile Apps',
+  'Web Experiences',
+  'SEO & Performance',
+];
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    {
+      [0, 1].map(() => (
+        <div class="marquee-group">
+          {items.map((item) => (
+            <span class="marquee-item">
+              {item} <span class="marquee-star">✦</span>
+            </span>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .marquee {
+    border-block: 1px solid var(--line);
+    padding-block: 1.4rem;
+    overflow: clip;
+    background: var(--bg-soft);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 28s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .marquee-group {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .marquee-item {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: clamp(1.3rem, 1rem + 1.6vw, 2.2rem);
+    padding-inline: 1.4rem;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 2.6rem;
+  }
+
+  .marquee-star {
+    color: var(--acid);
+    font-size: 0.7em;
+  }
+
+  @keyframes marquee-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  html.reduced-motion .marquee-track {
+    animation: none;
+  }
+</style>

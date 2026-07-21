@@ -1,0 +1,208 @@
+---
+const services = [
+  {
+    n: '01',
+    title: 'Brand Identity',
+    desc: 'Logos, visual systems, guidelines and voice — a brand people remember.',
+    tags: ['Logo', 'Visual system', 'Guidelines'],
+  },
+  {
+    n: '02',
+    title: 'Web Design & Development',
+    desc: 'Custom-coded websites engineered for speed, story and search.',
+    tags: ['Astro', 'Next.js', 'Headless CMS'],
+  },
+  {
+    n: '03',
+    title: 'E-Commerce',
+    desc: 'Stores that turn browsers into buyers — checkout to fulfillment.',
+    tags: ['Shopify', 'Custom carts', 'Payments'],
+  },
+  {
+    n: '04',
+    title: 'Landing Pages',
+    desc: 'One page, one goal. Built to convert campaigns into customers.',
+    tags: ['CRO', 'A/B ready', 'Analytics'],
+  },
+  {
+    n: '05',
+    title: 'Mobile Apps',
+    desc: 'iOS & Android products your users open every day.',
+    tags: ['React Native', 'Flutter', 'PWA'],
+  },
+  {
+    n: '06',
+    title: 'Motion & Content',
+    desc: 'Video, 3D and creative content that stops the scroll.',
+    tags: ['Motion design', '3D', 'Social kits'],
+  },
+];
+---
+
+<section class="section services" id="services" aria-labelledby="services-heading">
+  <div class="container">
+    <div class="services-head">
+      <p class="eyebrow" data-reveal>What we do</p>
+      <h2 class="h-display h2" id="services-heading" data-split-lines>
+        Everything your brand needs to <em class="serif-i text-acid">win online.</em>
+      </h2>
+    </div>
+
+    <ul class="services-list">
+      {
+        services.map((s) => (
+          <li class="service-row" data-service data-cursor="View">
+            <span class="service-n">{s.n}</span>
+            <div class="service-main">
+              <h3 class="service-title">{s.title}</h3>
+              <p class="service-desc">{s.desc}</p>
+            </div>
+            <div class="service-tags">
+              {s.tags.map((t) => (
+                <span class="tag">{t}</span>
+              ))}
+            </div>
+            <span class="service-arrow" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 14 14" fill="none">
+                <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.4" />
+              </svg>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--bg);
+  }
+
+  .services-head {
+    display: grid;
+    gap: 1.8rem;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+    max-width: 56rem;
+  }
+
+  .services-list {
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .service-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 4rem 1fr auto 3rem;
+    align-items: center;
+    gap: 2rem;
+    padding: clamp(1.6rem, 3vw, 2.4rem) 1rem;
+    border-bottom: 1px solid var(--line);
+    overflow: clip;
+    isolation: isolate;
+    transition: color 0.45s var(--ease-expo);
+  }
+
+  .service-row::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--acid);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.5s var(--ease-expo);
+    z-index: -1;
+  }
+
+  .service-row:hover {
+    color: var(--acid-ink);
+  }
+
+  .service-row:hover::before {
+    transform: scaleY(1);
+  }
+
+  .service-n {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    transition: color 0.45s var(--ease-expo);
+  }
+
+  .service-row:hover .service-n {
+    color: var(--acid-ink);
+  }
+
+  .service-main {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .service-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    font-size: clamp(1.5rem, 1rem + 2.4vw, 3rem);
+    line-height: 1;
+  }
+
+  .service-desc {
+    color: var(--ink-dim);
+    max-width: 34rem;
+    font-size: 0.95rem;
+    transition: color 0.45s var(--ease-expo);
+  }
+
+  .service-row:hover .service-desc {
+    color: rgba(12, 14, 4, 0.7);
+  }
+
+  .service-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--ink-dim);
+    transition:
+      color 0.45s var(--ease-expo),
+      border-color 0.45s var(--ease-expo);
+  }
+
+  .service-row:hover .tag {
+    color: var(--acid-ink);
+    border-color: rgba(12, 14, 4, 0.35);
+  }
+
+  .service-arrow {
+    display: grid;
+    place-items: center;
+    transition: transform 0.5s var(--ease-expo);
+  }
+
+  .service-row:hover .service-arrow {
+    transform: translate(4px, -4px) rotate(0deg);
+  }
+
+  @media (max-width: 900px) {
+    .service-row {
+      grid-template-columns: 2.6rem 1fr 2rem;
+    }
+
+    .service-tags {
+      display: none;
+    }
+  }
+</style>

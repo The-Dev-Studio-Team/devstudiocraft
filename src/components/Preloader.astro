@@ -1,0 +1,51 @@
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader-inner">
+    <span class="preloader-brand">DEVCRAFT<span class="preloader-dot">.</span></span>
+    <span class="preloader-count" id="preloader-count">0</span>
+  </div>
+</div>
+
+<style>
+  .preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    background: var(--bg);
+    display: flex;
+    align-items: flex-end;
+    will-change: transform;
+  }
+
+  .preloader-inner {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: var(--gutter);
+  }
+
+  .preloader-brand {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+  }
+
+  .preloader-dot {
+    color: var(--acid);
+  }
+
+  .preloader-count {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 0.8;
+    font-size: clamp(4rem, 14vw, 12rem);
+    color: var(--acid);
+    font-variant-numeric: tabular-nums;
+  }
+
+  html.reduced-motion .preloader,
+  html.no-js .preloader {
+    display: none;
+  }
+</style>
