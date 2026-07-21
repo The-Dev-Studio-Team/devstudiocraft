@@ -57,6 +57,113 @@ export function initMagnetic() {
   });
 }
 
+/** Services list: floating image preview that follows the cursor. */
+export function initServicePreview() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (!window.matchMedia('(min-width: 901px)').matches) return;
+
+  const list = document.querySelector('[data-services-list]');
+  const preview = document.querySelector('[data-service-preview]');
+  if (!list || !preview) return;
+
+  const imgs = preview.querySelectorAll('[data-preview-img]');
+  const rows = list.querySelectorAll('[data-service]');
+  const xTo = gsap.quickTo(preview, 'x', { duration: 0.55, ease: 'power3.out' });
+  const yTo = gsap.quickTo(preview, 'y', { duration: 0.55, ease: 'power3.out' });
+
+  gsap.set(preview, { scale: 0.85, rotate: -4 });
+
+  list.addEventListener('pointermove', (e) => {
+    xTo(e.clientX);
+    yTo(e.clientY);
+  });
+
+  rows.forEach((row, i) => {
+    row.addEventListener('pointerenter', (e) => {
+      imgs.forEach((img, j) => img.classList.toggle('is-active', j === i));
+      xTo(e.clientX);
+      yTo(e.clientY);
+      gsap.to(preview, {
+        opacity: 1,
+        scale: 1,
+        rotate: 0,
+        duration: 0.5,
+        ease: 'power3.out',
+        overwrite: 'auto',
+      });
+    });
+  });
+
+  list.addEventListener('pointerleave', () => {
+    gsap.to(preview, {
+      opacity: 0,
+      scale: 0.85,
+      rotate: -4,
+      duration: 0.35,
+      ease: 'power3.out',
+      overwrite: 'auto',
+    });
+  });
+}
+
+/** Hero background video: desktop + motion-ok only, pause off-screen. */
+export function initHeroVideo() {
+  const hero = document.querySelector('[data-hero]');
+  const video = document.querySelector('[data-hero-video]');
+  if (!hero || !video) return;
+  if (!window.matchMedia('(min-width: 761px)').matches) return;
+
+  video.addEventListener('playing', () => hero.classList.add('has-video'), { once: true });
+
+  const tryPlay = () => video.play().catch(() => {});
+  tryPlay();
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) tryPlay();
+      else video.pause();
+    },
+    { threshold: 0.05 }
+  );
+  observer.observe(hero);
+}
+
+/** Hero media: slow pointer parallax for depth (desktop only). */
+export function initHeroParallax() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  const hero = document.querySelector('[data-hero]');
+  const media = document.querySelector('[data-hero-media]');
+  if (!hero || !media) return;
+
+  const xTo = gsap.quickTo(media, 'x', { duration: 1.4, ease: 'power3.out' });
+  const yTo = gsap.quickTo(media, 'y', { duration: 1.4, ease: 'power3.out' });
+  gsap.set(media, { scale: 1.06 });
+
+  hero.addEventListener('pointermove', (e) => {
+    const nx = e.clientX / window.innerWidth - 0.5;
+    const ny = e.clientY / window.innerHeight - 0.5;
+    xTo(nx * -18);
+    yTo(ny * -12);
+  });
+}
+
+/** Ambient section videos: lazy play/pause on visibility (desktop only). */
+export function initAmbientVideos() {
+  if (!window.matchMedia('(min-width: 761px)').matches) return;
+
+  document.querySelectorAll('video[data-ambient-video]').forEach((video) => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(video);
+  });
+}
+
 /** Nav background on scroll. */
 export function initNav() {
   const nav = document.getElementById('nav');

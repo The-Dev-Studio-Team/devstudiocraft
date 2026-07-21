@@ -1,4 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+import artCommerce from '../assets/gen/card-commerce.jpg';
+import artLaunch from '../assets/gen/card-launch.jpg';
+import artIdentity from '../assets/gen/card-identity.jpg';
+import artProduct from '../assets/gen/card-product.jpg';
+
 const cards = [
   {
     n: '001',
@@ -6,6 +12,7 @@ const cards = [
     line: 'Full-funnel stores with custom checkout flows.',
     tags: ['Storefront', 'CRO', 'Payments'],
     theme: 'theme-acid',
+    art: artCommerce,
   },
   {
     n: '002',
@@ -13,6 +20,7 @@ const cards = [
     line: 'Campaign landing pages that convert from day one.',
     tags: ['Landing', 'Speed', 'Analytics'],
     theme: 'theme-violet',
+    art: artLaunch,
   },
   {
     n: '003',
@@ -20,6 +28,7 @@ const cards = [
     line: 'Brand systems built to scale across every channel.',
     tags: ['Logo', 'System', 'Voice'],
     theme: 'theme-ember',
+    art: artIdentity,
   },
   {
     n: '004',
@@ -27,6 +36,7 @@ const cards = [
     line: 'Web & mobile apps your users come back to.',
     tags: ['iOS', 'Android', 'Web app'],
     theme: 'theme-ice',
+    art: artProduct,
   },
 ];
 ---
@@ -45,8 +55,16 @@ const cards = [
         cards.map((c) => (
           <article class={`show-card ${c.theme}`} data-cursor="Drag">
             <div class="show-card-art" aria-hidden="true">
+              <Image
+                class="art-img"
+                src={c.art}
+                alt=""
+                width={640}
+                densities={[1, 2]}
+                quality={72}
+                loading="lazy"
+              />
               <div class="art-glow" />
-              <div class="art-ring" />
               <div class="art-grid" />
             </div>
             <div class="show-card-body">
@@ -128,6 +146,21 @@ const cards = [
     inset: 0;
   }
 
+  .show-card-art :global(.art-img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.92;
+    transform: scale(1.02);
+    transition: transform 1s var(--ease-expo);
+  }
+
+  .show-card:hover .show-card-art :global(.art-img) {
+    transform: scale(1.08);
+  }
+
   .art-glow {
     position: absolute;
     width: 130%;
@@ -137,7 +170,7 @@ const cards = [
     transform: translateX(-50%);
     border-radius: 50%;
     filter: blur(60px);
-    opacity: 0.55;
+    opacity: 0.3;
   }
 
   .theme-acid .art-glow {
@@ -154,33 +187,6 @@ const cards = [
 
   .theme-ice .art-glow {
     background: radial-gradient(circle, rgba(97, 205, 255, 0.32), transparent 65%);
-  }
-
-  .art-ring {
-    position: absolute;
-    width: 58%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 1px solid rgba(242, 239, 232, 0.18);
-    left: 50%;
-    top: 26%;
-    transform: translateX(-50%);
-    transition: transform 1s var(--ease-expo);
-  }
-
-  .art-ring::after {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--acid);
-    top: -5px;
-    left: 50%;
-  }
-
-  .show-card:hover .art-ring {
-    transform: translateX(-50%) rotate(160deg);
   }
 
   .art-grid {

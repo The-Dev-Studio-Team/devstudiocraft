@@ -1,8 +1,36 @@
-<section class="hero" id="top" aria-labelledby="hero-heading">
-  <div class="hero-orbs" aria-hidden="true">
-    <div class="orb orb-a"></div>
-    <div class="orb orb-b"></div>
-    <div class="orb orb-c"></div>
+---
+import { getImage } from 'astro:assets';
+import heroVista from '../assets/gen/hero-vista.jpg';
+
+const heroStill = await getImage({ src: heroVista, format: 'webp', width: 1920, quality: 74 });
+---
+
+<section class="hero" id="top" aria-labelledby="hero-heading" data-hero>
+  <div class="hero-media" aria-hidden="true" data-hero-media>
+    <img
+      class="hero-media-still"
+      src={heroStill.src}
+      alt=""
+      width="1920"
+      height="1072"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+    <video
+      class="hero-video"
+      data-hero-video
+      muted
+      loop
+      playsinline
+      preload="none"
+      width="1920"
+      height="1080"
+    >
+      <source src="/media/hero-vista-loop.webm" type="video/webm" />
+      <source src="/media/hero-vista-loop.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-scrim"></div>
   </div>
 
   <div class="container hero-inner">
@@ -61,56 +89,58 @@
     padding-block: clamp(7rem, 12vh, 10rem) clamp(4rem, 8vh, 6rem);
   }
 
-  .hero-orbs {
+  .hero-media {
     position: absolute;
     inset: 0;
-    z-index: -1;
+    z-index: -2;
   }
 
-  .orb {
+  .hero-media-still,
+  .hero-video {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    opacity: 0.5;
-    will-change: transform;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
   }
 
-  .orb-a {
-    width: 44vw;
-    height: 44vw;
-    right: -12vw;
-    top: -14vw;
-    background: radial-gradient(circle at 30% 30%, rgba(201, 242, 75, 0.24), transparent 65%);
-    animation: float-a 14s ease-in-out infinite alternate;
+  .hero-video {
+    opacity: 0;
+    transition: opacity 1.4s ease;
   }
 
-  .orb-b {
-    width: 34vw;
-    height: 34vw;
-    left: -10vw;
-    bottom: -8vw;
-    background: radial-gradient(circle at 60% 40%, rgba(120, 90, 255, 0.16), transparent 65%);
-    animation: float-b 18s ease-in-out infinite alternate;
+  .hero.has-video .hero-video {
+    opacity: 1;
   }
 
-  .orb-c {
-    width: 22vw;
-    height: 22vw;
-    left: 38vw;
-    top: 8vh;
-    background: radial-gradient(circle at 50% 50%, rgba(242, 239, 232, 0.05), transparent 70%);
-    animation: float-a 22s ease-in-out infinite alternate-reverse;
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(11, 11, 14, 0.55) 0%, rgba(11, 11, 14, 0.12) 55%, transparent 80%),
+      linear-gradient(
+        180deg,
+        rgba(11, 11, 14, 0.5) 0%,
+        rgba(11, 11, 14, 0.04) 30%,
+        rgba(11, 11, 14, 0.28) 68%,
+        rgba(11, 11, 14, 0.88) 100%
+      );
   }
 
-  @keyframes float-a {
-    to {
-      transform: translate3d(-6%, 9%, 0) scale(1.08);
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video {
+      display: none;
     }
   }
 
-  @keyframes float-b {
-    to {
-      transform: translate3d(8%, -7%, 0) scale(1.12);
+  @media (max-width: 760px) {
+    .hero-video {
+      display: none;
+    }
+
+    .hero-media-still {
+      object-position: 62% bottom;
     }
   }
 

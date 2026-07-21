@@ -1,40 +1,54 @@
 ---
+import { Image } from 'astro:assets';
+import srvIdentity from '../assets/gen/srv-identity.jpg';
+import srvWeb from '../assets/gen/srv-web.jpg';
+import srvEcom from '../assets/gen/srv-ecom.jpg';
+import srvLanding from '../assets/gen/srv-landing.jpg';
+import srvApps from '../assets/gen/srv-apps.jpg';
+import srvMotion from '../assets/gen/srv-motion.jpg';
+
 const services = [
   {
     n: '01',
     title: 'Brand Identity',
     desc: 'Logos, visual systems, guidelines and voice — a brand people remember.',
     tags: ['Logo', 'Visual system', 'Guidelines'],
+    img: srvIdentity,
   },
   {
     n: '02',
     title: 'Web Design & Development',
     desc: 'Custom-coded websites engineered for speed, story and search.',
     tags: ['Astro', 'Next.js', 'Headless CMS'],
+    img: srvWeb,
   },
   {
     n: '03',
     title: 'E-Commerce',
     desc: 'Stores that turn browsers into buyers — checkout to fulfillment.',
     tags: ['Shopify', 'Custom carts', 'Payments'],
+    img: srvEcom,
   },
   {
     n: '04',
     title: 'Landing Pages',
     desc: 'One page, one goal. Built to convert campaigns into customers.',
     tags: ['CRO', 'A/B ready', 'Analytics'],
+    img: srvLanding,
   },
   {
     n: '05',
     title: 'Mobile Apps',
     desc: 'iOS & Android products your users open every day.',
     tags: ['React Native', 'Flutter', 'PWA'],
+    img: srvApps,
   },
   {
     n: '06',
     title: 'Motion & Content',
     desc: 'Video, 3D and creative content that stops the scroll.',
     tags: ['Motion design', '3D', 'Social kits'],
+    img: srvMotion,
   },
 ];
 ---
@@ -48,7 +62,7 @@ const services = [
       </h2>
     </div>
 
-    <ul class="services-list">
+    <ul class="services-list" data-services-list>
       {
         services.map((s) => (
           <li class="service-row" data-service data-cursor="View">
@@ -71,6 +85,23 @@ const services = [
         ))
       }
     </ul>
+  </div>
+
+  <div class="service-preview" data-service-preview aria-hidden="true">
+    {
+      services.map((s) => (
+        <Image
+          class="preview-img"
+          data-preview-img
+          src={s.img}
+          alt=""
+          width={520}
+          densities={[1, 2]}
+          quality={72}
+          loading="lazy"
+        />
+      ))
+    }
   </div>
 </section>
 
@@ -194,6 +225,42 @@ const services = [
 
   .service-row:hover .service-arrow {
     transform: translate(4px, -4px) rotate(0deg);
+  }
+
+  .service-preview {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 60;
+    width: clamp(200px, 22vw, 330px);
+    aspect-ratio: 4 / 3;
+    border-radius: 0.9rem;
+    overflow: clip;
+    pointer-events: none;
+    opacity: 0;
+    translate: -50% -58%;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    border: 1px solid var(--line);
+  }
+
+  .service-preview :global(.preview-img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .service-preview :global(.preview-img.is-active) {
+    opacity: 1;
+  }
+
+  @media (hover: none), (max-width: 900px) {
+    .service-preview {
+      display: none;
+    }
   }
 
   @media (max-width: 900px) {

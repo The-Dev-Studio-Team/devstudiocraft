@@ -1,3 +1,10 @@
+---
+import { Image } from 'astro:assets';
+import edgeTemplates from '../assets/gen/edge-templates.jpg';
+import edgeLine from '../assets/gen/edge-line.jpg';
+import edgeFast from '../assets/gen/edge-fast.jpg';
+---
+
 <section class="section edge" id="edge" aria-labelledby="edge-heading">
   <div class="container">
     <div class="edge-head">
@@ -9,10 +16,47 @@
 
     <div class="bento">
       <article class="cell cell-big" data-reveal>
-        <div class="cell-orbit" aria-hidden="true">
-          <div class="orbit-ring"></div>
-          <div class="orbit-ring orbit-ring-2"></div>
-          <div class="orbit-core"></div>
+        <div class="cell-media" aria-hidden="true">
+          <video data-ambient-video muted loop playsinline preload="none" width="1280" height="507">
+            <source src="/media/edge-veins-loop.webm" type="video/webm" />
+            <source src="/media/edge-veins-loop.mp4" type="video/mp4" />
+          </video>
+          <div class="cell-media-scrim"></div>
+        </div>
+        <div class="perf-hud" aria-hidden="true" data-perf-hud>
+          <div class="hud-gauge">
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle class="gauge-track" cx="60" cy="60" r="52"></circle>
+              <circle class="gauge-fill" data-gauge-ring cx="60" cy="60" r="52"></circle>
+            </svg>
+            <div class="gauge-num"><span data-gauge-num>98</span></div>
+          </div>
+          <div class="hud-side">
+            <span class="hud-title">Lighthouse — performance</span>
+            <ul class="hud-metrics">
+              <li>
+                <span class="m-name">LCP</span>
+                <span class="m-bar"><i data-bar style="--v: 0.92"></i></span>
+                <span class="m-val">0.6s</span>
+              </li>
+              <li>
+                <span class="m-name">CLS</span>
+                <span class="m-bar"><i data-bar style="--v: 1"></i></span>
+                <span class="m-val">0.00</span>
+              </li>
+              <li>
+                <span class="m-name">INP</span>
+                <span class="m-bar"><i data-bar style="--v: 0.96"></i></span>
+                <span class="m-val">38ms</span>
+              </li>
+              <li>
+                <span class="m-name">TTFB</span>
+                <span class="m-bar"><i data-bar style="--v: 0.97"></i></span>
+                <span class="m-val">90ms</span>
+              </li>
+            </ul>
+            <span class="hud-note">median of last 12 builds — real audits, not vibes</span>
+          </div>
         </div>
         <h3>Performance is the product</h3>
         <p>
@@ -21,19 +65,49 @@
         </p>
       </article>
 
-      <article class="cell" data-reveal>
+      <article class="cell cell-visual" data-reveal>
+        <Image
+          class="cell-bg"
+          src={edgeTemplates}
+          alt=""
+          width={640}
+          densities={[1, 2]}
+          quality={70}
+          loading="lazy"
+        />
+        <div class="cell-media-scrim" aria-hidden="true"></div>
         <span class="cell-stat">0</span>
         <h3>Templates used</h3>
         <p>Everything is designed and coded for your brand. You own the stack — no lock-in.</p>
       </article>
 
-      <article class="cell" data-reveal>
+      <article class="cell cell-visual" data-reveal>
+        <Image
+          class="cell-bg"
+          src={edgeLine}
+          alt=""
+          width={640}
+          densities={[1, 2]}
+          quality={70}
+          loading="lazy"
+        />
+        <div class="cell-media-scrim" aria-hidden="true"></div>
         <span class="cell-stat">1:1</span>
         <h3>Direct line to the builders</h3>
         <p>No account managers, no telephone game. You talk to the people doing the work.</p>
       </article>
 
-      <article class="cell" data-reveal>
+      <article class="cell cell-visual" data-reveal>
+        <Image
+          class="cell-bg"
+          src={edgeFast}
+          alt=""
+          width={640}
+          densities={[1, 2]}
+          quality={70}
+          loading="lazy"
+        />
+        <div class="cell-media-scrim" aria-hidden="true"></div>
         <span class="cell-stat">48h</span>
         <h3>First concept, fast</h3>
         <p>A visual direction on your screen within two days of kickoff. Momentum from day one.</p>
@@ -88,6 +162,66 @@
     transform: translateY(-4px);
   }
 
+  .cell-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .cell-media video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+  }
+
+  .cell-media-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(11, 11, 14, 0.72) 0%,
+      rgba(11, 11, 14, 0.38) 45%,
+      rgba(11, 11, 14, 0.86) 100%
+    );
+  }
+
+  .cell h3,
+  .cell p,
+  .cell .cell-stat,
+  .cell .cell-link {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cell :global(.cell-bg) {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.42;
+    transform: scale(1.02);
+    transition:
+      opacity 0.6s var(--ease-expo),
+      transform 0.9s var(--ease-expo);
+  }
+
+  .cell-visual:hover :global(.cell-bg) {
+    opacity: 0.62;
+    transform: scale(1.07);
+  }
+
+  @media (prefers-reduced-motion: reduce), (max-width: 760px) {
+    .cell-media video {
+      display: none;
+    }
+  }
+
   .cell h3 {
     font-family: var(--font-display);
     font-weight: 600;
@@ -127,62 +261,148 @@
     font-size: 1.02rem;
   }
 
-  .cell-orbit {
-    position: absolute;
-    top: -18%;
-    right: -10%;
-    width: 60%;
-    aspect-ratio: 1;
+  .cell-big {
+    background-image:
+      linear-gradient(rgba(242, 239, 232, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242, 239, 232, 0.035) 1px, transparent 1px);
+    background-size: 2.6rem 2.6rem;
+    background-position: center;
   }
 
-  .orbit-ring {
+  .perf-hud {
+    z-index: 1;
+    position: absolute;
+    top: clamp(1.6rem, 3vw, 2.4rem);
+    left: clamp(1.6rem, 3vw, 2.4rem);
+    right: clamp(1.6rem, 3vw, 2.4rem);
+    display: flex;
+    align-items: center;
+    gap: clamp(1.6rem, 3vw, 3rem);
+    padding: clamp(1rem, 2vw, 1.6rem);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: rgba(11, 11, 14, 0.55);
+    backdrop-filter: blur(6px);
+  }
+
+  .hud-gauge {
+    position: relative;
+    width: clamp(6.5rem, 10vw, 9rem);
+    flex-shrink: 0;
+  }
+
+  .hud-gauge svg {
+    width: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .gauge-track,
+  .gauge-fill {
+    fill: none;
+    stroke-width: 6;
+    stroke-linecap: round;
+  }
+
+  .gauge-track {
+    stroke: rgba(242, 239, 232, 0.1);
+  }
+
+  .gauge-fill {
+    stroke: var(--acid);
+    stroke-dasharray: 326.7;
+    stroke-dashoffset: 6.5; /* 98/100 */
+    filter: drop-shadow(0 0 6px rgba(201, 242, 75, 0.45));
+  }
+
+  .gauge-num {
     position: absolute;
     inset: 0;
-    border-radius: 50%;
-    border: 1px dashed rgba(242, 239, 232, 0.16);
-    animation: orbit-spin 30s linear infinite;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.6rem, 2.4vw, 2.3rem);
+    color: var(--acid);
   }
 
-  .orbit-ring::after {
-    content: '';
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--acid);
-    top: -6px;
-    left: 50%;
+  .hud-side {
+    flex: 1;
+    display: grid;
+    gap: 0.7rem;
+    min-width: 0;
   }
 
-  .orbit-ring-2 {
-    inset: 18%;
-    animation-direction: reverse;
-    animation-duration: 20s;
-    border-style: solid;
-    border-color: rgba(242, 239, 232, 0.1);
+  .hud-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
   }
 
-  .orbit-ring-2::after {
-    background: #8b6aff;
-    width: 8px;
-    height: 8px;
+  .hud-metrics {
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
   }
 
-  .orbit-core {
-    position: absolute;
-    inset: 42%;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(201, 242, 75, 0.5), transparent 70%);
-    filter: blur(8px);
+  .hud-metrics li {
+    display: grid;
+    grid-template-columns: 3.2rem 1fr 3.4rem;
+    align-items: center;
+    gap: 0.8rem;
   }
 
-  @keyframes orbit-spin {
-    to {
-      rotate: 360deg;
+  .m-name {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+
+  .m-bar {
+    height: 4px;
+    border-radius: 100px;
+    background: rgba(242, 239, 232, 0.09);
+    overflow: clip;
+  }
+
+  .m-bar i {
+    display: block;
+    height: 100%;
+    width: calc(var(--v) * 100%);
+    border-radius: inherit;
+    background: linear-gradient(90deg, rgba(201, 242, 75, 0.55), var(--acid));
+    transform-origin: left center;
+  }
+
+  .m-val {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hud-note {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 560px) {
+    .perf-hud {
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 1rem;
     }
   }
 
   .cell-acid {
+    grid-column: span 2;
     background: var(--acid);
     border-color: var(--acid);
     color: var(--acid-ink);
@@ -210,6 +430,10 @@
       grid-column: auto;
       grid-row: auto;
       min-height: 20rem;
+    }
+
+    .cell-acid {
+      grid-column: auto;
     }
   }
 </style>

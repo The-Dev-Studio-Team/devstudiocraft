@@ -60,5 +60,20 @@ public/
 
 - Copy lives directly in the section components (`src/components/*.astro`).
 - Design tokens (colors, type scale, spacing) in `src/styles/global.css` `:root`.
-- Contact email: search for `hello@devstudiocraft.com`.
+- Contact email: search for `contact@devstudiocraft.com`.
 - WhatsApp link: `CTA.astro` (`wa.me/...` — replace with the real number).
+
+## Generated media assets
+
+- Art direction: cinematic photoreal — black volcanic terrain, acid `#c9f24b`
+  light veins, per-card theme colors. Style anchor: `src/assets/gen/hero-vista.jpg`.
+- `src/assets/gen/` — hero still + 4 showcase cards + 6 service hover previews.
+  Astro converts them to WebP at build.
+- `public/media/hero-vista-loop.{mp4,webm}` — 10s TRUE seamless loop (~420KB /
+  ~130KB): generated image-to-video with the SAME image as start frame and end
+  frame (seedance-2 `startFrame` + `endFrame`), so the boundary frames match —
+  no ping-pong/reverse trick. Muted, no audio track, 1600px, desktop-only;
+  mobile and reduced-motion users get the static still (`Hero.astro` + `initHeroVideo`).
+- Encode recipe after regenerating:
+  `ffmpeg -i raw.mp4 -vf "fps=24,scale=1600:-2" -an -c:v libx264 -crf 25 -preset slow -movflags +faststart hero-vista-loop.mp4`
+  and same with `-c:v libvpx-vp9 -crf 40 -b:v 0` for the webm.

@@ -2,7 +2,15 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import Lenis from 'lenis';
-import { initCursor, initMagnetic, initNav } from './interactions.js';
+import {
+  initCursor,
+  initMagnetic,
+  initNav,
+  initServicePreview,
+  initHeroVideo,
+  initHeroParallax,
+  initAmbientVideos,
+} from './interactions.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -156,6 +164,42 @@ function initShowcase() {
   });
 }
 
+/* ---------- edge perf HUD count-up ---------- */
+function initPerfHud() {
+  const hud = document.querySelector('[data-perf-hud]');
+  if (!hud) return;
+
+  const num = hud.querySelector('[data-gauge-num]');
+  const ring = hud.querySelector('[data-gauge-ring]');
+  const bars = hud.querySelectorAll('[data-bar]');
+  const target = 98;
+  const circumference = 326.7;
+
+  const counter = { v: 0 };
+  gsap
+    .timeline({
+      defaults: { duration: 1.6, ease: 'expo.out' },
+      scrollTrigger: { trigger: hud, start: 'top 80%' },
+    })
+    .fromTo(
+      ring,
+      { strokeDashoffset: circumference },
+      { strokeDashoffset: circumference * (1 - target / 100) },
+      0
+    )
+    .to(
+      counter,
+      {
+        v: target,
+        onUpdate: () => {
+          num.textContent = String(Math.round(counter.v));
+        },
+      },
+      0
+    )
+    .fromTo(bars, { scaleX: 0 }, { scaleX: 1, stagger: 0.08 }, 0.1);
+}
+
 /* ---------- footer wordmark slide-up ---------- */
 function initWordmark() {
   const el = document.querySelector('[data-wordmark]');
@@ -190,10 +234,15 @@ function boot() {
   initCursor();
   initMagnetic();
   initIntro();
+  initHeroVideo();
+  initHeroParallax();
+  initAmbientVideos();
+  initServicePreview();
   initReveals();
   initSplitHeadings();
   initManifesto();
   initShowcase();
+  initPerfHud();
   initWordmark();
 
   // fonts shift line metrics — recalc pin distances once loaded
