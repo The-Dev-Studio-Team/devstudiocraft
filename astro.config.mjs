@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://devstudiocraft.com',
+  site: 'https://www.devstudiocraft.com',
   output: 'static',
   build: {
     inlineStylesheets: 'auto',
