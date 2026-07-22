@@ -326,7 +326,7 @@ const trust = [
 
   <div class="pkg-modal" data-pkg-modal aria-hidden="true">
     <div class="pkg-modal-backdrop" data-pkg-close></div>
-    <div class="pkg-modal-box" role="dialog" aria-modal="true" aria-labelledby="pkg-modal-title">
+    <div class="pkg-modal-box" role="dialog" aria-modal="true" aria-labelledby="pkg-modal-title" data-lenis-prevent>
       <button class="pkg-modal-x" data-pkg-close aria-label="Close">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.6" />
@@ -368,7 +368,7 @@ const trust = [
                     <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
                   </svg>
                 </button>
-                <ul class="dd-panel" role="listbox" aria-labelledby="pkg-ind-label" data-dd-panel>
+                <ul class="dd-panel" role="listbox" aria-labelledby="pkg-ind-label" data-dd-panel data-lenis-prevent>
                   {
                     industries.map((ind) => (
                       <li role="option" aria-selected="false" data-dd-option data-value={ind} tabindex="-1">
@@ -468,6 +468,7 @@ const trust = [
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.documentElement.classList.add('modal-open');
+    window.dispatchEvent(new CustomEvent('lenis:stop'));
     lastFocus = document.activeElement;
     // Autofocus only where a hardware keyboard is likely — on phones it
     // would slam the keyboard open over the sheet.
@@ -481,6 +482,7 @@ const trust = [
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     document.documentElement.classList.remove('modal-open');
+    window.dispatchEvent(new CustomEvent('lenis:start'));
     if (lastFocus) lastFocus.focus();
   };
 

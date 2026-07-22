@@ -20,6 +20,9 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
 /* ---------- smooth scroll ---------- */
 function initLenis() {
   const lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1 });
+  // modals pause smooth scroll so wheel stays inside them
+  window.addEventListener('lenis:stop', () => lenis.stop());
+  window.addEventListener('lenis:start', () => lenis.start());
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
