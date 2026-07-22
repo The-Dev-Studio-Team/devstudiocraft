@@ -92,7 +92,7 @@ function buildLaunch() {
   };
 
   const tl = baseTimeline();
-  tl.set(page, { yPercent: 118 })
+  tl.set(page, { yPercent: 210 })
     .set(live, { opacity: 0, scale: 0.5 })
     .set(count, { opacity: 0 })
     .set(spark, { strokeDasharray: len, strokeDashoffset: len, opacity: 0 });
