@@ -67,14 +67,41 @@ public/
 
 The Packages section posts to `/api/inquiry` (a Cloudflare Pages Function in
 `functions/api/inquiry.js`) which sends two emails via Resend: a notification
-to `contact@devstudiocraft.com` and a branded confirmation to the client. If
-the function is unreachable or unconfigured, the form falls back to `mailto:`.
+to the studio inbox and a branded confirmation to the client. If the function
+is unreachable or unconfigured, the form falls back to `mailto:`.
 
-One-time activation:
+Both emails are built in `functions/api/_email-templates.js` (import-only —
+the `_` prefix keeps it off the route table). They are bulletproof, table-based
+HTML for Gmail/Apple Mail/Outlook. The client confirmation **adapts to the plan
+chosen** — its tagline, "what your plan includes" checklist and next-step copy
+come from a catalog mirroring `src/components/Packages.astro`; unknown plans and
+À la carte items degrade to a category-level then generic block.
 
-1. Create a Resend account (resend.com) and add the domain
-   `devstudiocraft.com` (Resend shows DNS records — add them in Cloudflare DNS).
-2. Create an API key, then store it as a Pages secret:
+Recipient and sender are **env-driven**, so switching from testing to production
+is a config change — no code edit:
+
+| Var | Testing | Production |
+|-----|---------|------------|
+| `RESEND_API_KEY` | your Resend API key | same |
+| `STUDIO_EMAIL` | a test inbox (e.g. a gmail) | `contact@devstudiocraft.com` |
+| `RESEND_FROM` | `DevCraft Studio <noreply@m2a-fm.com>` (a verified domain) | `DevCraft Studio <inquiries@devstudiocraft.com>` |
+
+When the vars are unset, the code falls back to the production values.
+`RESEND_FROM` must use a domain **verified in Resend** — sends from an
+unverified domain are rejected.
+
+Local testing:
+
+1. Put the three vars in `.dev.vars` (gitignored — never commit it).
+2. `npm run build && npx wrangler pages dev dist`
+3. Submit the form (or `POST /api/inquiry`). Both emails land in `STUDIO_EMAIL`
+   when you use that address as the form's email too.
+
+Production activation:
+
+1. Verify `devstudiocraft.com` in Resend (add the DNS records in Cloudflare DNS).
+2. Store the key as a Pages secret, and set the recipient/sender vars on the
+   Pages project (dashboard → Settings → Environment variables, or via wrangler):
    `npx wrangler pages secret put RESEND_API_KEY --project-name=devstudiocraft`
 3. Redeploy (`npm run deploy`). Until the key exists the endpoint answers 503
    and the form quietly uses the mailto fallback.
