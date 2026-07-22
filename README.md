@@ -63,6 +63,22 @@ public/
 - Contact email: search for `contact@devstudiocraft.com`.
 - WhatsApp link: `CTA.astro` (`wa.me/...` — replace with the real number).
 
+## Inquiry emails (Resend)
+
+The Packages section posts to `/api/inquiry` (a Cloudflare Pages Function in
+`functions/api/inquiry.js`) which sends two emails via Resend: a notification
+to `contact@devstudiocraft.com` and a branded confirmation to the client. If
+the function is unreachable or unconfigured, the form falls back to `mailto:`.
+
+One-time activation:
+
+1. Create a Resend account (resend.com) and add the domain
+   `devstudiocraft.com` (Resend shows DNS records — add them in Cloudflare DNS).
+2. Create an API key, then store it as a Pages secret:
+   `npx wrangler pages secret put RESEND_API_KEY --project-name=devstudiocraft`
+3. Redeploy (`npm run deploy`). Until the key exists the endpoint answers 503
+   and the form quietly uses the mailto fallback.
+
 ## Generated media assets
 
 - Art direction: cinematic photoreal — black volcanic terrain, acid `#c9f24b`

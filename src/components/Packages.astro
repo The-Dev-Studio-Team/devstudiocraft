@@ -3,48 +3,60 @@ const tabs = [
   {
     id: 'marketing',
     label: 'Marketing',
+    count: '04',
     cards: [
       {
-        badge: 'Entry level',
-        title: 'Marketing Lite',
-        desc: 'The smart entry point for brands building real presence. We create and publish your content, design the graphics and keep your community active across three core platforms — a polished, consistent identity without the cost of an in-house team.',
-        items: ['Content creation', 'Graphic design', 'Social moderation — 3 platforms'],
+        num: '01',
+        badge: 'Getting started',
+        title: 'Spark',
+        forLine: 'For brands ready to look serious online.',
+        desc: 'We take content off your plate — created, designed and published, with your community handled across three platforms. You run the business. We run the feed.',
+        items: [
+          'Content creation & publishing',
+          'Graphic design',
+          'Community management — 3 platforms',
+        ],
       },
       {
-        badge: 'Standard',
-        title: 'Marketing Core',
-        desc: 'A complete monthly marketing engine built around your growth goals. We run your content calendar, manage every platform, buy and optimise paid media and produce your video content — all steered by a strategy we review every cycle.',
+        num: '02',
+        badge: 'The machine',
+        title: 'Engine',
+        forLine: 'For brands that want the whole machine.',
+        desc: 'Your full marketing department, outsourced: strategy, content calendar, paid media and video — every platform managed, every metric reported, reviewed with you each cycle.',
         items: [
-          'Content creation & design',
-          'Marketing strategy',
-          'Media buying management',
+          'Everything in Spark',
+          'Growth strategy & KPI reporting',
+          'Paid media management',
           'Video editing',
-          'Full social moderation',
+          'All platforms moderated',
         ],
       },
       {
-        badge: 'Most popular',
+        num: '03',
+        badge: 'Most brands pick this',
         featured: true,
-        title: 'Marketing Prime',
-        desc: 'Our most powerful monthly package. Prime adds professional brand photography and full video production on top of everything in Core — high-calibre visual storytelling on every platform, executed by a dedicated creative team. Billed annually with 20% off.',
+        title: 'Overdrive',
+        forLine: 'For brands ready to own attention.',
+        desc: "Everything in Engine — plus a dedicated creative team shooting real photography and full video production for your brand. The content stops looking outsourced, because it isn't. Billed annually, 20% off.",
         items: [
-          'Everything in Core',
+          'Everything in Engine',
           'Brand photography',
-          'Video production & editing',
-          'All social platforms',
-          '20% annual discount',
+          'Full video production',
+          'Dedicated creative team',
+          '20% off, billed annually',
         ],
       },
       {
-        badge: 'Full service',
-        title: 'Brand Command',
-        desc: 'Total brand command — our highest engagement tier. Everything in Prime, amplified with active website management, proactive reputation and risk cover, and a dedicated account manager who treats your brand as their own. Protected and growing, 360°.',
+        num: '04',
+        badge: 'Full command',
+        title: 'Command',
+        forLine: 'For brands where marketing is mission-critical.',
+        desc: "Overdrive, amplified: active website management, reputation and risk cover, and a dedicated account manager who answers like it's their own brand on the line. 360° covered.",
         items: [
-          'Everything in Prime',
+          'Everything in Overdrive',
           'Website management',
-          'Risk management',
+          'Reputation & risk cover',
           'Dedicated account manager',
-          '20% annual discount',
         ],
       },
     ],
@@ -52,40 +64,47 @@ const tabs = [
   {
     id: 'branding',
     label: 'Branding',
+    count: '03',
     cards: [
       {
-        badge: 'Essential',
-        title: 'Essential Identity',
-        desc: "Your brand's cornerstone. One logo developed through structured revision rounds — primary mark, secondary mark and a social-optimised variant — delivered in every standard format, ready to present your business professionally from day one.",
+        num: '01',
+        badge: 'The essentials',
+        title: 'Mark',
+        forLine: 'For new businesses that need to look real, fast.',
+        desc: "One logo done properly — primary and secondary marks plus a social-ready variant, shaped through real revision rounds and delivered in every format you'll ever be asked for.",
         items: [
-          '1 logo design + revisions',
-          'Primary & secondary marks',
+          '1 logo — real revision rounds',
+          'Primary + secondary marks',
           'Social media kit',
-          'JPEG / PNG / SVG / PDF delivery',
+          'SVG / PNG / PDF / JPEG delivery',
         ],
       },
       {
-        badge: 'Most popular',
+        num: '02',
+        badge: 'Most brands pick this',
         featured: true,
-        title: 'Signature Identity',
-        desc: 'Two distinct logo concepts with full revision cycles, plus a professionally designed business card and branded letterhead — the first-impression toolkit that makes you look established across every digital and print touchpoint.',
+        title: 'System',
+        forLine: 'For a first impression that sticks.',
+        desc: 'Two competing logo directions refined to one winner — plus business card and letterhead designed to match. Show up consistent everywhere your customer meets you.',
         items: [
           '2 logo concepts',
           'Business card + letterhead',
           'Social media kit',
-          'Complete file delivery',
+          'Full source files',
         ],
       },
       {
-        badge: 'Complete',
-        title: 'Complete Identity',
-        desc: 'The full brand identity system for teams serious about consistency and authority. Two concepts, a comprehensive guideline document your whole team can follow, email signature, letterhead and every printable asset — documented and owned by you, forever.',
+        num: '03',
+        badge: 'The long game',
+        title: 'Legacy',
+        forLine: 'For organisations building to last.',
+        desc: 'A complete identity system your team can use without you in the room — guidelines, type, colour, voice, email signature, every printable. Documented. Owned. Forever.',
         items: [
           '2 logo concepts',
-          'Brand guidelines & identity guide',
+          'Full brand guidelines',
           'Email signature + letterhead',
-          'All printables',
-          'Complete file delivery',
+          'Every printable asset',
+          'Full ownership docs',
         ],
       },
     ],
@@ -93,34 +112,47 @@ const tabs = [
   {
     id: 'technology',
     label: 'Technology',
+    count: '03',
     cards: [
       {
-        badge: 'Sprint',
-        title: 'Landing Sprint',
-        desc: 'One page, one goal. A conversion-focused landing page designed, written and custom-coded in a two-week sprint — engineered to turn campaign traffic into customers, with analytics wired in from day one.',
-        items: ['UI/UX design', 'Custom-coded build', 'CRO copy structure', 'Analytics setup'],
-      },
-      {
-        badge: 'Standard',
-        title: 'Standard Web',
-        desc: 'A professionally designed, security-hardened website built for performance, credibility and search visibility — followed by three months of dedicated post-launch support to keep it stable, current and protected.',
+        num: '01',
+        badge: '2-week sprint',
+        title: 'Launch',
+        forLine: "For campaigns that can't wait.",
+        desc: 'A single conversion-obsessed landing page — designed, written and hand-coded in a two-week sprint, with analytics wired from day one so you know exactly what it earns.',
         items: [
           'UI/UX design',
-          'Website build + security',
-          'SEO optimisation',
+          'Hand-coded build',
+          'Conversion copy structure',
+          'Analytics wired in',
+        ],
+      },
+      {
+        num: '02',
+        badge: 'The workhorse',
+        title: 'Foundation',
+        forLine: 'For websites with a job to do.',
+        desc: 'A security-hardened, search-visible site built to our 95+ Lighthouse bar — then protected by three months of post-launch support so it stays fast, current and safe.',
+        items: [
+          'UI/UX design',
+          'Custom build + security hardening',
+          'SEO setup',
+          '95+ Lighthouse target',
           '3 months support',
         ],
       },
       {
-        badge: 'Full stack',
+        num: '03',
+        badge: 'Most brands pick this',
         featured: true,
-        title: 'Full Development',
-        desc: 'Our flagship web offering. Everything in Standard, elevated with full-stack development for complex functionality, custom integrations and performance engineering for speed under load — plus six months of dedicated support. Infrastructure, not just a website.',
+        title: 'Powerhouse',
+        forLine: 'For businesses that need infrastructure, not a brochure.',
+        desc: 'Everything in Foundation, elevated to full-stack: custom features, integrations and performance engineering that holds under real load — with six months of support at your side.',
         items: [
-          'Everything in Standard',
+          'Everything in Foundation',
           'Full-stack development',
           'Custom integrations',
-          'Performance tuning + bug fixes',
+          'Performance engineering',
           '6 months support',
         ],
       },
@@ -130,17 +162,17 @@ const tabs = [
 
 const singles = [
   { title: 'Market analysis', desc: 'Deep-dive competitor research and market positioning report.', time: '25 days' },
-  { title: 'Marketing strategy', desc: 'Actionable brand strategy with channel plan, messaging and KPI framework.', time: '25 days' },
-  { title: 'Content plan', desc: 'Monthly content calendar with topic clusters and post timing.', time: '25 days' },
-  { title: 'Content plan + designs', desc: 'Content calendar plus every graphic designed, ready to publish.', time: '25 days' },
-  { title: 'Media buying', desc: 'Paid ad management — budget allocation, creative testing, reporting.', time: '30 days' },
+  { title: 'Marketing strategy', desc: 'Actionable brand strategy with channel plan, messaging and KPIs.', time: '25 days' },
+  { title: 'Content plan + designs', desc: 'Monthly content calendar with every graphic designed, ready to post.', time: '25 days' },
+  { title: 'Media buying', desc: 'Paid ad management — budgets, creative testing, honest reporting.', time: '30 days' },
   { title: 'Social moderation', desc: 'Daily community management — replies, DMs and engagement.', time: '30 days' },
   { title: 'Photoshoot', desc: 'Professional brand photography — product, portrait or lifestyle.', time: 'By arrangement' },
-  { title: 'Video editing', desc: 'Professional edit — cuts, colour grade, captions, music. Up to 8 min.', time: '5 days' },
+  { title: 'Video editing', desc: 'Cuts, colour grade, captions, music — up to 8 minutes.', time: '5 days' },
   { title: 'Reel pack', desc: 'Three 60-second short-form reels — filmed, edited, optimised.', time: 'By arrangement' },
-  { title: 'Website bug fixing', desc: 'Rapid diagnosis and resolution of bugs, broken links and speed issues.', time: '1 day' },
-  { title: 'Website editing', desc: 'Content updates, design tweaks and structural improvements.', time: '5 days' },
-  { title: 'Website care', desc: 'Monthly upkeep — content updates, security checks, performance monitoring.', time: '30 days' },
+  { title: 'SEO audit', desc: 'Full technical + content audit with a prioritised fix list.', time: '5 days' },
+  { title: 'Speed rescue', desc: "Find and fix what's slowing your site — measured before and after.", time: '3 days' },
+  { title: 'Bug fixing', desc: 'Rapid diagnosis and repair of bugs, broken links and errors.', time: '1 day' },
+  { title: 'Website care', desc: 'Monthly upkeep — updates, security checks, performance watch.', time: 'Monthly' },
 ];
 
 const industries = [
@@ -153,6 +185,13 @@ const industries = [
   'SaaS & startups',
   'Other',
 ];
+
+const trust = [
+  'First concept in 48h',
+  'You own everything',
+  'No lock-in contracts',
+  'Replies within 24h',
+];
 ---
 
 <section class="section packages" id="packages" aria-labelledby="packages-heading">
@@ -161,12 +200,12 @@ const industries = [
       <div>
         <p class="eyebrow" data-reveal>Packages</p>
         <h2 class="h-display h2" id="packages-heading" data-split-lines>
-          Find your <em class="serif-i text-acid">package.</em>
+          Your growth, <em class="serif-i text-acid">packaged.</em>
         </h2>
       </div>
       <p class="pkg-note" data-reveal>
-        From full brand command to single services — every package starts with a free
-        15-minute discovery call.
+        One clear scope, one launch date, zero surprises. Every plan opens with a free
+        15-minute discovery call — and everything we build is yours, forever.
       </p>
     </div>
 
@@ -181,7 +220,7 @@ const industries = [
             aria-controls={`panel-${t.id}`}
             data-pkg-tab={t.id}
           >
-            {t.label}
+            {t.label} <sup>{t.count}</sup>
           </button>
         ))
       }
@@ -193,7 +232,7 @@ const industries = [
         aria-controls="panel-singles"
         data-pkg-tab="singles"
       >
-        Single services
+        À la carte <sup>12</sup>
       </button>
     </div>
 
@@ -209,8 +248,12 @@ const industries = [
           <div class={`pkg-grid cols-${t.cards.length}`}>
             {t.cards.map((c) => (
               <article class={`pkg-card${c.featured ? ' is-featured' : ''}`}>
+                <span class="pkg-num" aria-hidden="true">
+                  {c.num}
+                </span>
                 <span class="pkg-badge">{c.badge}</span>
                 <h3 class="pkg-title">{c.title}</h3>
+                <p class="pkg-for">{c.forLine}</p>
                 <p class="pkg-desc">{c.desc}</p>
                 <ul class="pkg-list">
                   {c.items.map((it) => (
@@ -224,7 +267,7 @@ const industries = [
                   data-category={t.label}
                   data-cursor="Book"
                 >
-                  <span>Select plan</span>
+                  <span>{c.featured ? 'Start selling more' : 'Claim this plan'}</span>
                   <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                     <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
                   </svg>
@@ -247,25 +290,38 @@ const industries = [
         {
           singles.map((s) => (
             <article class="single-card">
-              <h3 class="single-title">{s.title}</h3>
-              <p class="single-desc">{s.desc}</p>
-              <div class="single-foot">
+              <div class="single-top">
+                <h3 class="single-title">{s.title}</h3>
                 <span class="single-time">{s.time}</span>
-                <button
-                  class="single-select"
-                  data-pkg-select
-                  data-package={s.title}
-                  data-category="Single service"
-                  data-cursor="Book"
-                >
-                  Select →
-                </button>
               </div>
+              <p class="single-desc">{s.desc}</p>
+              <button
+                class="single-select"
+                data-pkg-select
+                data-package={s.title}
+                data-category="À la carte"
+                data-cursor="Book"
+              >
+                Book it →
+              </button>
             </article>
           ))
         }
       </div>
     </div>
+
+    <ul class="pkg-trust" data-reveal>
+      {
+        trust.map((tr) => (
+          <li>
+            <span class="trust-tick" aria-hidden="true">
+              ✓
+            </span>
+            {tr}
+          </li>
+        ))
+      }
+    </ul>
   </div>
 
   <div class="pkg-modal" data-pkg-modal aria-hidden="true">
@@ -276,41 +332,73 @@ const industries = [
           <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.6" />
         </svg>
       </button>
-      <p class="eyebrow">Book a discovery call</p>
-      <h3 class="pkg-modal-title" id="pkg-modal-title" data-modal-package>Package</h3>
-      <span class="pkg-modal-cat" data-modal-category>Marketing</span>
 
-      <form class="pkg-form" data-pkg-form novalidate>
-        <div class="pkg-fields">
-          <label class="pkg-field">
-            <span>Full name *</span>
-            <input type="text" name="name" placeholder="Your full name" required />
-          </label>
-          <label class="pkg-field">
-            <span>Email address *</span>
-            <input type="email" name="email" placeholder="you@company.com" required />
-          </label>
-          <label class="pkg-field">
-            <span>Phone number *</span>
-            <input type="tel" name="phone" placeholder="+20 100 000 0000" required />
-          </label>
-          <label class="pkg-field">
-            <span>Business industry *</span>
-            <select name="industry" required>
-              <option value="" disabled selected>Select industry</option>
-              {industries.map((ind) => <option value={ind}>{ind}</option>)}
-            </select>
-          </label>
-        </div>
-        <button type="submit" class="btn btn-acid pkg-submit" data-cursor="Send">
-          <span class="btn-fill"></span>
-          <span>Send inquiry</span>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+      <div class="pkg-modal-form" data-modal-stage="form">
+        <p class="eyebrow">Book a discovery call</p>
+        <h3 class="pkg-modal-title" id="pkg-modal-title" data-modal-package>Package</h3>
+        <span class="pkg-modal-cat" data-modal-category>Marketing</span>
+
+        <form class="pkg-form" data-pkg-form novalidate>
+          <div class="pkg-fields">
+            <label class="pkg-field">
+              <span>Full name *</span>
+              <input type="text" name="name" placeholder="Your full name" required autocomplete="name" />
+            </label>
+            <label class="pkg-field">
+              <span>Email address *</span>
+              <input type="email" name="email" placeholder="you@company.com" required autocomplete="email" />
+            </label>
+            <label class="pkg-field">
+              <span>Phone / WhatsApp *</span>
+              <input type="tel" name="phone" placeholder="+20 100 000 0000" required autocomplete="tel" />
+            </label>
+            <label class="pkg-field">
+              <span>Business industry *</span>
+              <select name="industry" required>
+                <option value="" disabled selected>Select industry</option>
+                {industries.map((ind) => <option value={ind}>{ind}</option>)}
+              </select>
+            </label>
+            <label class="pkg-field pkg-field-wide">
+              <span>What are you building? (optional)</span>
+              <textarea
+                name="message"
+                rows="3"
+                placeholder="A sentence or two about your project, goals or deadline…"
+              />
+            </label>
+            <input type="text" name="website" class="pkg-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          </div>
+          <button type="submit" class="btn btn-acid pkg-submit" data-pkg-submit data-cursor="Send">
+            <span class="btn-fill"></span>
+            <span data-submit-label>Send inquiry</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+            </svg>
+          </button>
+          <p class="pkg-form-note">
+            We reply within 24 hours — usually much faster.
+          </p>
+        </form>
+      </div>
+
+      <div class="pkg-modal-success" data-modal-stage="success" hidden>
+        <span class="success-ring" aria-hidden="true">
+          <svg viewBox="0 0 52 52" fill="none">
+            <circle cx="26" cy="26" r="24" stroke="currentColor" stroke-width="2.4" />
+            <path d="M15 27l8 8 15-16" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
+        </span>
+        <h3 class="success-title">Got it. You're on our radar.</h3>
+        <p class="success-text">
+          Your inquiry for <b data-success-package>—</b> just landed in our inbox, and a
+          confirmation is on its way to your email. Expect a real human reply within 24 hours.
+        </p>
+        <button class="btn btn-ghost success-close" data-pkg-close>
+          <span class="btn-fill"></span>
+          <span>Back to the site</span>
         </button>
-        <p class="pkg-form-note">Opens your email client addressed to contact@devstudiocraft.com</p>
-      </form>
+      </div>
     </div>
   </div>
 </section>
@@ -338,14 +426,21 @@ const industries = [
 
   /* ---- modal ---- */
   const modal = section.querySelector('[data-pkg-modal]');
+  const stageForm = section.querySelector('[data-modal-stage="form"]');
+  const stageSuccess = section.querySelector('[data-modal-stage="success"]');
   const modalPackage = section.querySelector('[data-modal-package]');
   const modalCategory = section.querySelector('[data-modal-category]');
+  const successPackage = section.querySelector('[data-success-package]');
   const form = section.querySelector('[data-pkg-form]');
+  const submitBtn = section.querySelector('[data-pkg-submit]');
+  const submitLabel = section.querySelector('[data-submit-label]');
   let lastFocus = null;
 
   const openModal = (pkg, cat) => {
     modalPackage.textContent = pkg;
     modalCategory.textContent = cat;
+    stageForm.hidden = false;
+    stageSuccess.hidden = true;
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.documentElement.classList.add('modal-open');
@@ -375,25 +470,62 @@ const industries = [
     if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
 
-  /* ---- form → mailto ---- */
-  form.addEventListener('submit', (e) => {
+  /* ---- submit: Resend endpoint, mailto as a last-resort fallback ---- */
+  const mailtoFallback = (data, pkg, cat) => {
+    const subject = `Discovery call — ${pkg}`;
+    const body = [
+      `Package: ${pkg} (${cat})`,
+      `Name: ${data.get('name')}`,
+      `Email: ${data.get('email')}`,
+      `Phone: ${data.get('phone')}`,
+      `Industry: ${data.get('industry')}`,
+      `Message: ${data.get('message') || '—'}`,
+    ].join('\n');
+    window.location.href = `mailto:contact@devstudiocraft.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!form.reportValidity()) return;
 
     const data = new FormData(form);
     const pkg = modalPackage.textContent;
-    const subject = `Discovery call — ${pkg}`;
-    const body = [
-      `Package: ${pkg} (${modalCategory.textContent})`,
-      `Name: ${data.get('name')}`,
-      `Email: ${data.get('email')}`,
-      `Phone: ${data.get('phone')}`,
-      `Industry: ${data.get('industry')}`,
-      '',
-      'Sent from devstudiocraft.com',
-    ].join('\n');
+    const cat = modalCategory.textContent;
 
-    window.location.href = `mailto:contact@devstudiocraft.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    submitBtn.disabled = true;
+    submitLabel.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          packageName: pkg,
+          category: cat,
+          name: data.get('name'),
+          email: data.get('email'),
+          phone: data.get('phone'),
+          industry: data.get('industry'),
+          message: data.get('message') || '',
+          website: data.get('website') || '',
+        }),
+      });
+      const out = await res.json().catch(() => ({ ok: false }));
+
+      if (out.ok) {
+        successPackage.textContent = pkg;
+        stageForm.hidden = true;
+        stageSuccess.hidden = false;
+        form.reset();
+      } else {
+        mailtoFallback(data, pkg, cat);
+      }
+    } catch {
+      mailtoFallback(data, pkg, cat);
+    } finally {
+      submitBtn.disabled = false;
+      submitLabel.textContent = 'Send inquiry';
+    }
   });
 </script>
 
@@ -417,7 +549,7 @@ const industries = [
   }
 
   .pkg-note {
-    max-width: 22rem;
+    max-width: 24rem;
     color: var(--ink-dim);
     font-size: 0.95rem;
     text-wrap: pretty;
@@ -445,6 +577,12 @@ const industries = [
       color 0.35s var(--ease-expo),
       background 0.35s var(--ease-expo),
       border-color 0.35s var(--ease-expo);
+  }
+
+  .pkg-tab sup {
+    font-size: 0.56rem;
+    margin-left: 0.2rem;
+    opacity: 0.6;
   }
 
   .pkg-tab:hover {
@@ -492,26 +630,52 @@ const industries = [
   }
 
   .pkg-card {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.85rem;
     background: var(--bg-card);
     border: 1px solid var(--line);
     border-radius: 1.4rem;
     padding: clamp(1.5rem, 2.4vw, 2.1rem);
+    overflow: clip;
     transition:
       transform 0.5s var(--ease-expo),
       border-color 0.5s var(--ease-expo);
   }
 
   .pkg-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
     border-color: var(--ink-faint);
   }
 
+  .pkg-num {
+    position: absolute;
+    top: 0.9rem;
+    right: 1.2rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2.6rem;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(242, 239, 232, 0.14);
+    pointer-events: none;
+  }
+
   .pkg-card.is-featured {
-    border-color: color-mix(in srgb, var(--acid) 55%, transparent);
-    box-shadow: 0 24px 70px rgba(201, 242, 75, 0.09);
+    background: var(--acid);
+    border-color: var(--acid);
+    color: var(--acid-ink);
+    box-shadow: 0 30px 90px rgba(201, 242, 75, 0.16);
+  }
+
+  .pkg-card.is-featured:hover {
+    border-color: var(--acid);
+    transform: translateY(-8px);
+  }
+
+  .is-featured .pkg-num {
+    -webkit-text-stroke: 1px rgba(12, 14, 4, 0.25);
   }
 
   .pkg-badge {
@@ -527,16 +691,28 @@ const industries = [
   }
 
   .is-featured .pkg-badge {
-    background: var(--acid);
-    border-color: var(--acid);
-    color: var(--acid-ink);
+    background: var(--acid-ink);
+    border-color: var(--acid-ink);
+    color: var(--acid);
   }
 
   .pkg-title {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(1.35rem, 1.7vw, 1.7rem);
-    line-height: 1.05;
+    text-transform: uppercase;
+    font-size: clamp(1.6rem, 2vw, 2rem);
+    line-height: 1;
+  }
+
+  .pkg-for {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--acid);
+  }
+
+  .is-featured .pkg-for {
+    color: rgba(12, 14, 4, 0.85);
   }
 
   .pkg-desc {
@@ -546,6 +722,10 @@ const industries = [
     text-wrap: pretty;
   }
 
+  .is-featured .pkg-desc {
+    color: rgba(12, 14, 4, 0.74);
+  }
+
   .pkg-list {
     list-style: none;
     display: grid;
@@ -553,6 +733,10 @@ const industries = [
     border-top: 1px solid var(--line);
     padding-top: 1.1rem;
     margin-top: auto;
+  }
+
+  .is-featured .pkg-list {
+    border-top-color: rgba(12, 14, 4, 0.2);
   }
 
   .pkg-list li {
@@ -570,6 +754,10 @@ const industries = [
     color: var(--acid);
     font-weight: 700;
     font-size: 0.8rem;
+  }
+
+  .is-featured .pkg-list li::before {
+    color: var(--acid-ink);
   }
 
   .pkg-select {
@@ -601,18 +789,18 @@ const industries = [
   }
 
   .is-featured .pkg-select {
-    background: var(--ink);
-    border-color: var(--ink);
-    color: var(--bg);
+    background: var(--acid-ink);
+    border-color: var(--acid-ink);
+    color: var(--acid);
   }
 
   .is-featured .pkg-select:hover {
-    background: var(--acid);
-    border-color: var(--acid);
-    color: var(--acid-ink);
+    background: var(--bg);
+    border-color: var(--bg);
+    color: var(--ink);
   }
 
-  /* ---- singles ---- */
+  /* ---- à la carte ---- */
   .single-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -637,11 +825,31 @@ const industries = [
     border-color: var(--ink-faint);
   }
 
+  .single-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+
   .single-title {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.02rem;
     line-height: 1.15;
+  }
+
+  .single-time {
+    flex-shrink: 0;
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--acid);
+    border: 1px solid color-mix(in srgb, var(--acid) 40%, transparent);
+    border-radius: 100px;
+    padding: 0.22rem 0.55rem;
+    white-space: nowrap;
   }
 
   .single-desc {
@@ -651,36 +859,52 @@ const industries = [
     flex: 1;
   }
 
-  .single-foot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.6rem;
-    border-top: 1px solid var(--line);
-    padding-top: 0.75rem;
-  }
-
-  .single-time {
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-  }
-
   .single-select {
+    align-self: flex-start;
     font-family: var(--font-body);
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: var(--ink-dim);
     background: none;
     border: none;
+    border-bottom: 1.5px solid transparent;
+    padding-bottom: 0.1rem;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease;
   }
 
   .single-select:hover {
     color: var(--acid);
+    border-bottom-color: var(--acid);
+  }
+
+  /* ---- trust strip ---- */
+  .pkg-trust {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 2.2rem;
+    justify-content: center;
+    margin-top: clamp(2.2rem, 4vw, 3.2rem);
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .pkg-trust li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink-dim);
+  }
+
+  .trust-tick {
+    color: var(--acid);
+    font-weight: 700;
+    font-size: 0.78rem;
   }
 
   /* ---- modal ---- */
@@ -731,6 +955,7 @@ const industries = [
     position: absolute;
     top: 1.1rem;
     right: 1.1rem;
+    z-index: 2;
     display: grid;
     place-items: center;
     width: 2.2rem;
@@ -788,6 +1013,10 @@ const industries = [
     gap: 0.45rem;
   }
 
+  .pkg-field-wide {
+    grid-column: 1 / -1;
+  }
+
   .pkg-field span {
     font-size: 0.64rem;
     font-weight: 700;
@@ -797,7 +1026,8 @@ const industries = [
   }
 
   .pkg-field input,
-  .pkg-field select {
+  .pkg-field select,
+  .pkg-field textarea {
     font-family: var(--font-body);
     font-size: 0.92rem;
     color: var(--ink);
@@ -808,14 +1038,17 @@ const industries = [
     outline: none;
     transition: border-color 0.3s ease;
     width: 100%;
+    resize: vertical;
   }
 
-  .pkg-field input::placeholder {
+  .pkg-field input::placeholder,
+  .pkg-field textarea::placeholder {
     color: var(--ink-faint);
   }
 
   .pkg-field input:focus,
-  .pkg-field select:focus {
+  .pkg-field select:focus,
+  .pkg-field textarea:focus {
     border-color: color-mix(in srgb, var(--acid) 60%, transparent);
   }
 
@@ -830,10 +1063,23 @@ const industries = [
     color: var(--ink-faint);
   }
 
+  .pkg-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
   .pkg-submit {
     width: 100%;
     margin-top: 1.3rem;
     justify-content: center;
+  }
+
+  .pkg-submit:disabled {
+    opacity: 0.65;
+    pointer-events: none;
   }
 
   .pkg-form-note {
@@ -841,6 +1087,47 @@ const industries = [
     text-align: center;
     font-size: 0.74rem;
     color: var(--ink-faint);
+  }
+
+  /* ---- success stage ---- */
+  .pkg-modal-success {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.4rem 0.4rem 0.6rem;
+  }
+
+  .success-ring {
+    width: 4.2rem;
+    color: var(--acid);
+    filter: drop-shadow(0 0 14px rgba(201, 242, 75, 0.35));
+  }
+
+  .success-ring svg {
+    width: 100%;
+  }
+
+  .success-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+    line-height: 1.1;
+  }
+
+  .success-text {
+    max-width: 24rem;
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+    text-wrap: pretty;
+  }
+
+  .success-text b {
+    color: var(--ink);
+  }
+
+  .success-close {
+    margin-top: 0.4rem;
   }
 
   :global(html.modal-open) {
