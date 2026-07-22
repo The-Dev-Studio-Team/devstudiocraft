@@ -735,20 +735,15 @@ const cards = [
 
   /* -- app -- */
   [data-vig='app'] {
-    justify-items: center;
-    left: 50%;
-    right: auto;
-    translate: -50% 0;
-    width: max-content;
-    padding: 0.75rem 1.15rem;
+    justify-items: stretch;
   }
 
   .phone {
-    width: clamp(7.4rem, 11vw, 8.6rem);
+    width: 100%;
     border: 1px solid var(--line);
     border-radius: 0.9rem;
     background: rgba(16, 16, 21, 0.95);
-    padding: 0.4rem 0.4rem 0.55rem;
+    padding: 0.5rem 0.5rem 0.6rem;
     display: grid;
     gap: 0.4rem;
   }
@@ -924,7 +919,7 @@ const cards = [
 
   [data-vig='app'] .vig-chip {
     top: -0.55rem;
-    right: -0.7rem;
+    right: -0.35rem;
   }
 
   .art-glow {
