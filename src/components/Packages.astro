@@ -1,0 +1,883 @@
+---
+const tabs = [
+  {
+    id: 'marketing',
+    label: 'Marketing',
+    cards: [
+      {
+        badge: 'Entry level',
+        title: 'Marketing Lite',
+        desc: 'The smart entry point for brands building real presence. We create and publish your content, design the graphics and keep your community active across three core platforms — a polished, consistent identity without the cost of an in-house team.',
+        items: ['Content creation', 'Graphic design', 'Social moderation — 3 platforms'],
+      },
+      {
+        badge: 'Standard',
+        title: 'Marketing Core',
+        desc: 'A complete monthly marketing engine built around your growth goals. We run your content calendar, manage every platform, buy and optimise paid media and produce your video content — all steered by a strategy we review every cycle.',
+        items: [
+          'Content creation & design',
+          'Marketing strategy',
+          'Media buying management',
+          'Video editing',
+          'Full social moderation',
+        ],
+      },
+      {
+        badge: 'Most popular',
+        featured: true,
+        title: 'Marketing Prime',
+        desc: 'Our most powerful monthly package. Prime adds professional brand photography and full video production on top of everything in Core — high-calibre visual storytelling on every platform, executed by a dedicated creative team. Billed annually with 20% off.',
+        items: [
+          'Everything in Core',
+          'Brand photography',
+          'Video production & editing',
+          'All social platforms',
+          '20% annual discount',
+        ],
+      },
+      {
+        badge: 'Full service',
+        title: 'Brand Command',
+        desc: 'Total brand command — our highest engagement tier. Everything in Prime, amplified with active website management, proactive reputation and risk cover, and a dedicated account manager who treats your brand as their own. Protected and growing, 360°.',
+        items: [
+          'Everything in Prime',
+          'Website management',
+          'Risk management',
+          'Dedicated account manager',
+          '20% annual discount',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'branding',
+    label: 'Branding',
+    cards: [
+      {
+        badge: 'Essential',
+        title: 'Essential Identity',
+        desc: "Your brand's cornerstone. One logo developed through structured revision rounds — primary mark, secondary mark and a social-optimised variant — delivered in every standard format, ready to present your business professionally from day one.",
+        items: [
+          '1 logo design + revisions',
+          'Primary & secondary marks',
+          'Social media kit',
+          'JPEG / PNG / SVG / PDF delivery',
+        ],
+      },
+      {
+        badge: 'Most popular',
+        featured: true,
+        title: 'Signature Identity',
+        desc: 'Two distinct logo concepts with full revision cycles, plus a professionally designed business card and branded letterhead — the first-impression toolkit that makes you look established across every digital and print touchpoint.',
+        items: [
+          '2 logo concepts',
+          'Business card + letterhead',
+          'Social media kit',
+          'Complete file delivery',
+        ],
+      },
+      {
+        badge: 'Complete',
+        title: 'Complete Identity',
+        desc: 'The full brand identity system for teams serious about consistency and authority. Two concepts, a comprehensive guideline document your whole team can follow, email signature, letterhead and every printable asset — documented and owned by you, forever.',
+        items: [
+          '2 logo concepts',
+          'Brand guidelines & identity guide',
+          'Email signature + letterhead',
+          'All printables',
+          'Complete file delivery',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'technology',
+    label: 'Technology',
+    cards: [
+      {
+        badge: 'Sprint',
+        title: 'Landing Sprint',
+        desc: 'One page, one goal. A conversion-focused landing page designed, written and custom-coded in a two-week sprint — engineered to turn campaign traffic into customers, with analytics wired in from day one.',
+        items: ['UI/UX design', 'Custom-coded build', 'CRO copy structure', 'Analytics setup'],
+      },
+      {
+        badge: 'Standard',
+        title: 'Standard Web',
+        desc: 'A professionally designed, security-hardened website built for performance, credibility and search visibility — followed by three months of dedicated post-launch support to keep it stable, current and protected.',
+        items: [
+          'UI/UX design',
+          'Website build + security',
+          'SEO optimisation',
+          '3 months support',
+        ],
+      },
+      {
+        badge: 'Full stack',
+        featured: true,
+        title: 'Full Development',
+        desc: 'Our flagship web offering. Everything in Standard, elevated with full-stack development for complex functionality, custom integrations and performance engineering for speed under load — plus six months of dedicated support. Infrastructure, not just a website.',
+        items: [
+          'Everything in Standard',
+          'Full-stack development',
+          'Custom integrations',
+          'Performance tuning + bug fixes',
+          '6 months support',
+        ],
+      },
+    ],
+  },
+];
+
+const singles = [
+  { title: 'Market analysis', desc: 'Deep-dive competitor research and market positioning report.', time: '25 days' },
+  { title: 'Marketing strategy', desc: 'Actionable brand strategy with channel plan, messaging and KPI framework.', time: '25 days' },
+  { title: 'Content plan', desc: 'Monthly content calendar with topic clusters and post timing.', time: '25 days' },
+  { title: 'Content plan + designs', desc: 'Content calendar plus every graphic designed, ready to publish.', time: '25 days' },
+  { title: 'Media buying', desc: 'Paid ad management — budget allocation, creative testing, reporting.', time: '30 days' },
+  { title: 'Social moderation', desc: 'Daily community management — replies, DMs and engagement.', time: '30 days' },
+  { title: 'Photoshoot', desc: 'Professional brand photography — product, portrait or lifestyle.', time: 'By arrangement' },
+  { title: 'Video editing', desc: 'Professional edit — cuts, colour grade, captions, music. Up to 8 min.', time: '5 days' },
+  { title: 'Reel pack', desc: 'Three 60-second short-form reels — filmed, edited, optimised.', time: 'By arrangement' },
+  { title: 'Website bug fixing', desc: 'Rapid diagnosis and resolution of bugs, broken links and speed issues.', time: '1 day' },
+  { title: 'Website editing', desc: 'Content updates, design tweaks and structural improvements.', time: '5 days' },
+  { title: 'Website care', desc: 'Monthly upkeep — content updates, security checks, performance monitoring.', time: '30 days' },
+];
+
+const industries = [
+  'E-commerce',
+  'Restaurants & food',
+  'Fashion & beauty',
+  'Real estate',
+  'Health & clinics',
+  'Education',
+  'SaaS & startups',
+  'Other',
+];
+---
+
+<section class="section packages" id="packages" aria-labelledby="packages-heading">
+  <div class="container">
+    <div class="pkg-head">
+      <div>
+        <p class="eyebrow" data-reveal>Packages</p>
+        <h2 class="h-display h2" id="packages-heading" data-split-lines>
+          Find your <em class="serif-i text-acid">package.</em>
+        </h2>
+      </div>
+      <p class="pkg-note" data-reveal>
+        From full brand command to single services — every package starts with a free
+        15-minute discovery call.
+      </p>
+    </div>
+
+    <div class="pkg-tabs" role="tablist" aria-label="Package categories" data-reveal>
+      {
+        tabs.map((t, i) => (
+          <button
+            class={`pkg-tab${i === 0 ? ' is-active' : ''}`}
+            role="tab"
+            id={`tab-${t.id}`}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            aria-controls={`panel-${t.id}`}
+            data-pkg-tab={t.id}
+          >
+            {t.label}
+          </button>
+        ))
+      }
+      <button
+        class="pkg-tab"
+        role="tab"
+        id="tab-singles"
+        aria-selected="false"
+        aria-controls="panel-singles"
+        data-pkg-tab="singles"
+      >
+        Single services
+      </button>
+    </div>
+
+    {
+      tabs.map((t, i) => (
+        <div
+          class={`pkg-panel${i === 0 ? ' is-active' : ''}`}
+          role="tabpanel"
+          id={`panel-${t.id}`}
+          aria-labelledby={`tab-${t.id}`}
+          data-pkg-panel={t.id}
+        >
+          <div class={`pkg-grid cols-${t.cards.length}`}>
+            {t.cards.map((c) => (
+              <article class={`pkg-card${c.featured ? ' is-featured' : ''}`}>
+                <span class="pkg-badge">{c.badge}</span>
+                <h3 class="pkg-title">{c.title}</h3>
+                <p class="pkg-desc">{c.desc}</p>
+                <ul class="pkg-list">
+                  {c.items.map((it) => (
+                    <li>{it}</li>
+                  ))}
+                </ul>
+                <button
+                  class="pkg-select"
+                  data-pkg-select
+                  data-package={c.title}
+                  data-category={t.label}
+                  data-cursor="Book"
+                >
+                  <span>Select plan</span>
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+                  </svg>
+                </button>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+
+    <div
+      class="pkg-panel"
+      role="tabpanel"
+      id="panel-singles"
+      aria-labelledby="tab-singles"
+      data-pkg-panel="singles"
+    >
+      <div class="single-grid">
+        {
+          singles.map((s) => (
+            <article class="single-card">
+              <h3 class="single-title">{s.title}</h3>
+              <p class="single-desc">{s.desc}</p>
+              <div class="single-foot">
+                <span class="single-time">{s.time}</span>
+                <button
+                  class="single-select"
+                  data-pkg-select
+                  data-package={s.title}
+                  data-category="Single service"
+                  data-cursor="Book"
+                >
+                  Select →
+                </button>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="pkg-modal" data-pkg-modal aria-hidden="true">
+    <div class="pkg-modal-backdrop" data-pkg-close></div>
+    <div class="pkg-modal-box" role="dialog" aria-modal="true" aria-labelledby="pkg-modal-title">
+      <button class="pkg-modal-x" data-pkg-close aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.6" />
+        </svg>
+      </button>
+      <p class="eyebrow">Book a discovery call</p>
+      <h3 class="pkg-modal-title" id="pkg-modal-title" data-modal-package>Package</h3>
+      <span class="pkg-modal-cat" data-modal-category>Marketing</span>
+
+      <form class="pkg-form" data-pkg-form novalidate>
+        <div class="pkg-fields">
+          <label class="pkg-field">
+            <span>Full name *</span>
+            <input type="text" name="name" placeholder="Your full name" required />
+          </label>
+          <label class="pkg-field">
+            <span>Email address *</span>
+            <input type="email" name="email" placeholder="you@company.com" required />
+          </label>
+          <label class="pkg-field">
+            <span>Phone number *</span>
+            <input type="tel" name="phone" placeholder="+20 100 000 0000" required />
+          </label>
+          <label class="pkg-field">
+            <span>Business industry *</span>
+            <select name="industry" required>
+              <option value="" disabled selected>Select industry</option>
+              {industries.map((ind) => <option value={ind}>{ind}</option>)}
+            </select>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-acid pkg-submit" data-cursor="Send">
+          <span class="btn-fill"></span>
+          <span>Send inquiry</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </button>
+        <p class="pkg-form-note">Opens your email client addressed to contact@devstudiocraft.com</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  const section = document.getElementById('packages');
+
+  /* ---- tabs ---- */
+  const tabButtons = section.querySelectorAll('[data-pkg-tab]');
+  const panels = section.querySelectorAll('[data-pkg-panel]');
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-pkg-tab');
+      tabButtons.forEach((b) => {
+        const on = b === btn;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panels.forEach((p) => {
+        p.classList.toggle('is-active', p.getAttribute('data-pkg-panel') === id);
+      });
+    });
+  });
+
+  /* ---- modal ---- */
+  const modal = section.querySelector('[data-pkg-modal]');
+  const modalPackage = section.querySelector('[data-modal-package]');
+  const modalCategory = section.querySelector('[data-modal-category]');
+  const form = section.querySelector('[data-pkg-form]');
+  let lastFocus = null;
+
+  const openModal = (pkg, cat) => {
+    modalPackage.textContent = pkg;
+    modalCategory.textContent = cat;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('modal-open');
+    lastFocus = document.activeElement;
+    const first = form.querySelector('input');
+    if (first) setTimeout(() => first.focus(), 60);
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('modal-open');
+    if (lastFocus) lastFocus.focus();
+  };
+
+  section.querySelectorAll('[data-pkg-select]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      openModal(btn.getAttribute('data-package'), btn.getAttribute('data-category'));
+    });
+  });
+
+  section.querySelectorAll('[data-pkg-close]').forEach((el) => {
+    el.addEventListener('click', closeModal);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  });
+
+  /* ---- form → mailto ---- */
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const pkg = modalPackage.textContent;
+    const subject = `Discovery call — ${pkg}`;
+    const body = [
+      `Package: ${pkg} (${modalCategory.textContent})`,
+      `Name: ${data.get('name')}`,
+      `Email: ${data.get('email')}`,
+      `Phone: ${data.get('phone')}`,
+      `Industry: ${data.get('industry')}`,
+      '',
+      'Sent from devstudiocraft.com',
+    ].join('\n');
+
+    window.location.href = `mailto:contact@devstudiocraft.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>
+
+<style>
+  .packages {
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+  }
+
+  .pkg-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    margin-bottom: clamp(2.2rem, 4vw, 3.5rem);
+  }
+
+  .pkg-head .eyebrow {
+    margin-bottom: 1.4rem;
+  }
+
+  .pkg-note {
+    max-width: 22rem;
+    color: var(--ink-dim);
+    font-size: 0.95rem;
+    text-wrap: pretty;
+  }
+
+  .pkg-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: clamp(1.8rem, 3vw, 2.6rem);
+  }
+
+  .pkg-tab {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 0.62rem 1.25rem;
+    cursor: pointer;
+    transition:
+      color 0.35s var(--ease-expo),
+      background 0.35s var(--ease-expo),
+      border-color 0.35s var(--ease-expo);
+  }
+
+  .pkg-tab:hover {
+    color: var(--ink);
+    border-color: var(--ink-faint);
+  }
+
+  .pkg-tab.is-active {
+    background: var(--acid);
+    border-color: var(--acid);
+    color: var(--acid-ink);
+  }
+
+  .pkg-panel {
+    display: none;
+  }
+
+  .pkg-panel.is-active {
+    display: block;
+    animation: panel-in 0.55s var(--ease-expo);
+  }
+
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .pkg-grid {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .pkg-grid.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .pkg-grid.cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .pkg-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 1.4rem;
+    padding: clamp(1.5rem, 2.4vw, 2.1rem);
+    transition:
+      transform 0.5s var(--ease-expo),
+      border-color 0.5s var(--ease-expo);
+  }
+
+  .pkg-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--ink-faint);
+  }
+
+  .pkg-card.is-featured {
+    border-color: color-mix(in srgb, var(--acid) 55%, transparent);
+    box-shadow: 0 24px 70px rgba(201, 242, 75, 0.09);
+  }
+
+  .pkg-badge {
+    width: fit-content;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.32rem 0.75rem;
+    border-radius: 100px;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+  }
+
+  .is-featured .pkg-badge {
+    background: var(--acid);
+    border-color: var(--acid);
+    color: var(--acid-ink);
+  }
+
+  .pkg-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.35rem, 1.7vw, 1.7rem);
+    line-height: 1.05;
+  }
+
+  .pkg-desc {
+    color: var(--ink-dim);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  .pkg-list {
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.1rem;
+    margin-top: auto;
+  }
+
+  .pkg-list li {
+    position: relative;
+    padding-left: 1.35rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+
+  .pkg-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--acid);
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+
+  .pkg-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    width: 100%;
+    margin-top: 0.4rem;
+    padding: 0.85rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink);
+    background: rgba(242, 239, 232, 0.05);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    cursor: pointer;
+    transition:
+      background 0.4s var(--ease-expo),
+      color 0.4s var(--ease-expo),
+      border-color 0.4s var(--ease-expo);
+  }
+
+  .pkg-select:hover {
+    background: var(--acid);
+    border-color: var(--acid);
+    color: var(--acid-ink);
+  }
+
+  .is-featured .pkg-select {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+
+  .is-featured .pkg-select:hover {
+    background: var(--acid);
+    border-color: var(--acid);
+    color: var(--acid-ink);
+  }
+
+  /* ---- singles ---- */
+  .single-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .single-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    padding: 1.3rem;
+    transition:
+      transform 0.5s var(--ease-expo),
+      border-color 0.5s var(--ease-expo);
+  }
+
+  .single-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--ink-faint);
+  }
+
+  .single-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.02rem;
+    line-height: 1.15;
+  }
+
+  .single-desc {
+    color: var(--ink-dim);
+    font-size: 0.82rem;
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .single-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    border-top: 1px solid var(--line);
+    padding-top: 0.75rem;
+  }
+
+  .single-time {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .single-select {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink-dim);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .single-select:hover {
+    color: var(--acid);
+  }
+
+  /* ---- modal ---- */
+  .pkg-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: grid;
+    place-items: center;
+    padding: 1.2rem;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity 0.4s var(--ease-expo),
+      visibility 0.4s;
+  }
+
+  .pkg-modal.is-open {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .pkg-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 5, 7, 0.78);
+    backdrop-filter: blur(8px);
+  }
+
+  .pkg-modal-box {
+    position: relative;
+    width: min(34rem, 100%);
+    max-height: 90svh;
+    overflow: auto;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 1.4rem;
+    padding: clamp(1.6rem, 4vw, 2.4rem);
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.45s var(--ease-expo);
+  }
+
+  .pkg-modal.is-open .pkg-modal-box {
+    transform: none;
+  }
+
+  .pkg-modal-x {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.1rem;
+    display: grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    color: var(--ink-dim);
+    background: rgba(242, 239, 232, 0.05);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    cursor: pointer;
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .pkg-modal-x:hover {
+    color: var(--ink);
+    border-color: var(--ink-faint);
+  }
+
+  .pkg-modal-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.7rem, 3vw, 2.2rem);
+    margin-top: 1rem;
+    line-height: 1;
+  }
+
+  .pkg-modal-cat {
+    display: inline-block;
+    margin-top: 0.7rem;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .pkg-form {
+    margin-top: 1.6rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.6rem;
+  }
+
+  .pkg-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+
+  .pkg-field {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .pkg-field span {
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .pkg-field input,
+  .pkg-field select {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    color: var(--ink);
+    background: rgba(242, 239, 232, 0.04);
+    border: 1px solid var(--line);
+    border-radius: 0.6rem;
+    padding: 0.75rem 0.9rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 100%;
+  }
+
+  .pkg-field input::placeholder {
+    color: var(--ink-faint);
+  }
+
+  .pkg-field input:focus,
+  .pkg-field select:focus {
+    border-color: color-mix(in srgb, var(--acid) 60%, transparent);
+  }
+
+  .pkg-field select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23f2efe8' stroke-opacity='0.5' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+  }
+
+  .pkg-field select:invalid {
+    color: var(--ink-faint);
+  }
+
+  .pkg-submit {
+    width: 100%;
+    margin-top: 1.3rem;
+    justify-content: center;
+  }
+
+  .pkg-form-note {
+    margin-top: 0.8rem;
+    text-align: center;
+    font-size: 0.74rem;
+    color: var(--ink-faint);
+  }
+
+  :global(html.modal-open) {
+    overflow: hidden;
+  }
+
+  @media (max-width: 1080px) {
+    .pkg-grid.cols-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .single-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .pkg-grid.cols-3 {
+      grid-template-columns: 1fr;
+    }
+
+    .single-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .pkg-grid.cols-4 {
+      grid-template-columns: 1fr;
+    }
+
+    .single-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pkg-fields {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
