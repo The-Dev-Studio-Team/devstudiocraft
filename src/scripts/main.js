@@ -11,6 +11,7 @@ import {
   initHeroParallax,
   initAmbientVideos,
 } from './interactions.js';
+import { initVignettes } from './vignettes.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -268,6 +269,7 @@ function boot() {
   initManifesto();
   initShowcase();
   initSpeedRace();
+  initVignettes();
   initWordmark();
 
   // fonts shift line metrics — recalc pin distances once loaded

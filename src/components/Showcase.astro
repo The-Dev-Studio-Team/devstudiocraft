@@ -7,6 +7,7 @@ import artProduct from '../assets/gen/card-product.jpg';
 
 const cards = [
   {
+    key: 'shop',
     n: '001',
     title: 'Commerce',
     line: 'Full-funnel stores with custom checkout flows.',
@@ -15,6 +16,7 @@ const cards = [
     art: artCommerce,
   },
   {
+    key: 'launch',
     n: '002',
     title: 'Launch',
     line: 'Campaign landing pages that convert from day one.',
@@ -23,6 +25,7 @@ const cards = [
     art: artLaunch,
   },
   {
+    key: 'brand',
     n: '003',
     title: 'Identity',
     line: 'Brand systems built to scale across every channel.',
@@ -31,6 +34,7 @@ const cards = [
     art: artIdentity,
   },
   {
+    key: 'app',
     n: '004',
     title: 'Product',
     line: 'Web & mobile apps your users come back to.',
@@ -66,6 +70,143 @@ const cards = [
               />
               <div class="art-glow" />
               <div class="art-grid" />
+
+              {
+                c.key === 'shop' && (
+                  <div class="vig" data-vig="shop">
+                    <div class="shop-grid">
+                      <div class="sp" data-sp>
+                        <span class="sp-img" />
+                        <span class="sp-line" />
+                        <span class="sp-price" />
+                      </div>
+                      <div class="sp" data-sp>
+                        <span class="sp-img" />
+                        <span class="sp-line" />
+                        <span class="sp-price" />
+                      </div>
+                      <div class="sp" data-sp>
+                        <span class="sp-img" />
+                        <span class="sp-line" />
+                        <span class="sp-price" />
+                      </div>
+                    </div>
+                    <div class="shop-bar">
+                      <span class="cart-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                          <path d="M3 4h2l2.4 12.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6.2" />
+                          <circle cx="9.5" cy="20" r="1.4" fill="currentColor" stroke="none" />
+                          <circle cx="17" cy="20" r="1.4" fill="currentColor" stroke="none" />
+                        </svg>
+                        <span class="cart-badge" data-cart-badge>3</span>
+                      </span>
+                      <span class="shop-cta" data-shop-cta>
+                        <i class="cta-fill" data-cta-fill />
+                        <span>Checkout</span>
+                      </span>
+                    </div>
+                    <span class="vig-toast" data-shop-toast>Order confirmed ✓</span>
+                  </div>
+                )
+              }
+
+              {
+                c.key === 'launch' && (
+                  <div class="vig" data-vig="launch">
+                    <div class="l-page" data-l-page>
+                      <span class="l-h1" />
+                      <span class="l-h2" />
+                      <span class="l-cta" />
+                    </div>
+                    <span class="l-count" data-l-count />
+                    <svg class="l-spark" viewBox="0 0 120 44" fill="none">
+                      <polyline
+                        data-l-spark
+                        points="2,40 22,34 40,36 58,26 76,28 96,14 118,4"
+                        stroke="currentColor"
+                        stroke-width="2.4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <span class="vig-chip" data-l-live>LIVE</span>
+                  </div>
+                )
+              }
+
+              {
+                c.key === 'brand' && (
+                  <div class="vig" data-vig="brand">
+                    <div class="b-mark">
+                      <svg viewBox="0 0 64 64" fill="none">
+                        <path
+                          data-b-mark
+                          d="M32 6 58 32 32 58 6 32Z"
+                          stroke="currentColor"
+                          stroke-width="2.6"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          data-b-mark
+                          d="M32 20 44 32 32 44 20 32Z"
+                          stroke="currentColor"
+                          stroke-width="2.2"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <div class="b-swatches">
+                      <i data-b-swatch style="--sw: var(--vc)" />
+                      <i data-b-swatch style="--sw: color-mix(in srgb, var(--vc) 55%, #0b0b0e)" />
+                      <i data-b-swatch style="--sw: #f2efe8" />
+                      <i data-b-swatch style="--sw: #16161d" />
+                    </div>
+                    <div class="b-type">
+                      <span class="b-aa" data-b-aa>Aa</span>
+                      <span class="b-lines">
+                        <i data-b-line style="--w: 100%" />
+                        <i data-b-line style="--w: 64%" />
+                      </span>
+                    </div>
+                  </div>
+                )
+              }
+
+              {
+                c.key === 'app' && (
+                  <div class="vig" data-vig="app">
+                    <div class="phone">
+                      <div class="ph-screens" data-ph-screens>
+                        <div class="scr">
+                          <span class="scr-hero" />
+                          <span class="scr-line" style="--w: 80%" />
+                          <span class="scr-line" style="--w: 55%" />
+                        </div>
+                        <div class="scr">
+                          <span class="scr-row" />
+                          <span class="scr-row" />
+                          <span class="scr-row" />
+                        </div>
+                        <div class="scr">
+                          <span class="scr-chart">
+                            <i style="--h: 40%" />
+                            <i style="--h: 72%" />
+                            <i style="--h: 56%" />
+                            <i style="--h: 92%" />
+                          </span>
+                          <span class="scr-line" style="--w: 62%" />
+                        </div>
+                      </div>
+                      <div class="ph-dots">
+                        <i data-ph-dot class="is-on" />
+                        <i data-ph-dot />
+                        <i data-ph-dot />
+                      </div>
+                    </div>
+                    <span class="vig-chip" data-app-notif>★ 4.9 rating</span>
+                  </div>
+                )
+              }
             </div>
             <div class="show-card-body">
               <span class="show-card-n">{c.n}</span>
@@ -152,13 +293,376 @@ const cards = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.92;
+    opacity: 0.34;
     transform: scale(1.02);
     transition: transform 1s var(--ease-expo);
   }
 
   .show-card:hover .show-card-art :global(.art-img) {
     transform: scale(1.08);
+  }
+
+  /* ---- vignette theme accents ---- */
+  .theme-acid {
+    --vc: #c9f24b;
+    --vc-ink: #0c0e04;
+  }
+
+  .theme-violet {
+    --vc: #a48bff;
+    --vc-ink: #140b33;
+  }
+
+  .theme-ember {
+    --vc: #ff8a50;
+    --vc-ink: #2b1206;
+  }
+
+  .theme-ice {
+    --vc: #6fd3ff;
+    --vc-ink: #06222e;
+  }
+
+  /* ---- animated vignettes ---- */
+  .vig {
+    position: absolute;
+    inset: 1.1rem 1.1rem 48% 1.1rem;
+    pointer-events: none;
+    display: grid;
+    align-content: center;
+    gap: 0.55rem;
+  }
+
+  .vig-chip,
+  .vig-toast {
+    position: absolute;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.62rem;
+    border-radius: 100px;
+    background: var(--vc);
+    color: var(--vc-ink);
+    box-shadow: 0 10px 26px color-mix(in srgb, var(--vc) 30%, transparent);
+    white-space: nowrap;
+  }
+
+  /* -- shop -- */
+  .shop-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .sp {
+    border: 1px solid var(--line);
+    border-radius: 0.55rem;
+    background: rgba(16, 16, 21, 0.9);
+    padding: 0.45rem;
+    display: grid;
+    gap: 0.32rem;
+  }
+
+  .sp-img {
+    height: 2rem;
+    border-radius: 0.35rem;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--vc) 30%, transparent), rgba(242, 239, 232, 0.06));
+    border: 1px solid var(--line);
+  }
+
+  .sp-line {
+    height: 0.34rem;
+    width: 80%;
+    border-radius: 100px;
+    background: rgba(242, 239, 232, 0.35);
+  }
+
+  .sp-price {
+    height: 0.34rem;
+    width: 45%;
+    border-radius: 100px;
+    background: var(--vc);
+  }
+
+  .shop-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: 0.55rem;
+    background: rgba(16, 16, 21, 0.9);
+    padding: 0.42rem 0.6rem;
+  }
+
+  .cart-wrap {
+    position: relative;
+    width: 1.15rem;
+    height: 1.15rem;
+    color: var(--ink-dim);
+  }
+
+  .cart-wrap svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .cart-badge {
+    position: absolute;
+    top: -0.45rem;
+    right: -0.55rem;
+    min-width: 1rem;
+    height: 1rem;
+    display: grid;
+    place-items: center;
+    font-size: 0.58rem;
+    font-weight: 700;
+    border-radius: 100px;
+    background: var(--vc);
+    color: var(--vc-ink);
+  }
+
+  .shop-cta {
+    position: relative;
+    overflow: clip;
+    border: 1px solid color-mix(in srgb, var(--vc) 55%, transparent);
+    border-radius: 100px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--vc-ink);
+  }
+
+  .shop-cta span {
+    position: relative;
+  }
+
+  .cta-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--vc);
+    transform-origin: left center;
+  }
+
+  .vig-toast {
+    bottom: -1.1rem;
+    left: 50%;
+    translate: -50% 0;
+  }
+
+  /* -- launch -- */
+  [data-vig='launch'] {
+    align-content: center;
+  }
+
+  .l-page {
+    border: 1px solid var(--line);
+    border-radius: 0.6rem;
+    background: rgba(16, 16, 21, 0.92);
+    padding: 0.7rem;
+    display: grid;
+    gap: 0.42rem;
+    height: 4.1rem;
+    align-content: start;
+  }
+
+  .l-h1 {
+    height: 0.6rem;
+    width: 72%;
+    border-radius: 100px;
+    background: rgba(242, 239, 232, 0.9);
+  }
+
+  .l-h2 {
+    height: 0.42rem;
+    width: 52%;
+    border-radius: 100px;
+    background: rgba(242, 239, 232, 0.4);
+  }
+
+  .l-cta {
+    height: 0.66rem;
+    width: 38%;
+    border-radius: 100px;
+    background: var(--vc);
+  }
+
+  .l-count {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    translate: -50% -50%;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2.6rem;
+    color: var(--vc);
+    line-height: 1;
+  }
+
+  .l-spark {
+    position: absolute;
+    right: 0.2rem;
+    top: 0.2rem;
+    width: 44%;
+    color: var(--vc);
+  }
+
+  [data-vig='launch'] .vig-chip {
+    top: -0.2rem;
+    left: 0;
+  }
+
+  /* -- brand -- */
+  [data-vig='brand'] {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 0.9rem;
+  }
+
+  .b-mark {
+    grid-row: span 2;
+    width: clamp(3.6rem, 6vw, 4.6rem);
+    color: var(--vc);
+    filter: drop-shadow(0 0 12px color-mix(in srgb, var(--vc) 35%, transparent));
+  }
+
+  .b-mark svg {
+    width: 100%;
+  }
+
+  .b-swatches {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .b-swatches i {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.4rem;
+    background: var(--sw);
+    border: 1px solid var(--line);
+  }
+
+  .b-type {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .b-aa {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .b-lines {
+    flex: 1;
+    display: grid;
+    gap: 0.34rem;
+  }
+
+  .b-lines i {
+    display: block;
+    height: 0.36rem;
+    width: var(--w);
+    border-radius: 100px;
+    background: rgba(242, 239, 232, 0.3);
+    transform-origin: left center;
+  }
+
+  /* -- app -- */
+  [data-vig='app'] {
+    justify-items: center;
+  }
+
+  .phone {
+    width: clamp(6.2rem, 9vw, 7.4rem);
+    border: 1px solid var(--line);
+    border-radius: 0.9rem;
+    background: rgba(16, 16, 21, 0.95);
+    padding: 0.4rem 0.4rem 0.55rem;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .ph-screens {
+    display: flex;
+    width: 100%;
+    overflow: clip;
+    border-radius: 0.5rem;
+  }
+
+  .scr {
+    flex: 0 0 100%;
+    height: 5rem;
+    background: rgba(11, 11, 14, 0.9);
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+    padding: 0.45rem;
+    display: grid;
+    gap: 0.35rem;
+    align-content: start;
+  }
+
+  .scr-hero {
+    height: 1.7rem;
+    border-radius: 0.35rem;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--vc) 35%, transparent), rgba(242, 239, 232, 0.05));
+  }
+
+  .scr-line {
+    height: 0.32rem;
+    width: var(--w, 70%);
+    border-radius: 100px;
+    background: rgba(242, 239, 232, 0.35);
+  }
+
+  .scr-row {
+    height: 0.8rem;
+    border-radius: 0.3rem;
+    background: rgba(242, 239, 232, 0.08);
+    border: 1px solid var(--line);
+  }
+
+  .scr-chart {
+    display: flex;
+    align-items: end;
+    gap: 0.28rem;
+    height: 2.4rem;
+  }
+
+  .scr-chart i {
+    flex: 1;
+    height: var(--h);
+    border-radius: 0.2rem 0.2rem 0 0;
+    background: color-mix(in srgb, var(--vc) 75%, transparent);
+  }
+
+  .ph-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.3rem;
+  }
+
+  .ph-dots i {
+    width: 0.28rem;
+    height: 0.28rem;
+    border-radius: 50%;
+    background: rgba(242, 239, 232, 0.22);
+    transition: background 0.3s ease, scale 0.3s ease;
+  }
+
+  .ph-dots i.is-on {
+    background: var(--vc);
+    scale: 1.25;
+  }
+
+  [data-vig='app'] .vig-chip {
+    top: 0.1rem;
+    right: 0;
   }
 
   .art-glow {
