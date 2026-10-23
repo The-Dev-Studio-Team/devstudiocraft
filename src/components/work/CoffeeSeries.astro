@@ -4,9 +4,11 @@ import { coffee } from '../../data/work.js';
 import { media } from '../../data/media.js';
 import ChapterHead from './ChapterHead.astro';
 import Browser from './Browser.astro';
+import SeriesTwo from './SeriesTwo.astro';
 
+// series I runs as the sticky deck; series II follows as a grid (SeriesTwo.astro)
 const total = String(coffee.length).padStart(2, '0');
-const cases = coffee.map((p, i) => ({
+const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
   ...p,
   n: String(i + 1).padStart(2, '0'),
   host: new URL(p.url).host,
@@ -17,10 +19,10 @@ const cases = coffee.map((p, i) => ({
 
 <section class="chapter coffee" id="coffee" aria-labelledby="coffee-heading" data-chapter="coffee">
   <ChapterHead n="01" label="The coffee series" id="coffee-heading">
-    <Fragment slot="title">Six coffee brands. <em class="serif-i text-acid">Six languages.</em></Fragment>
+    <Fragment slot="title">Twelve coffee brands. <em class="serif-i text-acid">Twelve languages.</em></Fragment>
     A comic-book kaiju, a lunar Swiss grid, volcanic machines, a 1924 post office, a mission-control
-    roastery and a calm German reishi brand. One studio, one category, nothing reused: each one gets
-    its own type, its own motion and its own physics.
+    roastery, a calm German reishi brand, and a second series built from the same studies. One category,
+    nothing reused: each one gets its own type, its own motion and its own physics.
   </ChapterHead>
 
   <div class="container cases" data-stack>
@@ -121,6 +123,8 @@ const cases = coffee.map((p, i) => ({
       ))
     }
   </div>
+
+  <SeriesTwo />
 </section>
 
 <style>
