@@ -1,6 +1,6 @@
-# DevCraft Studio — devstudiocraft.com
+# DevStudioCraft — devstudiocraft.com
 
-Award-level animated landing page for DevCraft Studio: websites, e-commerce,
+Award-level animated landing page for DevStudioCraft: websites, e-commerce,
 landing pages and mobile apps built to sell.
 
 ## Stack
@@ -61,7 +61,7 @@ public/
 - Copy lives directly in the section components (`src/components/*.astro`).
 - Design tokens (colors, type scale, spacing) in `src/styles/global.css` `:root`.
 - Contact email: search for `contact@devstudiocraft.com`.
-- WhatsApp link: `CTA.astro` (`wa.me/...` — replace with the real number).
+- Phone / WhatsApp: `+49 1522 2002210` in `CTA.astro`, `Footer.astro` and the JSON-LD in `Base.astro`.
 
 ## Inquiry emails (Resend)
 
@@ -84,7 +84,7 @@ is a config change — no code edit:
 |-----|---------|------------|
 | `RESEND_API_KEY` | your Resend API key | same |
 | `STUDIO_EMAIL` | a test inbox (e.g. a gmail) | `contact@devstudiocraft.com` |
-| `RESEND_FROM` | `DevCraft Studio <noreply@m2a-fm.com>` (a verified domain) | `DevCraft Studio <inquiries@devstudiocraft.com>` |
+| `RESEND_FROM` | `DevStudioCraft <noreply@m2a-fm.com>` (a verified domain) | `DevStudioCraft <inquiries@devstudiocraft.com>` |
 
 When the vars are unset, the code falls back to the production values.
 `RESEND_FROM` must use a domain **verified in Resend** — sends from an
