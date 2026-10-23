@@ -53,7 +53,7 @@ src/
 public/
 ├── fonts/                    # self-hosted woff2
 ├── _headers                  # security + cache headers (Cloudflare Pages)
-└── og.png                    # social share image
+└── og.jpg                    # social share image (1200×630)
 ```
 
 ## Editing content

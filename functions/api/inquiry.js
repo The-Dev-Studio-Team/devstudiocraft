@@ -64,7 +64,7 @@ export async function onRequestPost({ request, env }) {
   const category = clean(data.category);
   const message = clean(data.message);
 
-  if (!name || !email || !phone || !industry || !packageName) {
+  if (!name || !email || !industry || !packageName) {
     return json({ ok: false, error: 'missing_fields' }, 400);
   }
   if (!isEmail(email)) {
