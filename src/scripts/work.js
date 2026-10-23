@@ -176,7 +176,7 @@ function initParallax() {
       {
         yPercent: -8,
         ease: 'none',
-        scrollTrigger: { trigger: phone.closest('[data-case], [data-flight]'), start: 'top bottom', end: 'top top', scrub: true },
+        scrollTrigger: { trigger: phone.closest('[data-case], [data-flight], [data-pour]'), start: 'top bottom', end: 'top top', scrub: true },
       }
     );
   });

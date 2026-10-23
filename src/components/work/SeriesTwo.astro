@@ -1,0 +1,381 @@
+---
+import { Image } from 'astro:assets';
+import { coffee } from '../../data/work.js';
+import { media } from '../../data/media.js';
+import Browser from './Browser.astro';
+
+const total = String(coffee.length).padStart(2, '0');
+const pours = coffee
+  .map((p, i) => ({ ...p, n: String(i + 1).padStart(2, '0') }))
+  .filter((p) => p.series === 2)
+  .map((p) => ({
+    ...p,
+    host: new URL(p.url).host,
+    poster: media(`films/${p.id}.jpg`),
+    phone: media(`phones/${p.id}.jpg`),
+  }));
+---
+
+<section class="container series-two" aria-labelledby="series-two-heading">
+  <header class="s2-head">
+    <p class="eyebrow" data-reveal>Series II</p>
+    <h3 class="h-display s2-title" id="series-two-heading" data-split-lines>
+      Same studies. <em class="serif-i text-acid">Different hands.</em>
+    </h3>
+    <p class="s2-intro" data-reveal>
+      A second team of ours took the same reference studies, plus one more, and went somewhere else
+      entirely. Six more brands, each with its own system, each live.
+    </p>
+  </header>
+
+  <div class="s2-grid">
+    {
+      pours.map((p) => (
+        <article class="pour" id={`case-${p.id}`} aria-labelledby={`case-${p.id}-name`} data-pour data-reveal>
+          <div class="pour-stage">
+            <Browser film={p.id} host={p.host} poster={p.poster} alt={`${p.name} home page`} />
+            <div class="pour-phone" data-phone>
+              <Image src={p.phone} alt={`${p.name} on a phone`} width={150} densities={[1, 2]} quality={74} loading="lazy" />
+              <video muted loop playsinline preload="none" aria-hidden="true" data-film>
+                <source src={`/media/work/phone-${p.id}.webm`} type="video/webm" />
+                <source src={`/media/work/phone-${p.id}.mp4`} type="video/mp4" />
+              </video>
+            </div>
+          </div>
+
+          <div class="pour-body">
+            <div class="pour-meta">
+              <span class="pour-n">
+                {p.n} <span>/ {total}</span>
+              </span>
+              <span>{p.discipline}</span>
+            </div>
+            <h4 class="h-display pour-name" id={`case-${p.id}-name`}>
+              {p.name}
+            </h4>
+            <p class="pour-line serif-i">{p.line}</p>
+            <p class="pour-summary">{p.summary}</p>
+
+            <div class="pour-system">
+              <ul class="pour-swatches" aria-label="Brand palette">
+                {p.palette.map((c) => (
+                  <li style={`--c: ${c}`} title={c}>
+                    <span class="sr-only">{c}</span>
+                  </li>
+                ))}
+              </ul>
+              <ul class="pour-type" aria-label="Typefaces">
+                {p.type.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+            </div>
+
+            <ul class="pour-moves" aria-label="Signature moves">
+              {p.moves.map((m) => (
+                <li>{m}</li>
+              ))}
+            </ul>
+
+            <div class="pour-foot">
+              <ul class="pour-stack" aria-label="Built with">
+                {p.stack.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+              <a href={p.url} class="btn btn-ghost pour-link" target="_blank" rel="noopener" data-magnetic data-cursor="Live">
+                <span class="btn-fill" />
+                <span>Visit live</span>
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+                </svg>
+                <span class="sr-only">(opens {p.host} in a new tab)</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .series-two {
+    margin-top: clamp(5rem, 10vw, 9rem);
+  }
+
+  .s2-head {
+    display: grid;
+    gap: 1.4rem;
+    max-width: 50rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .s2-title {
+    font-size: clamp(2.2rem, 1.3rem + 3.2vw, 4.4rem);
+  }
+
+  .s2-intro {
+    color: var(--ink-dim);
+    font-size: var(--text-lg);
+    text-wrap: pretty;
+  }
+
+  .s2-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.6rem);
+  }
+
+  /* ---- card: the deck's neutral card, condensed ---- */
+  .pour {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    border: 1px solid var(--line);
+    border-radius: clamp(1.1rem, 1.6vw, 1.5rem);
+    background: var(--bg-card);
+    overflow: clip;
+    isolation: isolate;
+    transition:
+      border-color 0.5s var(--ease-expo),
+      translate 0.6s var(--ease-expo);
+  }
+
+  .pour::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(242, 239, 232, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242, 239, 232, 0.05) 1px, transparent 1px);
+    background-size: 2.4rem 2.4rem;
+    mask-image: radial-gradient(70% 45% at 50% 18%, black, transparent 75%);
+  }
+
+  .pour:hover {
+    border-color: rgba(242, 239, 232, 0.22);
+    translate: 0 -4px;
+  }
+
+  .pour-stage {
+    position: relative;
+    padding: 1.2rem 2.8rem 1.6rem 1.2rem;
+  }
+
+  .pour-stage::before {
+    content: '';
+    position: absolute;
+    inset: 15% 10% 0;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(201, 242, 75, 0.18), transparent);
+    filter: blur(40px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .pour:hover .pour-stage::before {
+    opacity: 1;
+  }
+
+  .pour-phone {
+    position: absolute;
+    right: 0.9rem;
+    bottom: 0.4rem;
+    width: 24%;
+    aspect-ratio: 390 / 844;
+    border-radius: 0.9rem;
+    overflow: clip;
+    border: 4px solid #050506;
+    outline: 1px solid rgba(242, 239, 232, 0.18);
+    box-shadow: 0 20px 44px -14px rgba(0, 0, 0, 0.9);
+    background: #050506;
+    rotate: 4deg;
+  }
+
+  .pour-phone :global(img),
+  .pour-phone video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .pour-phone video {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .pour-phone video:global(.is-playing) {
+    opacity: 1;
+  }
+
+  /* ---- body ---- */
+  .pour-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 0.4rem 1.4rem 1.4rem;
+  }
+
+  .pour-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .pour-n {
+    color: var(--acid);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pour-n span {
+    color: var(--ink-mute);
+  }
+
+  .pour-name {
+    font-size: clamp(1.6rem, 1.2rem + 1.1vw, 2.3rem);
+  }
+
+  .pour-line {
+    font-size: 1.25rem;
+    line-height: 1.15;
+    color: var(--acid);
+    margin-top: -0.3rem;
+  }
+
+  .pour-summary {
+    color: var(--ink-dim);
+    font-size: 0.92rem;
+    text-wrap: pretty;
+  }
+
+  .pour-system {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.8rem 1rem;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    background: rgba(242, 239, 232, 0.025);
+  }
+
+  .pour-swatches {
+    list-style: none;
+    display: flex;
+  }
+
+  .pour-swatches li {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--c);
+    box-shadow:
+      0 0 0 2px var(--bg-card),
+      inset 0 0 0 1px rgba(242, 239, 232, 0.14);
+  }
+
+  .pour-swatches li + li {
+    margin-left: -0.35rem;
+    transition: margin-left 0.5s var(--ease-expo);
+  }
+
+  .pour:hover .pour-swatches li + li {
+    margin-left: 0.25rem;
+  }
+
+  .pour-type {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15rem 0.7rem;
+    font-size: 0.78rem;
+  }
+
+  .pour-type li + li::before {
+    content: '/';
+    margin-right: 0.7rem;
+    color: var(--ink-mute);
+  }
+
+  .pour-moves {
+    list-style: none;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .pour-moves li {
+    display: grid;
+    grid-template-columns: 0.8rem 1fr;
+    gap: 0.6rem;
+    align-items: baseline;
+    font-size: 0.86rem;
+    line-height: 1.4;
+  }
+
+  .pour-moves li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 1.5px;
+    background: var(--acid);
+    rotate: 45deg;
+    translate: 0 -1px;
+  }
+
+  .pour-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .pour-stack {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .pour-stack li {
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.65rem;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--ink-dim);
+  }
+
+  .pour-link {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 1199px) {
+    .s2-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 719px) {
+    .s2-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
