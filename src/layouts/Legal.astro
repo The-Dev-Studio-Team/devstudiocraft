@@ -1,0 +1,132 @@
+---
+import Base from './Base.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  updated: string;
+}
+
+const { title, description, eyebrow, updated } = Astro.props;
+---
+
+<Base title={`${title} — DevStudioCraft`} description={description} interactive={false}>
+  <header class="legal-nav">
+    <div class="container legal-nav-inner">
+      <a href="/" class="legal-logo" aria-label="DevStudioCraft home">
+        DEVSTUDIOCRAFT<span class="text-acid">.</span>
+      </a>
+      <a href="/" class="legal-back">← Back to site</a>
+    </div>
+  </header>
+  <main class="legal">
+    <div class="container legal-inner">
+      <p class="eyebrow">{eyebrow}</p>
+      <h1 class="h-display legal-title">{title}</h1>
+      <p class="legal-updated">Last updated: {updated}</p>
+      <article class="legal-body">
+        <slot />
+      </article>
+    </div>
+  </main>
+  <Footer base="/" />
+</Base>
+
+<style>
+  .legal-nav {
+    padding-block: 1.1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .legal-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .legal-logo {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-size: 1.05rem;
+  }
+
+  .legal-back {
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+
+  .legal-back:hover {
+    color: var(--acid);
+  }
+
+  .legal {
+    padding-block: clamp(4rem, 3rem + 5vw, 8rem);
+  }
+
+  .legal-inner {
+    max-width: 52rem;
+  }
+
+  .legal-title {
+    font-size: clamp(2.6rem, 1.6rem + 5vw, 5.5rem);
+    margin-top: 1.2rem;
+  }
+
+  .legal-updated {
+    margin-top: 1rem;
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+  }
+
+  .legal-body {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    color: var(--ink-dim);
+    line-height: 1.7;
+  }
+
+  .legal-body :global(h2) {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--ink);
+    font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.6rem);
+    margin-top: 2.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .legal-body :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .legal-body :global(p),
+  .legal-body :global(ul),
+  .legal-body :global(address) {
+    margin-bottom: 1rem;
+    font-style: normal;
+  }
+
+  .legal-body :global(ul) {
+    padding-left: 1.2rem;
+    list-style: disc;
+  }
+
+  .legal-body :global(li) {
+    margin-bottom: 0.4rem;
+  }
+
+  .legal-body :global(strong) {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .legal-body :global(a) {
+    color: var(--acid);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    overflow-wrap: anywhere;
+  }
+</style>
