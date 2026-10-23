@@ -4,15 +4,19 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  // false skips the motion layer (legal pages have no animated sections)
+  interactive?: boolean;
 }
 
 const {
-  title = 'DevCraft Studio — Websites, E-Commerce & Apps Built to Sell',
+  interactive = true,
+  title = 'DevStudioCraft — Websites, E-Commerce & Apps Built to Sell',
   description =
-    'DevCraft Studio designs and builds high-performance websites, e-commerce stores, landing pages and mobile apps for brands that want to outsell their competition.',
+    'DevStudioCraft designs and builds high-performance websites, e-commerce stores, landing pages and mobile apps for brands that want to outsell their competition.',
 } = Astro.props;
 
 const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.pathname;
+const ogImage = Astro.site ? new URL('/og.jpg', Astro.site).toString() : '/og.jpg';
 ---
 
 <!doctype html>
@@ -30,8 +34,11 @@ const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : As
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={url} />
-    <meta property="og:image" content="/og.png" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="preload" href="/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin />
@@ -49,9 +56,22 @@ const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : As
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'ProfessionalService',
-        name: 'DevCraft Studio',
+        name: 'DevStudioCraft',
         url: 'https://www.devstudiocraft.com',
         email: 'contact@devstudiocraft.com',
+        telephone: '+49 1522 2002210',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Bürgermeister-Smidt-Straße 116',
+          postalCode: '28195',
+          addressLocality: 'Bremen',
+          addressCountry: 'DE',
+        },
+        parentOrganization: {
+          '@type': 'Organization',
+          name: 'M2A Facility Management GmbH',
+          url: 'https://m2a-fm.de/',
+        },
         description,
         areaServed: 'Worldwide',
         makesOffer: [
@@ -67,5 +87,12 @@ const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : As
   <body>
     <div class="grain" aria-hidden="true"></div>
     <slot />
+    {
+      interactive && (
+        <script>
+          import '../scripts/main.js';
+        </script>
+      )
+    }
   </body>
 </html>

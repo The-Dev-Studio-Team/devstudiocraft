@@ -349,8 +349,8 @@ const trust = [
               <input type="email" name="email" placeholder="you@company.com" required autocomplete="email" />
             </label>
             <label class="pkg-field">
-              <span>Phone / WhatsApp *</span>
-              <input type="tel" name="phone" placeholder="+20 100 000 0000" required autocomplete="tel" />
+              <span>Phone / WhatsApp (optional)</span>
+              <input type="tel" name="phone" placeholder="+49 151 0000 0000" autocomplete="tel" />
             </label>
             <div class="pkg-field">
               <span id="pkg-ind-label">Business industry *</span>
@@ -402,6 +402,10 @@ const trust = [
           </button>
           <p class="pkg-form-note">
             We reply within 24 hours — usually much faster.
+          </p>
+          <p class="pkg-form-note pkg-form-privacy">
+            We use your data only to answer your inquiry — see our
+            <a href="/privacy/" target="_blank" rel="noopener">Privacy policy</a>.
           </p>
         </form>
       </div>
@@ -608,7 +612,7 @@ const trust = [
       `Package: ${pkg} (${cat})`,
       `Name: ${data.get('name')}`,
       `Email: ${data.get('email')}`,
-      `Phone: ${data.get('phone')}`,
+      `Phone: ${data.get('phone') || '—'}`,
       `Industry: ${data.get('industry')}`,
       `Message: ${data.get('message') || '—'}`,
     ].join('\n');
@@ -1458,6 +1462,16 @@ const trust = [
     text-align: center;
     font-size: 0.74rem;
     color: var(--ink-faint);
+  }
+
+  .pkg-form-privacy {
+    margin-top: 0.3rem;
+  }
+
+  .pkg-form-privacy a {
+    color: var(--ink-dim);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   /* ---- success stage ---- */

@@ -124,7 +124,7 @@ const shell = ({ preheader, inner }) => `<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark">
 <meta name="supported-color-schemes" content="dark">
-<title>DevCraft Studio</title>
+<title>DevStudioCraft</title>
 <style>
   @media (max-width:600px){
     .container{width:100% !important}
@@ -143,7 +143,7 @@ const shell = ({ preheader, inner }) => `<!doctype html>
     </table>
     <table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;">
       <tr><td class="px" style="padding:20px 40px;text-align:center;font-family:${FONT};font-size:11px;line-height:1.6;color:${C.muted};">
-        DevCraft Studio · digital experiences that sell<br>
+        DevStudioCraft · digital experiences that sell<br>
         <a href="https://${C.site}" style="color:${C.muted};text-decoration:underline;">${C.site}</a>
       </td></tr>
     </table>
@@ -156,7 +156,7 @@ const header = () => `
   <tr><td class="px" style="background:${C.ink};background:linear-gradient(120deg,#0c0c0f 0%,#141410 55%,#1a2109 100%);padding:26px 40px;border-bottom:1px solid ${C.line};">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
       <td style="font-family:${FONT};font-size:15px;font-weight:700;letter-spacing:.14em;color:${C.text};">
-        DEVCRAFT<span style="color:${C.acid};"> .</span>
+        DEVSTUDIOCRAFT<span style="color:${C.acid};"> .</span>
       </td>
       <td align="right" style="font-family:${FONT};font-size:10px;letter-spacing:.22em;color:${C.acid};text-transform:uppercase;">Studio</td>
     </tr></table>
@@ -279,7 +279,7 @@ export const clientText = ({ name, packageName, studioEmail }) => {
     '',
     `Reply to this email (${studioEmail}) with links, deadlines or examples anytime.`,
     '',
-    `— DevCraft Studio · ${C.site}`,
+    `— DevStudioCraft · ${C.site}`,
   ].join('\n');
 };
 
@@ -291,7 +291,7 @@ export function renderStudioEmail({ name, email, phone, industry, packageName, c
   const rows = [
     ['Name', escapeHtml(name)],
     ['Email', `<a href="mailto:${escapeHtml(email)}" style="color:${C.acid};text-decoration:none;">${escapeHtml(email)}</a>`],
-    ['Phone', `<a href="tel:${escapeHtml(phone)}" style="color:${C.acid};text-decoration:none;">${escapeHtml(phone)}</a>`],
+    ['Phone', phone ? `<a href="tel:${escapeHtml(phone)}" style="color:${C.acid};text-decoration:none;">${escapeHtml(phone)}</a>` : '—'],
     ['Industry', escapeHtml(industry)],
   ];
 
@@ -338,7 +338,7 @@ export function renderStudioEmail({ name, email, phone, industry, packageName, c
 
   <tr><td class="px" style="padding:26px 40px 40px;">
     <div style="border-top:1px solid ${C.line};padding-top:22px;">
-      ${primary(`mailto:${escapeHtml(email)}?subject=${encodeURIComponent(`Re: your ${packageName} inquiry — DevCraft Studio`)}`, `Reply to ${firstName} &rarr;`)}
+      ${primary(`mailto:${escapeHtml(email)}?subject=${encodeURIComponent(`Re: your ${packageName} inquiry — DevStudioCraft`)}`, `Reply to ${firstName} &rarr;`)}
       ${wa ? ghost(`https://wa.me/${wa}`, 'WhatsApp') : ''}
     </div>
     <p style="margin:10px 0 0;font-family:${FONT};font-size:12px;color:${C.muted};">Sent from ${C.site}/#packages</p>
@@ -356,7 +356,7 @@ export const studioText = ({ name, email, phone, industry, packageName, category
     '',
     `Name:     ${name}`,
     `Email:    ${email}`,
-    `Phone:    ${phone}`,
+    `Phone:    ${phone || '—'}`,
     `Industry: ${industry}`,
     `Message:  ${message || '—'}`,
     '',

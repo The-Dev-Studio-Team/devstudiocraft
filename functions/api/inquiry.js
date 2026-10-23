@@ -16,7 +16,7 @@ import {
 // edit. Fallbacks are the production values; override locally via .dev.vars or
 // in Cloudflare via Pages env vars (STUDIO_EMAIL, RESEND_FROM).
 const STUDIO_EMAIL_DEFAULT = 'contact@devstudiocraft.com';
-const FROM_DEFAULT = 'DevCraft Studio <noreply@devstudiocraft.com>';
+const FROM_DEFAULT = 'DevStudioCraft <noreply@devstudiocraft.com>';
 const MAX_LEN = 600;
 
 const json = (body, status = 200) =>
@@ -64,7 +64,7 @@ export async function onRequestPost({ request, env }) {
   const category = clean(data.category);
   const message = clean(data.message);
 
-  if (!name || !email || !phone || !industry || !packageName) {
+  if (!name || !email || !industry || !packageName) {
     return json({ ok: false, error: 'missing_fields' }, 400);
   }
   if (!isEmail(email)) {
@@ -96,7 +96,7 @@ export async function onRequestPost({ request, env }) {
         from,
         to: [email],
         reply_to: studioEmail,
-        subject: `We got your inquiry — ${packageName} · DevCraft Studio`,
+        subject: `We got your inquiry — ${packageName} · DevStudioCraft`,
         html: renderClientEmail({ ...fields, studioEmail }),
         text: clientText({ ...fields, studioEmail }),
       });

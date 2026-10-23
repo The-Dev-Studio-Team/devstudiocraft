@@ -12,9 +12,11 @@ import CTA from '../components/CTA.astro';
 import Footer from '../components/Footer.astro';
 ---
 
+<!-- interactive={false}: this page boots its own motion layer (scripts/work.js), not main.js -->
 <Base
-  title="Work — DevCraft Studio"
-  description="Selected work by DevCraft Studio: six coffee brands, the Pilot 100 and Airyona aviation platforms, and the identity systems behind them. Designed, engineered and shipped by one team."
+  interactive={false}
+  title="Work — DevStudioCraft"
+  description="Selected work by DevStudioCraft: six coffee brands, the Pilot 100 and Airyona aviation platforms, and the identity systems behind them. Designed, engineered and shipped by one team."
 >
   <Cursor />
   <Nav page="work" />
@@ -27,7 +29,7 @@ import Footer from '../components/Footer.astro';
     <Toolbox />
     <CTA />
   </main>
-  <Footer page="work" />
+  <Footer base="/" />
 </Base>
 
 <script>
