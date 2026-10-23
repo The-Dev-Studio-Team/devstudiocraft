@@ -1,0 +1,301 @@
+---
+import { Image } from 'astro:assets';
+import { spaces } from '../../data/work.js';
+import { media } from '../../data/media.js';
+import ChapterHead from './ChapterHead.astro';
+import Browser from './Browser.astro';
+
+const tours = spaces.map((p) => ({
+  ...p,
+  backdrop: media('brand/space-terrace.jpg'),
+  poster: media(`films/${p.id}.jpg`),
+  phone: media(`phones/${p.id}.jpg`),
+}));
+---
+
+<section class="chapter spaces" id="spaces" aria-labelledby="spaces-heading" data-chapter="spaces">
+  <ChapterHead n="03" label="Spaces" id="spaces-heading">
+    <Fragment slot="title">Walk it before <em class="serif-i text-acid">you visit.</em></Fragment>
+    Property sells on feeling, and a gallery of photos can't give one. So we build the visit instead:
+    a cinematic way in, every room a click away, and the floor plan always one tap from your hand.
+  </ChapterHead>
+
+  <div class="container">
+    {
+      tours.map((p) => (
+        <article class="space" id={`case-${p.id}`} aria-labelledby={`case-${p.id}-name`} data-flight>
+          <div class="space-backdrop" aria-hidden="true">
+            <Image src={p.backdrop} alt="" width={1600} densities={[1, 1.5]} quality={70} loading="lazy" data-flight-sky />
+          </div>
+
+          <div class="space-copy">
+            <p class="eyebrow space-sector">{p.sector}</p>
+            <h3 class="space-name" id={`case-${p.id}-name`}>
+              <span class="space-code">{p.name}</span>
+              <span class="space-title serif-i">{p.title}</span>
+            </h3>
+            <p class="h-display space-line">{p.line}</p>
+            <p class="space-summary">{p.summary}</p>
+            <ul class="space-delivered" aria-label="What we delivered">
+              {p.delivered.map((d) => (
+                <li>{d}</li>
+              ))}
+            </ul>
+            <div class="space-links">
+              <a href={p.url} class="btn btn-acid" target="_blank" rel="noopener" data-magnetic data-cursor="Enter">
+                <span class="btn-fill" />
+                <span>Take the tour</span>
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+                </svg>
+                <span class="sr-only">(opens {p.host} in a new tab)</span>
+              </a>
+              <a href={p.url360} class="btn btn-ghost" target="_blank" rel="noopener" data-magnetic data-cursor="360°">
+                <span class="btn-fill" />
+                <span>360° walkthrough</span>
+                <span class="sr-only">(opens in a new tab)</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="space-stage">
+            <Browser class="space-browser" film={p.id} host={p.host} poster={p.poster} alt={`${p.name}, ${p.title}: tour opening`} />
+            <div class="space-phone" data-phone>
+              <Image src={p.phone} alt={`${p.title} tour on a phone`} width={200} densities={[1, 2]} quality={76} loading="lazy" />
+              <video muted loop playsinline preload="none" aria-hidden="true" data-film>
+                <source src={`/media/work/phone-${p.id}.webm`} type="video/webm" />
+                <source src={`/media/work/phone-${p.id}.mp4`} type="video/mp4" />
+              </video>
+            </div>
+          </div>
+
+          <dl class="space-stats">
+            {p.stats.map((s) => (
+              <div>
+                <dt>{s.label}</dt>
+                <dd>{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .spaces {
+    padding-bottom: var(--space-section);
+  }
+
+  /* same panel language as the aviation cases, on the residence's own terrace */
+  .space {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.25fr);
+    grid-template-areas:
+      'copy stage'
+      'stats stats';
+    gap: clamp(2rem, 4vw, 4rem);
+    padding: clamp(1.6rem, 4vw, 4rem);
+    border-radius: clamp(1.4rem, 2.4vw, 2.2rem);
+    border: 1px solid var(--line);
+    overflow: clip;
+    isolation: isolate;
+  }
+
+  .space-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .space-backdrop :global(img) {
+    width: 100%;
+    height: 115%;
+    object-fit: cover;
+    translate: 0 -7%;
+  }
+
+  .space-backdrop::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(100deg, rgba(11, 11, 14, 0.95) 22%, rgba(11, 11, 14, 0.66) 55%, rgba(11, 11, 14, 0.4)),
+      linear-gradient(to top, rgba(11, 11, 14, 0.94), transparent 45%);
+  }
+
+  .space-copy {
+    grid-area: copy;
+    display: grid;
+    gap: 1.3rem;
+    align-content: center;
+    justify-items: start;
+  }
+
+  .space-sector {
+    color: var(--ink);
+  }
+
+  .space-name {
+    display: grid;
+    gap: 0.2rem;
+    font-weight: 400;
+  }
+
+  .space-code {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.24em;
+    color: var(--acid);
+  }
+
+  .space-title {
+    font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem);
+    line-height: 1.1;
+  }
+
+  .space-line {
+    font-size: clamp(2.6rem, 1.4rem + 4.4vw, 5.6rem);
+  }
+
+  .space-summary {
+    color: rgba(242, 239, 232, 0.78);
+    max-width: 32rem;
+    text-wrap: pretty;
+  }
+
+  .space-delivered {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .space-delivered li {
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.38rem 0.85rem;
+    border-radius: 100px;
+    background: rgba(242, 239, 232, 0.08);
+    border: 1px solid rgba(242, 239, 232, 0.16);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  .space-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 0.4rem;
+  }
+
+  /* ---- stage: the visit in a browser and on a phone ---- */
+  .space-stage {
+    grid-area: stage;
+    position: relative;
+    align-self: center;
+    padding: 0 clamp(2.5rem, 7vw, 6rem) clamp(3rem, 6vw, 5rem) 0;
+  }
+
+  .space-phone {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: clamp(7rem, 26%, 12.5rem);
+    aspect-ratio: 390 / 844;
+    border-radius: clamp(1rem, 2vw, 1.7rem);
+    overflow: clip;
+    border: clamp(4px, 0.45vw, 7px) solid #050506;
+    outline: 1px solid rgba(242, 239, 232, 0.18);
+    box-shadow: 0 30px 70px -18px rgba(0, 0, 0, 0.9);
+    background: #050506;
+    rotate: 4deg;
+  }
+
+  .space-phone :global(img),
+  .space-phone video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .space-phone video {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .space-phone video:global(.is-playing) {
+    opacity: 1;
+  }
+
+  /* ---- stats strip ---- */
+  .space-stats {
+    grid-area: stats;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid rgba(242, 239, 232, 0.16);
+  }
+
+  .space-stats div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.35rem;
+    padding: 1.4rem 1.2rem 0 0;
+  }
+
+  .space-stats div + div {
+    padding-left: 1.2rem;
+    border-left: 1px solid rgba(242, 239, 232, 0.16);
+  }
+
+  .space-stats dd {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 3.2rem);
+    line-height: 1;
+    color: var(--acid);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .space-stats dt {
+    font-size: 0.82rem;
+    color: rgba(242, 239, 232, 0.74);
+  }
+
+  @media (max-width: 1023px) {
+    .space {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        'copy'
+        'stage'
+        'stats';
+    }
+
+    .space-backdrop::after {
+      background: linear-gradient(to bottom, rgba(11, 11, 14, 0.9), rgba(11, 11, 14, 0.64) 50%, rgba(11, 11, 14, 0.95));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .space-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 1.2rem;
+    }
+
+    .space-stats div:nth-child(3) {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .space-phone {
+      width: 34%;
+    }
+  }
+</style>

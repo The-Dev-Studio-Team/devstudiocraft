@@ -5,9 +5,9 @@ import { media } from '../../data/media.js';
 // three drifting rows of real frames from the work below
 const rows = [
   ['films/kaiju.jpg', 'brand/board-p100-aurora.jpg', 'films/basalt.jpg', 'films/airyona.jpg', 'films/poste.jpg'],
-  ['films/grounds.jpg', 'films/pilot100.jpg', 'brand/board-ary-midnight.jpg', 'films/halfmoon.jpg', 'films/chicafe.jpg'],
-  ['films/poste.jpg', 'brand/board-m2a-morning.jpg', 'films/kaiju.jpg', 'films/basalt.jpg', 'brand/wear-hoodie.jpg'],
-].map((row) => row.map((p) => ({ src: media(p), tall: p.startsWith('brand/') })));
+  ['films/grounds.jpg', 'films/pilot100.jpg', 'brand/board-ary-midnight.jpg', 'films/tour.jpg', 'films/halfmoon.jpg', 'films/chicafe.jpg'],
+  ['films/poste.jpg', 'brand/board-m2a-morning.jpg', 'brand/space-terrace.jpg', 'films/kaiju.jpg', 'films/basalt.jpg', 'brand/wear-hoodie.jpg'],
+].map((row) => row.map((p) => ({ src: media(p), tall: /^brand\/(board|wear)-/.test(p) })));
 ---
 
 <section class="work-hero" id="top" aria-labelledby="work-heading" data-intro data-work-hero>
@@ -43,14 +43,15 @@ const rows = [
 
     <div class="work-hero-row">
       <p class="work-hero-sub" data-reveal>
-        Coffee brands with their own physics, aviation platforms people study and fly with, and the
-        identity systems underneath. Every pixel and every line of code from one team.
+        Coffee brands with their own physics, aviation
+        platforms people study and fly with, a home you can walk before you visit,
+        and the identity systems underneath. Every pixel and every line of code from one team.
       </p>
       <ul class="work-hero-stats" data-reveal>
         <li><strong>06</strong><span>coffee brands</span></li>
         <li><strong>02</strong><span>aviation platforms</span></li>
+        <li><strong>01</strong><span>residence tour</span></li>
         <li><strong>03</strong><span>identity systems</span></li>
-        <li><strong>01</strong><span>team, idea to launch</span></li>
       </ul>
     </div>
   </div>

@@ -178,6 +178,28 @@ export const aviation = [
   },
 ];
 
+export const spaces = [
+  {
+    id: 'tour',
+    name: 'APT-01',
+    title: 'The Park Residence',
+    line: 'Step inside.',
+    sector: 'Real estate · Interactive tour',
+    summary:
+      'A private, room-by-room walkthrough of a three-bedroom residence on the park. A cinematic film opens the door, glowing markers walk you through every room, a floor plan tracks where you stand, and a 360° mode lets you turn and look around each space.',
+    delivered: ['Interactive tour', '360° walkthrough', 'Floor-plan navigation', 'Hero film', 'Extended panoramas'],
+    stats: [
+      { value: '17', label: 'stops, from the street to the last room' },
+      { value: '118°', label: 'look-around in most rooms' },
+      { value: '2', label: 'tour modes, classic and 360°' },
+      { value: '3', label: 'bedrooms, park-facing' },
+    ],
+    url: 'https://tour.devstudiocraft.com',
+    url360: 'https://tour.devstudiocraft.com/360/',
+    host: 'tour.devstudiocraft.com',
+  },
+];
+
 export const identities = [
   {
     id: 'p100',
