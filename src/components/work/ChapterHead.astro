@@ -1,0 +1,62 @@
+---
+interface Props {
+  n: string;
+  label: string;
+  id: string;
+}
+
+const { n, label, id } = Astro.props;
+---
+
+<header class="container chapter-head">
+  <span class="chapter-n" aria-hidden="true" data-word={n}></span>
+  <div class="chapter-copy">
+    <p class="eyebrow" data-reveal>Chapter {n} — {label}</p>
+    <h2 class="h-display h2" id={id} data-split-lines><slot name="title" /></h2>
+    <p class="chapter-intro" data-reveal><slot /></p>
+  </div>
+</header>
+
+<style>
+  .chapter-head {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr);
+    gap: 2rem;
+    align-items: end;
+    padding-top: var(--space-section);
+    margin-bottom: clamp(3rem, 6vw, 5.5rem);
+  }
+
+  /* giant chapter number, drawn from data-word so it stays out of the a11y tree */
+  .chapter-n::before {
+    content: attr(data-word);
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(6rem, 3rem + 13vw, 16rem);
+    line-height: 0.78;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--ink-faint);
+  }
+
+  .chapter-copy {
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .chapter-intro {
+    max-width: 40rem;
+    color: var(--ink-dim);
+    font-size: var(--text-lg);
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 760px) {
+    .chapter-head {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+</style>

@@ -1,7 +1,16 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText } from 'gsap/SplitText';
-import Lenis from 'lenis';
+import {
+  gsap,
+  ScrollTrigger,
+  SplitText,
+  reducedMotion,
+  initLenis,
+  initReveals,
+  initSplitHeadings,
+  initWordmark,
+  showAllReveals,
+  refreshOnFonts,
+  onReady,
+} from './core.js';
 import {
   initCursor,
   initMagnetic,
@@ -12,32 +21,6 @@ import {
   initAmbientVideos,
 } from './interactions.js';
 import { initVignettes } from './vignettes.js';
-
-gsap.registerPlugin(ScrollTrigger, SplitText);
-
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* ---------- smooth scroll ---------- */
-function initLenis() {
-  const lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1 });
-  // modals pause smooth scroll so wheel stays inside them
-  window.addEventListener('lenis:stop', () => lenis.stop());
-  window.addEventListener('lenis:start', () => lenis.start());
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => lenis.raf(time * 1000));
-  gsap.ticker.lagSmoothing(0);
-
-  // anchor links route through lenis for smooth in-page jumps
-  document.querySelectorAll('a[href^="#"]').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      const id = a.getAttribute('href');
-      const target = id && id.length > 1 ? document.querySelector(id) : null;
-      if (!target) return;
-      e.preventDefault();
-      lenis.scrollTo(target, { offset: -70 });
-    });
-  });
-}
 
 /* ---------- preloader + hero intro ---------- */
 function initIntro() {
@@ -88,35 +71,6 @@ function initIntro() {
       onComplete: () => preloader.remove(),
     })
     .add(() => showHero(true), '-=0.45');
-}
-
-/* ---------- generic scroll reveals ---------- */
-function initReveals() {
-  gsap.utils.toArray('[data-reveal]').forEach((el) => {
-    if (el.closest('.hero')) return; // hero handled by intro timeline
-    gsap.to(el, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: 'expo.out',
-      scrollTrigger: { trigger: el, start: 'top 88%' },
-    });
-  });
-}
-
-/* ---------- split-line heading reveals ---------- */
-function initSplitHeadings() {
-  gsap.utils.toArray('[data-split-lines]').forEach((el) => {
-    const split = new SplitText(el, { type: 'lines', linesClass: 'line' });
-    el.classList.add('split-mask');
-    gsap.from(split.lines, {
-      yPercent: 110,
-      duration: 1.1,
-      ease: 'expo.out',
-      stagger: 0.08,
-      scrollTrigger: { trigger: el, start: 'top 85%' },
-    });
-  });
 }
 
 /* ---------- manifesto word scrub ---------- */
@@ -229,33 +183,13 @@ function initSpeedRace() {
   });
 }
 
-/* ---------- footer wordmark slide-up ---------- */
-function initWordmark() {
-  const el = document.querySelector('[data-wordmark]');
-  if (!el) return;
-
-  gsap.from(el, {
-    yPercent: 42,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: el,
-      start: 'top bottom',
-      end: 'bottom bottom',
-      scrub: 0.8,
-    },
-  });
-}
-
 /* ---------- boot ---------- */
 function boot() {
   initNav();
 
   if (reducedMotion) {
     initIntro(); // clears preloader + shows hero without motion
-    document.querySelectorAll('[data-reveal]').forEach((el) => {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-    });
+    showAllReveals();
     return;
   }
 
@@ -275,14 +209,7 @@ function boot() {
   initVignettes();
   initWordmark();
 
-  // fonts shift line metrics — recalc pin distances once loaded
-  if (document.fonts?.ready) {
-    document.fonts.ready.then(() => ScrollTrigger.refresh());
-  }
+  refreshOnFonts();
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', boot);
-} else {
-  boot();
-}
+onReady(boot);

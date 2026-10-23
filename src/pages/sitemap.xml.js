@@ -1,6 +1,6 @@
 // Static sitemap — the site has a handful of pages, so a hand-kept list beats
 // adding @astrojs/sitemap as a dependency. Add new pages here.
-const PAGES = ['/', '/impressum/', '/privacy/', '/terms/'];
+const PAGES = ['/', '/work/', '/impressum/', '/privacy/', '/terms/'];
 
 export function GET({ site }) {
   const urls = PAGES.map((p) => `  <url><loc>${new URL(p, site).toString()}</loc></url>`).join('\n');

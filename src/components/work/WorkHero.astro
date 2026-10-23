@@ -1,0 +1,270 @@
+---
+import { Image } from 'astro:assets';
+import { media } from '../../data/media.js';
+
+// three drifting rows of real frames from the work below
+const rows = [
+  ['films/kaiju.jpg', 'brand/board-p100-aurora.jpg', 'films/basalt.jpg', 'films/airyona.jpg', 'films/poste.jpg'],
+  ['films/grounds.jpg', 'films/pilot100.jpg', 'brand/board-ary-midnight.jpg', 'films/halfmoon.jpg', 'films/chicafe.jpg'],
+  ['films/poste.jpg', 'brand/board-m2a-morning.jpg', 'films/kaiju.jpg', 'films/basalt.jpg', 'brand/wear-hoodie.jpg'],
+].map((row) => row.map((p) => ({ src: media(p), tall: p.startsWith('brand/') })));
+---
+
+<section class="work-hero" id="top" aria-labelledby="work-heading" data-intro data-work-hero>
+  <div class="wall" aria-hidden="true">
+    <div class="wall-plane">
+      {
+        rows.map((row, r) => (
+          <div class={`wall-row ${r % 2 ? 'is-reverse' : ''}`}>
+            {[0, 1].map(() => (
+              <div class="wall-group">
+                {row.map((t) => (
+                  <div class={`wall-tile ${t.tall ? 'is-tall' : ''}`}>
+                    <Image src={t.src} alt="" width={520} quality={62} loading="eager" decoding="async" />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+    <div class="wall-scrim"></div>
+  </div>
+
+  <div class="container work-hero-inner">
+    <p class="eyebrow" data-reveal>Selected work — 2026</p>
+
+    <h1 class="h-display work-title split-mask" id="work-heading" data-intro-title>
+      <span class="line-wrap"><span class="hl outline-text">Work that</span></span>
+      <span class="line-wrap"><span class="hl">pours, flies</span></span>
+      <span class="line-wrap"><span class="hl">and <em class="serif-i text-acid">sells.</em></span></span>
+    </h1>
+
+    <div class="work-hero-row">
+      <p class="work-hero-sub" data-reveal>
+        Coffee brands with their own physics, aviation platforms people study and fly with, and the
+        identity systems underneath. Every pixel and every line of code from one team.
+      </p>
+      <ul class="work-hero-stats" data-reveal>
+        <li><strong>06</strong><span>coffee brands</span></li>
+        <li><strong>02</strong><span>aviation platforms</span></li>
+        <li><strong>03</strong><span>identity systems</span></li>
+        <li><strong>01</strong><span>team, idea to launch</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <a href="#coffee" class="work-hero-scroll" aria-label="Skip to the work">
+    <span>Scroll</span>
+    <span class="work-hero-scroll-line" aria-hidden="true"></span>
+  </a>
+</section>
+
+<style>
+  .work-hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    overflow: clip;
+    padding-block: clamp(8rem, 16vh, 12rem) clamp(4rem, 9vh, 6.5rem);
+    isolation: isolate;
+  }
+
+  /* ---- the drifting wall ---- */
+  .wall {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    perspective: 1600px;
+  }
+
+  .wall-plane {
+    position: absolute;
+    inset: -30% -20%;
+    display: grid;
+    align-content: center;
+    gap: clamp(0.8rem, 1.4vw, 1.4rem);
+    transform: rotateX(24deg) rotateZ(-9deg) translateY(-6%);
+    transform-origin: 50% 40%;
+  }
+
+  .wall-row {
+    display: flex;
+    width: max-content;
+    animation: wall-drift 90s linear infinite;
+    will-change: transform;
+  }
+
+  .wall-row.is-reverse {
+    animation-direction: reverse;
+    animation-duration: 110s;
+  }
+
+  .wall-group {
+    display: flex;
+    gap: clamp(0.8rem, 1.4vw, 1.4rem);
+    padding-right: clamp(0.8rem, 1.4vw, 1.4rem);
+  }
+
+  .wall-tile {
+    height: clamp(11rem, 19vw, 19rem);
+    aspect-ratio: 16 / 10;
+    border-radius: 0.9rem;
+    overflow: clip;
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+  }
+
+  .wall-tile.is-tall {
+    aspect-ratio: 9 / 13;
+  }
+
+  .wall-tile :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .work-hero.is-paused .wall-row {
+    animation-play-state: paused;
+  }
+
+  .wall-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(11, 11, 14, 0.82), rgba(11, 11, 14, 0.4) 62%, rgba(11, 11, 14, 0.15)),
+      radial-gradient(120% 80% at 20% 100%, rgba(11, 11, 14, 0.96) 30%, rgba(11, 11, 14, 0.55) 70%, rgba(11, 11, 14, 0.35)),
+      linear-gradient(to bottom, rgba(11, 11, 14, 0.7), transparent 30%, transparent 60%, var(--bg));
+  }
+
+  @keyframes wall-drift {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* ---- copy ---- */
+  .work-hero-inner {
+    display: grid;
+    gap: clamp(1.6rem, 3vw, 2.4rem);
+  }
+
+  .work-title {
+    font-size: var(--text-hero);
+  }
+
+  .work-title .line-wrap {
+    display: block;
+    overflow: clip;
+    padding-block: 0.04em;
+  }
+
+  .work-title .hl {
+    display: inline-block;
+  }
+
+  .work-title .outline-text {
+    -webkit-text-stroke-width: 2px;
+  }
+
+  .work-hero-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .work-hero-sub {
+    max-width: 34rem;
+    color: var(--ink-dim);
+    font-size: var(--text-lg);
+    text-wrap: pretty;
+  }
+
+  .work-hero-stats {
+    list-style: none;
+    display: flex;
+    gap: clamp(1.4rem, 3vw, 3rem);
+    flex-wrap: wrap;
+  }
+
+  .work-hero-stats li {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .work-hero-stats strong {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem);
+    line-height: 1;
+    color: var(--acid);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .work-hero-stats span {
+    font-size: 0.8rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.04em;
+  }
+
+  .work-hero-scroll {
+    position: absolute;
+    right: var(--gutter);
+    bottom: clamp(4rem, 9vh, 6.5rem);
+    display: grid;
+    justify-items: center;
+    gap: 0.8rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    writing-mode: vertical-rl;
+  }
+
+  .work-hero-scroll-line {
+    width: 1px;
+    height: 4.5rem;
+    background: linear-gradient(var(--acid), transparent);
+    animation: scroll-line 2.2s var(--ease-expo) infinite;
+    transform-origin: top;
+  }
+
+  @keyframes scroll-line {
+    0% { transform: scaleY(0); }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  html.reduced-motion .wall-row {
+    animation: none;
+  }
+
+  @media (max-width: 900px) {
+    .work-hero-scroll {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .wall-plane {
+      inset: -20% -60%;
+    }
+
+    .wall-scrim {
+      background: linear-gradient(to bottom, rgba(11, 11, 14, 0.55), rgba(11, 11, 14, 0.86) 34%, rgba(11, 11, 14, 0.97) 60%, var(--bg));
+    }
+
+    .work-hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: 100%;
+    }
+  }
+</style>

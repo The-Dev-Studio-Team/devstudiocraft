@@ -24,6 +24,7 @@ const year = new Date().getFullYear();
       </div>
       <nav class="footer-col" aria-label="Sitemap">
         <span class="footer-tag">Explore</span>
+        <a href="/work/">Work</a>
         <a href={`${base}#services`}>Services</a>
         <a href={`${base}#work`}>Capabilities</a>
         <a href={`${base}#process`}>Process</a>
@@ -84,7 +85,7 @@ const year = new Date().getFullYear();
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--ink-faint);
+    color: var(--ink-mute);
     margin-bottom: 0.5rem;
   }
 
@@ -97,7 +98,7 @@ const year = new Date().getFullYear();
   .footer-address {
     font-style: normal;
     font-size: 0.9rem;
-    color: var(--ink-faint);
+    color: var(--ink-mute);
   }
 
   .footer-col a {
@@ -113,6 +114,8 @@ const year = new Date().getFullYear();
 
   .footer-bottom a {
     color: var(--ink-dim);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
     transition: color 0.3s ease;
   }
 
@@ -141,7 +144,7 @@ const year = new Date().getFullYear();
     padding-block: 1.6rem;
     border-top: 1px solid var(--line);
     font-size: 0.82rem;
-    color: var(--ink-faint);
+    color: var(--ink-mute);
   }
 
   @media (max-width: 960px) {

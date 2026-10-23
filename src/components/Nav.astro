@@ -1,19 +1,30 @@
+---
+interface Props {
+  page?: 'home' | 'work';
+}
+
+const { page = 'home' } = Astro.props;
+// section anchors live on the home page; other pages link back to them
+const home = page === 'home' ? '' : '/';
+---
+
 <header class="nav" id="nav">
   <div class="nav-inner container">
-    <a href="#top" class="nav-logo" aria-label="DevStudioCraft home">
+    <a href={page === 'home' ? '#top' : '/'} class="nav-logo" aria-label="DevStudioCraft home">
       <span class="nav-logo-mark" aria-hidden="true"></span>
       DEVSTUDIOCRAFT<span class="nav-logo-dot">.</span>
     </a>
     <nav class="nav-links" aria-label="Main navigation">
-      <a href="#services">Services</a>
-      <a href="#work">Capabilities</a>
-      <a href="#process">Process</a>
-      <a href="#edge">Why us</a>
-      <a href="#packages">Packages</a>
+      <a href="/work/" class="nav-link-work" aria-current={page === 'work' ? 'page' : undefined}>Work</a>
+      <a href={`${home}#services`}>Services</a>
+      <a href={`${home}#work`}>Capabilities</a>
+      <a href={`${home}#process`}>Process</a>
+      <a href={`${home}#edge`}>Why us</a>
+      <a href={`${home}#packages`}>Packages</a>
     </nav>
-    <a href="#contact" class="btn btn-acid nav-cta" data-magnetic data-cursor="Go">
+    <a href="#contact" class="btn btn-acid nav-cta" data-magnetic data-cursor="Go" aria-label="Start a project">
       <span class="btn-fill"></span>
-      <span>Start a project</span>
+      <span>Start<span class="nav-cta-more"> a project</span></span>
     </a>
   </div>
 </header>
@@ -100,19 +111,66 @@
     color: var(--ink);
   }
 
-  .nav-links a:hover::after {
+  .nav-links a:hover::after,
+  .nav-links a[aria-current='page']::after {
     transform: scaleX(1);
     transform-origin: left;
+  }
+
+  .nav-links a[aria-current='page'] {
+    color: var(--ink);
   }
 
   .nav-cta {
     padding: 0.75rem 1.5rem;
     font-size: 0.85rem;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
-  @media (max-width: 760px) {
+  @media (max-width: 1023px) {
     .nav-links {
+      margin-left: auto;
+    }
+
+    .nav-inner {
+      gap: 0.75rem;
+    }
+
+    .nav-logo {
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-cta {
+      padding: 0.7rem 1.2rem;
+      font-size: 0.8rem;
+    }
+
+    /* phones keep one link: the portfolio */
+    .nav-links a:not(.nav-link-work) {
       display: none;
+    }
+  }
+
+  /* small phones: the longer wordmark leaves room for a one-word button */
+  @media (max-width: 400px) {
+    .nav-cta-more {
+      display: none;
+    }
+
+    .nav-logo {
+      font-size: 0.82rem;
+    }
+  }
+
+  @media (max-width: 340px) {
+    .nav-inner {
+      gap: 0.55rem;
+    }
+
+    .nav-cta {
+      padding: 0.65rem 0.9rem;
     }
   }
 </style>
