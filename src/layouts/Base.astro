@@ -16,6 +16,7 @@ const {
 } = Astro.props;
 
 const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.pathname;
+const ogImage = Astro.site ? new URL('/og.jpg', Astro.site).toString() : '/og.jpg';
 ---
 
 <!doctype html>
@@ -33,8 +34,11 @@ const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : As
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={url} />
-    <meta property="og:image" content="/og.png" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="preload" href="/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin />

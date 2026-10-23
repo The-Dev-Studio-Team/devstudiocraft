@@ -6,7 +6,7 @@ interface Props {
   title: string;
   description: string;
   eyebrow: string;
-  updated: string;
+  updated?: string;
 }
 
 const { title, description, eyebrow, updated } = Astro.props;
@@ -25,7 +25,7 @@ const { title, description, eyebrow, updated } = Astro.props;
     <div class="container legal-inner">
       <p class="eyebrow">{eyebrow}</p>
       <h1 class="h-display legal-title">{title}</h1>
-      <p class="legal-updated">Last updated: {updated}</p>
+      {updated && <p class="legal-updated">Last updated: {updated}</p>}
       <article class="legal-body">
         <slot />
       </article>

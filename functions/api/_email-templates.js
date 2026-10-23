@@ -291,7 +291,7 @@ export function renderStudioEmail({ name, email, phone, industry, packageName, c
   const rows = [
     ['Name', escapeHtml(name)],
     ['Email', `<a href="mailto:${escapeHtml(email)}" style="color:${C.acid};text-decoration:none;">${escapeHtml(email)}</a>`],
-    ['Phone', `<a href="tel:${escapeHtml(phone)}" style="color:${C.acid};text-decoration:none;">${escapeHtml(phone)}</a>`],
+    ['Phone', phone ? `<a href="tel:${escapeHtml(phone)}" style="color:${C.acid};text-decoration:none;">${escapeHtml(phone)}</a>` : '—'],
     ['Industry', escapeHtml(industry)],
   ];
 
@@ -356,7 +356,7 @@ export const studioText = ({ name, email, phone, industry, packageName, category
     '',
     `Name:     ${name}`,
     `Email:    ${email}`,
-    `Phone:    ${phone}`,
+    `Phone:    ${phone || '—'}`,
     `Industry: ${industry}`,
     `Message:  ${message || '—'}`,
     '',
