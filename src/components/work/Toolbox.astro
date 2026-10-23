@@ -1,0 +1,109 @@
+---
+const tools = [
+  'GSAP',
+  'three.js',
+  'Blender',
+  'Matter.js',
+  'View Transitions',
+  'Web Audio',
+  'Canvas 2D',
+  'opentype.js',
+  'Astro',
+  'Vite',
+  'Lenis',
+  'WebGL',
+];
+---
+
+<section class="toolbox" aria-label="Tools behind this work">
+  <p class="toolbox-label">Under the hood</p>
+  <div class="toolbox-marquee" aria-hidden="true">
+    <div class="toolbox-track">
+      {
+        [0, 1].map(() => (
+          <div class="toolbox-group">
+            {tools.map((t) => (
+              <span class="toolbox-item">
+                {t} <span class="toolbox-star">✦</span>
+              </span>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <p class="sr-only">{tools.join(', ')}</p>
+</section>
+
+<style>
+  .toolbox {
+    border-block: 1px solid var(--line);
+    background: var(--bg-soft);
+    padding-block: 1.6rem;
+    display: grid;
+    gap: 0.9rem;
+    overflow: clip;
+  }
+
+  .toolbox-label {
+    width: min(100% - 2 * var(--gutter), 90rem);
+    margin-inline: auto;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .toolbox-track {
+    display: flex;
+    width: max-content;
+    animation: toolbox-scroll 36s linear infinite;
+    will-change: transform;
+  }
+
+  .toolbox:hover .toolbox-track {
+    animation-play-state: paused;
+  }
+
+  .toolbox-group {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .toolbox-item {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: clamp(1.6rem, 1rem + 2.4vw, 3.2rem);
+    padding-inline: 1.4rem;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 2.6rem;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--ink-dim);
+  }
+
+  .toolbox-item:nth-child(3n + 1) {
+    color: var(--ink);
+    -webkit-text-stroke: 0;
+  }
+
+  .toolbox-star {
+    color: var(--acid);
+    -webkit-text-stroke: 0;
+    font-size: 0.55em;
+  }
+
+  @keyframes toolbox-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  html.reduced-motion .toolbox-track {
+    animation: none;
+  }
+</style>

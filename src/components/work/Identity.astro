@@ -1,0 +1,527 @@
+---
+import { Image } from 'astro:assets';
+import { identities, kitParts } from '../../data/work.js';
+import { media } from '../../data/media.js';
+import ChapterHead from './ChapterHead.astro';
+
+const kits = identities.map((k) => ({ ...k, poster: media(`brand/poster-sting-${k.id}.jpg`) }));
+
+const brandName = { p100: 'Pilot 100', ary: 'Airyona', m2a: 'M2A' };
+const boards = [
+  'p100-aurora', 'ary-above', 'm2a-morning', 'p100-instruments', 'ary-ion', 'm2a-weser',
+  'p100-teal', 'ary-midnight', 'm2a-night', 'p100-dawn', 'ary-bluehour', 'm2a-pulse',
+].map((b) => {
+  const [kit, name] = b.split('-');
+  return { img: media(`brand/board-${b}.jpg`), brand: brandName[kit], name };
+});
+
+const reels = identities.map((k) => ({ id: k.id, name: k.name, poster: media(`brand/poster-reel-${k.id}.jpg`) }));
+---
+
+<section class="chapter identity" id="identity" aria-labelledby="identity-heading" data-chapter="identity">
+  <ChapterHead n="03" label="Identity systems" id="identity-heading">
+    <Fragment slot="title">Brands built to <em class="serif-i text-acid">outlive the launch.</em></Fragment>
+    A logo is one file. A system is the book, the tokens, the films, the deck, the stationery and the
+    rules that keep it all one voice. Every kit we ship is generated from a single source, so it stays
+    in sync long after we hand it over.
+  </ChapterHead>
+
+  <!-- the three kits -->
+  <div class="container kits">
+    {
+      kits.map((k) => (
+        <article class="kit" id={`kit-${k.id}`} aria-labelledby={`kit-${k.id}-name`} data-reveal>
+          <div class="kit-sting">
+            <Image src={k.poster} alt="" width={640} densities={[1, 1.5]} quality={74} loading="lazy" />
+            <video muted loop playsinline preload="none" aria-hidden="true" data-film>
+              <source src={`/media/work/sting-${k.id}.webm`} type="video/webm" />
+              <source src={`/media/work/sting-${k.id}.mp4`} type="video/mp4" />
+            </video>
+          </div>
+          <div class="kit-body">
+            <p class="kit-sector">{k.sector}</p>
+            <h3 class="kit-name" id={`kit-${k.id}-name`}>
+              {k.name}
+            </h3>
+            <p class="kit-idea serif-i">{k.idea}</p>
+            <ul class="kit-contents">
+              {k.contents.map((c) => (
+                <li>{c}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <!-- what a kit holds -->
+  <div class="container kit-parts" data-reveal>
+    <p class="kit-parts-label">Every kit ships with</p>
+    <ol class="kit-parts-list">
+      {kitParts.map((p, i) => <li><span>{String(i + 1).padStart(2, '0')}</span>{p}</li>)}
+    </ol>
+  </div>
+
+  <!-- brand boards, pinned horizontal wall -->
+  <div class="boards" data-hscroll-pin role="region" aria-label="Brand boards" tabindex="0">
+    <div class="boards-track" data-hscroll-track>
+      <div class="boards-intro">
+        <p class="eyebrow">Brand boards</p>
+        <p class="h-display boards-title">One system, <em class="serif-i text-acid">every surface.</em></p>
+        <p class="boards-sub">Twelve of the twenty-four boards from three kits: skies, instruments, print, glass and app.</p>
+      </div>
+      {
+        boards.map((b) => (
+          <figure class="board" data-cursor="Drag">
+            <Image src={b.img} alt={`${b.brand} brand board: ${b.name}`} width={420} densities={[1, 2]} quality={72} loading="lazy" />
+            <figcaption>
+              <b>{b.brand}</b> {b.name}
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- kit films -->
+  <div class="container reels">
+    <div class="reels-copy">
+      <p class="eyebrow" data-reveal>Motion</p>
+      <h3 class="h-display reels-title" data-split-lines>
+        Every kit ships with <em class="serif-i text-acid">its own films.</em>
+      </h3>
+      <p class="reels-sub" data-reveal>
+        Brand film, logo stings in day and night, the book flip-through and a 38-cut case-study reel,
+        rendered from the same parts as the book, so a change to the system re-renders the films too.
+      </p>
+    </div>
+    <div class="reels-row" role="region" aria-label="Case-study reels" tabindex="0">
+      {
+        reels.map((r) => (
+          <figure class="reel" data-reveal>
+            <div class="reel-frame">
+              <Image src={r.poster} alt="" width={300} densities={[1, 2]} quality={72} loading="lazy" />
+              <video muted loop playsinline preload="none" aria-hidden="true" data-film>
+                <source src={`/media/work/reel-${r.id}.webm`} type="video/webm" />
+                <source src={`/media/work/reel-${r.id}.mp4`} type="video/mp4" />
+              </video>
+            </div>
+            <figcaption>{r.name} · case-study reel</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- streetwear capsule -->
+  <article class="container capsule" id="capsule" aria-labelledby="capsule-heading">
+    <figure class="capsule-hero" data-reveal>
+      <Image
+        src={media('brand/wear-hoodie.jpg')}
+        alt="White Airyona hoodie, back print: a single climbing contrail and the line Room on board"
+        width={760}
+        densities={[1, 1.5]}
+        quality={78}
+        loading="lazy"
+      />
+    </figure>
+    <div class="capsule-copy">
+      <p class="eyebrow" data-reveal>Capsule · Airyona</p>
+      <h3 class="h-display capsule-title" id="capsule-heading" data-split-lines>
+        Room <em class="serif-i text-acid">on board.</em>
+      </h3>
+      <p class="capsule-text" data-reveal>
+        Three pieces that carry the Airyona identity onto fabric: one climbing contrail, one sentence and
+        a lot of quiet cloth. Every graphic is the kit’s own mark, copied byte for byte and drawn in
+        millimetres at print size, with the contrail’s rules kept: it always climbs, and it never carries text.
+      </p>
+      <div class="capsule-pair">
+        <figure data-reveal>
+          <Image src={media('brand/wear-tee.jpg')} alt="Midnight-blue Airyona tee, front print" width={380} densities={[1, 2]} quality={76} loading="lazy" />
+          <figcaption>Tee · front print</figcaption>
+        </figure>
+        <figure data-reveal>
+          <Image src={media('brand/wear-cap.jpg')} alt="Sky-blue Airyona cap with an embroidered mark" width={380} densities={[1, 2]} quality={76} loading="lazy" />
+          <figcaption>Cap · embroidered mark</figcaption>
+        </figure>
+      </div>
+      <p class="capsule-note">Self-initiated concept. Mockups are AI-generated; the artwork on them is ours.</p>
+    </div>
+  </article>
+</section>
+
+<style>
+  .identity {
+    padding-bottom: var(--space-section);
+  }
+
+  /* ---- kits ---- */
+  .kits {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.6rem);
+  }
+
+  .kit {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    border: 1px solid var(--line);
+    border-radius: 1.4rem;
+    overflow: clip;
+    background: var(--bg-card);
+    transition:
+      border-color 0.5s var(--ease-expo),
+      translate 0.6s var(--ease-expo);
+  }
+
+  .kit:hover {
+    border-color: rgba(242, 239, 232, 0.24);
+    translate: 0 -4px;
+  }
+
+  .kit-sting {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+
+  .kit-sting :global(img),
+  .kit-sting video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .kit-sting video,
+  .reel-frame video {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .kit-sting video:global(.is-playing),
+  .reel-frame video:global(.is-playing) {
+    opacity: 1;
+  }
+
+  .kit-body {
+    display: grid;
+    gap: 0.7rem;
+    align-content: start;
+    padding: clamp(1.3rem, 2.2vw, 2rem);
+  }
+
+  .kit-sector {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .kit-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+    line-height: 1;
+  }
+
+  .kit-idea {
+    font-size: 1.5rem;
+    line-height: 1.1;
+    color: var(--acid);
+  }
+
+  .kit-contents {
+    list-style: none;
+    display: grid;
+    margin-top: 0.6rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .kit-contents li {
+    padding-block: 0.55rem;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.9rem;
+    color: var(--ink-dim);
+  }
+
+  /* ---- what a kit holds ---- */
+  .kit-parts {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .kit-parts-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .kit-parts-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.6rem;
+  }
+
+  .kit-parts-list li {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-size: 0.92rem;
+  }
+
+  .kit-parts-list span {
+    font-size: 0.68rem;
+    color: var(--acid);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- boards wall ---- */
+  .boards {
+    margin-top: var(--space-section);
+    overflow: clip;
+  }
+
+  .boards-track {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.8rem, 1.5vw, 1.4rem);
+    width: max-content;
+    padding-inline: var(--gutter);
+    min-height: 100svh;
+    padding-block: 6rem 3rem;
+  }
+
+  .boards-intro {
+    width: min(26rem, 80vw);
+    display: grid;
+    gap: 1.4rem;
+    padding-right: clamp(1rem, 4vw, 4rem);
+  }
+
+  .boards-title {
+    font-size: clamp(2.2rem, 1.4rem + 2.6vw, 4rem);
+  }
+
+  .boards-sub {
+    color: var(--ink-dim);
+  }
+
+  .board {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .board :global(img) {
+    height: min(72svh, 46rem);
+    width: auto;
+    aspect-ratio: 9 / 16;
+    border-radius: 1rem;
+    border: 1px solid var(--line);
+    object-fit: cover;
+  }
+
+  .board figcaption {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .board figcaption b {
+    color: var(--ink);
+    font-weight: 600;
+    margin-right: 0.4rem;
+  }
+
+  /* ---- reels ---- */
+  .reels {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    margin-top: var(--space-section);
+  }
+
+  .reels-copy {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .reels-title {
+    font-size: clamp(2.2rem, 1.4rem + 2.8vw, 4.4rem);
+  }
+
+  .reels-sub {
+    color: var(--ink-dim);
+    font-size: var(--text-lg);
+    text-wrap: pretty;
+  }
+
+  .reels-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.8rem, 1.6vw, 1.4rem);
+  }
+
+  .reel {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .reel:nth-child(2) {
+    translate: 0 clamp(1.5rem, 4vw, 3.5rem);
+  }
+
+  .reel-frame {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: clamp(1rem, 2vw, 1.8rem);
+    border: clamp(4px, 0.45vw, 7px) solid #050506;
+    outline: 1px solid rgba(242, 239, 232, 0.16);
+    overflow: clip;
+    background: #050506;
+    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.85);
+  }
+
+  .reel-frame :global(img),
+  .reel-frame video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .reel figcaption {
+    font-size: 0.75rem;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
+
+  /* ---- capsule ---- */
+  .capsule {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    margin-top: var(--space-section);
+  }
+
+  .capsule-hero :global(img),
+  .capsule-pair :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: 1.2rem;
+    border: 1px solid var(--line);
+  }
+
+  .capsule-copy {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .capsule-title {
+    font-size: clamp(2.6rem, 1.4rem + 4vw, 5.6rem);
+  }
+
+  .capsule-text {
+    color: var(--ink-dim);
+    font-size: var(--text-lg);
+    text-wrap: pretty;
+  }
+
+  .capsule-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .capsule-pair figure {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .capsule-pair figcaption {
+    font-size: 0.75rem;
+    color: var(--ink-mute);
+  }
+
+  .capsule-note {
+    font-size: 0.8rem;
+    color: var(--ink-mute);
+  }
+
+  .boards:focus-visible,
+  .reels-row:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: -2px;
+  }
+
+  /* ---- phones and tablets: native scrollers instead of the pin ---- */
+  @media (max-width: 900px) {
+    .kits {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .kit-parts,
+    .reels,
+    .capsule {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .boards {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .boards::-webkit-scrollbar {
+      display: none;
+    }
+
+    .boards-track {
+      min-height: 0;
+      padding-block: 0;
+    }
+
+    .board {
+      scroll-snap-align: center;
+    }
+
+    .board :global(img) {
+      height: min(62svh, 34rem);
+    }
+
+    .reels-row {
+      grid-template-columns: repeat(3, 62vw);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin-inline: calc(-1 * var(--gutter));
+      padding-inline: var(--gutter);
+      scrollbar-width: none;
+    }
+
+    .reel {
+      scroll-snap-align: center;
+    }
+
+    .reel:nth-child(2) {
+      translate: none;
+    }
+  }
+</style>

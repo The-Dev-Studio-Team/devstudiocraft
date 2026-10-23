@@ -1,0 +1,339 @@
+---
+import { Image } from 'astro:assets';
+import { aviation } from '../../data/work.js';
+import { media } from '../../data/media.js';
+import ChapterHead from './ChapterHead.astro';
+import Browser from './Browser.astro';
+
+const skies = { pilot100: 'brand/sky-p100-dawn.jpg', airyona: 'brand/sky-ary-bluehour.jpg' };
+const kit = { pilot100: 'p100', airyona: 'ary' };
+
+const flights = aviation.map((p, i) => ({
+  ...p,
+  flip: i % 2 === 1,
+  sky: media(skies[p.id]),
+  poster: media(`films/${p.id}.jpg`),
+  phoneImgs: p.phones.map((s) => media(`brand/phone-${kit[p.id]}-${s}.png`)),
+}));
+---
+
+<section class="chapter aviation" id="aviation" aria-labelledby="aviation-heading" data-chapter="aviation">
+  <ChapterHead n="02" label="Aviation" id="aviation-heading">
+    <Fragment slot="title">Two platforms. <em class="serif-i text-acid">One sky.</em></Fragment>
+    Real products with real users: an EASA ATPL training ecosystem that student pilots study with every
+    day, and a flight-sharing platform getting ready for boarding. Identity, marketing sites and product,
+    all from the same desk.
+  </ChapterHead>
+
+  <div class="container flights">
+    {
+      flights.map((p) => (
+        <article
+          class:list={['flight', { 'is-flip': p.flip }]}
+          id={`case-${p.id}`}
+          style={`--accent: ${p.accent}`}
+          aria-labelledby={`case-${p.id}-name`}
+          data-flight
+        >
+          <div class="flight-sky" aria-hidden="true">
+            <Image src={p.sky} alt="" width={1600} densities={[1, 1.5]} quality={70} loading="lazy" data-flight-sky />
+          </div>
+
+          <div class="flight-copy">
+            <h3 class="flight-name" id={`case-${p.id}-name`}>
+              <img src={p.logo} alt={p.name} width="200" height="48" loading="lazy" />
+            </h3>
+            <p class="eyebrow flight-sector">{p.sector}</p>
+            <p class="h-display flight-line">{p.line}</p>
+            <p class="flight-summary">{p.summary}</p>
+            <ul class="flight-delivered" aria-label="What we delivered">
+              {p.delivered.map((d) => (
+                <li>{d}</li>
+              ))}
+            </ul>
+            <a href={p.url} class="btn btn-acid flight-link" target="_blank" rel="noopener" data-magnetic data-cursor="Fly">
+              <span class="btn-fill" />
+              <span>{p.host}</span>
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+              </svg>
+              <span class="sr-only">(opens in a new tab)</span>
+            </a>
+          </div>
+
+          <div class="flight-stage">
+            <Browser class="flight-browser" film={p.id} host={p.host} poster={p.poster} alt={`${p.name} home page`} />
+            <div class="flight-phones" data-phones>
+              {p.phoneImgs.map((img, j) => (
+                <Image
+                  class={`flight-phone fp-${j}`}
+                  src={img}
+                  alt={j === 1 ? `${p.name} app screens` : ''}
+                  width={220}
+                  densities={[1, 2]}
+                  quality={78}
+                  loading="lazy"
+                  data-phone-fan={j - 1}
+                />
+              ))}
+            </div>
+          </div>
+
+          <dl class="flight-stats">
+            {p.stats.map((s) => (
+              <div>
+                <dt>{s.label}</dt>
+                <dd>{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .aviation {
+    padding-bottom: var(--space-section);
+  }
+
+  .flights {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+
+  .flight {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.25fr);
+    grid-template-areas:
+      'copy stage'
+      'stats stats';
+    gap: clamp(2rem, 4vw, 4rem);
+    padding: clamp(1.6rem, 4vw, 4rem);
+    border-radius: clamp(1.4rem, 2.4vw, 2.2rem);
+    border: 1px solid var(--line);
+    overflow: clip;
+    isolation: isolate;
+  }
+
+  .flight.is-flip {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+    grid-template-areas:
+      'stage copy'
+      'stats stats';
+  }
+
+  .flight-sky {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .flight-sky :global(img) {
+    width: 100%;
+    height: 115%;
+    object-fit: cover;
+    translate: 0 -7%;
+  }
+
+  .flight-sky::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(100deg, rgba(8, 9, 14, 0.94) 18%, rgba(8, 9, 14, 0.62) 55%, rgba(8, 9, 14, 0.38)),
+      linear-gradient(to top, rgba(8, 9, 14, 0.92), transparent 45%);
+  }
+
+  .flight.is-flip .flight-sky::after {
+    background:
+      linear-gradient(260deg, rgba(5, 8, 26, 0.94) 18%, rgba(5, 8, 26, 0.62) 55%, rgba(5, 8, 26, 0.36)),
+      linear-gradient(to top, rgba(5, 8, 26, 0.92), transparent 45%);
+  }
+
+  .flight-copy {
+    grid-area: copy;
+    display: grid;
+    gap: 1.3rem;
+    align-content: center;
+    justify-items: start;
+  }
+
+  .flight-name img {
+    height: clamp(2rem, 1.4rem + 1.6vw, 2.9rem);
+    width: auto;
+  }
+
+  .flight-sector {
+    color: var(--ink);
+  }
+
+  .flight-sector::before {
+    background: var(--accent);
+  }
+
+  .flight-line {
+    font-size: clamp(2.6rem, 1.4rem + 4.4vw, 5.6rem);
+  }
+
+  .flight-summary {
+    color: rgba(242, 239, 232, 0.76);
+    max-width: 32rem;
+    text-wrap: pretty;
+  }
+
+  .flight-delivered {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .flight-delivered li {
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.38rem 0.85rem;
+    border-radius: 100px;
+    background: rgba(242, 239, 232, 0.08);
+    border: 1px solid rgba(242, 239, 232, 0.16);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  .flight-link {
+    margin-top: 0.4rem;
+  }
+
+  /* ---- stage: browser + fanned phones ---- */
+  .flight-stage {
+    grid-area: stage;
+    position: relative;
+    align-self: center;
+    padding-bottom: clamp(5rem, 13vw, 11rem);
+  }
+
+  .flight-stage :global(.flight-browser) {
+    width: 92%;
+  }
+
+  .flight.is-flip :global(.flight-browser) {
+    margin-left: auto;
+  }
+
+  .flight-phones {
+    position: absolute;
+    bottom: 0;
+    right: 2%;
+    width: 52%;
+    aspect-ratio: 3 / 2.15;
+  }
+
+  .flight.is-flip .flight-phones {
+    right: auto;
+    left: 2%;
+  }
+
+  .flight-phones :global(.flight-phone) {
+    position: absolute;
+    bottom: 0;
+    width: 40%;
+    height: auto;
+    filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.55));
+  }
+
+  .flight-phones :global(.fp-0) {
+    left: 0;
+    rotate: -9deg;
+    translate: 0 -4%;
+  }
+
+  .flight-phones :global(.fp-1) {
+    left: 30%;
+    z-index: 2;
+    translate: 0 -12%;
+  }
+
+  .flight-phones :global(.fp-2) {
+    left: 60%;
+    rotate: 9deg;
+    translate: 0 -4%;
+  }
+
+  /* ---- stats strip ---- */
+  .flight-stats {
+    grid-area: stats;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid rgba(242, 239, 232, 0.16);
+  }
+
+  .flight-stats div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.35rem;
+    padding: 1.4rem 1.2rem 0 0;
+  }
+
+  .flight-stats div + div {
+    padding-left: 1.2rem;
+    border-left: 1px solid rgba(242, 239, 232, 0.16);
+  }
+
+  .flight-stats dd {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 3.2rem);
+    line-height: 1;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .flight-stats dt {
+    font-size: 0.82rem;
+    color: rgba(242, 239, 232, 0.72);
+  }
+
+  @media (max-width: 1023px) {
+    .flight,
+    .flight.is-flip {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        'copy'
+        'stage'
+        'stats';
+    }
+
+    .flight-sky::after,
+    .flight.is-flip .flight-sky::after {
+      background: linear-gradient(to bottom, rgba(6, 8, 18, 0.9), rgba(6, 8, 18, 0.62) 50%, rgba(6, 8, 18, 0.94));
+    }
+
+    .flight-stage :global(.flight-browser) {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .flight-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 1.2rem;
+    }
+
+    .flight-stats div:nth-child(3) {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .flight-phones {
+      width: 74%;
+      right: 0;
+    }
+
+    .flight.is-flip .flight-phones {
+      left: 0;
+    }
+  }
+</style>

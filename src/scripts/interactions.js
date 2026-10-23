@@ -57,17 +57,21 @@ export function initMagnetic() {
   });
 }
 
-/** Services list: floating image preview that follows the cursor. */
-export function initServicePreview() {
+/** Hover list (services, work index): floating image preview that follows the cursor. */
+export function initServicePreview({
+  list: listSel = '[data-services-list]',
+  preview: previewSel = '[data-service-preview]',
+  row: rowSel = '[data-service]',
+} = {}) {
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   if (!window.matchMedia('(min-width: 901px)').matches) return;
 
-  const list = document.querySelector('[data-services-list]');
-  const preview = document.querySelector('[data-service-preview]');
+  const list = document.querySelector(listSel);
+  const preview = document.querySelector(previewSel);
   if (!list || !preview) return;
 
   const imgs = preview.querySelectorAll('[data-preview-img]');
-  const rows = list.querySelectorAll('[data-service]');
+  const rows = list.querySelectorAll(rowSel);
   const xTo = gsap.quickTo(preview, 'x', { duration: 0.55, ease: 'power3.out' });
   const yTo = gsap.quickTo(preview, 'y', { duration: 0.55, ease: 'power3.out' });
 

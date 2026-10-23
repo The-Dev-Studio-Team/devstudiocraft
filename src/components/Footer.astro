@@ -1,4 +1,10 @@
 ---
+interface Props {
+  page?: 'home' | 'work';
+}
+
+const { page = 'home' } = Astro.props;
+const home = page === 'home' ? '' : '/';
 const year = new Date().getFullYear();
 ---
 
@@ -14,9 +20,10 @@ const year = new Date().getFullYear();
       </div>
       <nav class="footer-col" aria-label="Sitemap">
         <span class="footer-tag">Explore</span>
-        <a href="#services">Services</a>
-        <a href="#work">Capabilities</a>
-        <a href="#process">Process</a>
+        <a href="/work">Work</a>
+        <a href={`${home}#services`}>Services</a>
+        <a href={`${home}#work`}>Capabilities</a>
+        <a href={`${home}#process`}>Process</a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="footer-col">
@@ -66,7 +73,7 @@ const year = new Date().getFullYear();
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--ink-faint);
+    color: var(--ink-mute);
     margin-bottom: 0.5rem;
   }
 
@@ -111,7 +118,7 @@ const year = new Date().getFullYear();
     padding-block: 1.6rem;
     border-top: 1px solid var(--line);
     font-size: 0.82rem;
-    color: var(--ink-faint);
+    color: var(--ink-mute);
   }
 
   @media (max-width: 760px) {

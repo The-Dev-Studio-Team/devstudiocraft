@@ -1,0 +1,78 @@
+<nav class="rail" aria-label="Chapters" data-rail>
+  <a href="#coffee" data-rail-link="coffee"><span>01</span> Coffee</a>
+  <a href="#aviation" data-rail-link="aviation"><span>02</span> Aviation</a>
+  <a href="#identity" data-rail-link="identity"><span>03</span> Identity</a>
+</nav>
+
+<style>
+  .rail {
+    position: fixed;
+    left: clamp(0.6rem, 1.2vw, 1.4rem);
+    top: 50%;
+    z-index: 900;
+    display: grid;
+    gap: 1.1rem;
+    translate: 0 -50%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+
+  .rail.is-on {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .rail a {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    writing-mode: vertical-rl;
+    rotate: 180deg;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    transition: color 0.4s ease;
+  }
+
+  .rail a span {
+    color: inherit;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rail a::before {
+    content: '';
+    width: 1px;
+    height: 1.4rem;
+    background: currentColor;
+    transition:
+      height 0.5s var(--ease-expo),
+      background-color 0.4s ease;
+  }
+
+  .rail a:hover {
+    color: var(--ink);
+  }
+
+  .rail a.is-active {
+    color: var(--ink);
+  }
+
+  .rail a.is-active::before {
+    height: 3.2rem;
+    background: var(--acid);
+  }
+
+  .rail a:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 1279px) {
+    .rail {
+      display: none;
+    }
+  }
+</style>

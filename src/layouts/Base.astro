@@ -67,8 +67,5 @@ const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : As
   <body>
     <div class="grain" aria-hidden="true"></div>
     <slot />
-    <script>
-      import '../scripts/main.js';
-    </script>
   </body>
 </html>

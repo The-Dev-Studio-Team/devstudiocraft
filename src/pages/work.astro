@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import Cursor from '../components/Cursor.astro';
+import Nav from '../components/Nav.astro';
+import WorkHero from '../components/work/WorkHero.astro';
+import ChapterRail from '../components/work/ChapterRail.astro';
+import CoffeeSeries from '../components/work/CoffeeSeries.astro';
+import Aviation from '../components/work/Aviation.astro';
+import Identity from '../components/work/Identity.astro';
+import Toolbox from '../components/work/Toolbox.astro';
+import CTA from '../components/CTA.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Work — DevCraft Studio"
+  description="Selected work by DevCraft Studio: six coffee brands, the Pilot 100 and Airyona aviation platforms, and the identity systems behind them. Designed, engineered and shipped by one team."
+>
+  <Cursor />
+  <Nav page="work" />
+  <ChapterRail />
+  <main>
+    <WorkHero />
+    <CoffeeSeries />
+    <Aviation />
+    <Identity />
+    <Toolbox />
+    <CTA />
+  </main>
+  <Footer page="work" />
+</Base>
+
+<script>
+  import '../scripts/work.js';
+</script>

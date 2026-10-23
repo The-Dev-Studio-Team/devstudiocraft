@@ -1,0 +1,579 @@
+---
+import { Image } from 'astro:assets';
+import { coffee } from '../../data/work.js';
+import { media } from '../../data/media.js';
+import ChapterHead from './ChapterHead.astro';
+import Browser from './Browser.astro';
+
+const total = String(coffee.length).padStart(2, '0');
+const cases = coffee.map((p, i) => ({
+  ...p,
+  n: String(i + 1).padStart(2, '0'),
+  host: new URL(p.url).host,
+  poster: media(`films/${p.id}.jpg`),
+  phone: media(`phones/${p.id}.jpg`),
+}));
+---
+
+<section class="chapter coffee" id="coffee" aria-labelledby="coffee-heading" data-chapter="coffee">
+  <ChapterHead n="01" label="The coffee series" id="coffee-heading">
+    <Fragment slot="title">Six coffee brands. <em class="serif-i text-acid">Six languages.</em></Fragment>
+    A comic-book kaiju, a lunar Swiss grid, volcanic machines, a 1924 post office, a mission-control
+    roastery and a calm German reishi brand. One studio, one category, nothing reused: each one gets
+    its own type, its own motion and its own physics.
+  </ChapterHead>
+
+  <div class="container cases" data-stack>
+    {
+      cases.map((p, i) => (
+        <article class="case" id={`case-${p.id}`} style={`--i: ${i}`} aria-labelledby={`case-${p.id}-name`} data-case>
+          <div class="case-card" data-case-card>
+            <div class="case-grid" aria-hidden="true" />
+
+            <div class="case-info">
+              <div class="case-meta">
+                <span class="case-n">
+                  {p.n} <span>/ {total}</span>
+                </span>
+                <span class="case-kind">{p.kind}</span>
+                <span>{p.discipline}</span>
+              </div>
+
+              <h3 class="h-display case-name" id={`case-${p.id}-name`}>
+                {p.name}
+              </h3>
+              <p class="case-line serif-i">{p.line}</p>
+              <p class="case-summary">{p.summary}</p>
+
+              <div class="case-system">
+                <p class="case-label">Design system</p>
+                <div class="case-system-row">
+                  <ul class="swatches" aria-label="Brand palette">
+                    {p.palette.map((c) => (
+                      <li style={`--c: ${c}`} title={c}>
+                        <span class="sr-only">{c}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <ul class="case-type" aria-label="Typefaces">
+                    {p.type.map((t) => (
+                      <li>{t}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <ul class="case-moves" aria-label="Signature moves">
+                {p.moves.map((m) => (
+                  <li>{m}</li>
+                ))}
+              </ul>
+
+              <div class="case-foot">
+                <p class="case-stat">
+                  <strong>{p.stat.value}</strong>
+                  <span>{p.stat.label}</span>
+                </p>
+                <a href={p.url} class="btn btn-acid case-link" target="_blank" rel="noopener" data-magnetic data-cursor="Live">
+                  <span class="btn-fill" />
+                  <span>Visit live</span>
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+                  </svg>
+                  <span class="sr-only">(opens {p.host} in a new tab)</span>
+                </a>
+              </div>
+
+              <ul class="case-stack" aria-label="Built with">
+                {p.stack.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+              {p.note && <p class="case-note">{p.note}</p>}
+            </div>
+
+            <div class="case-stage" data-stage>
+              <div class="case-glow" aria-hidden="true" />
+              <div class="case-rig" data-rig>
+                <div class="rig-layer rig-browser">
+                  <Browser film={p.id} host={p.host} poster={p.poster} alt={`${p.name} home page`} />
+                </div>
+                <div class="rig-layer rig-phone">
+                  <div class="phone" data-phone>
+                    <Image src={p.phone} alt={`${p.name} on a phone`} width={220} densities={[1, 2]} quality={74} loading="lazy" />
+                    <video muted loop playsinline preload="none" aria-hidden="true" data-film>
+                      <source src={`/media/work/phone-${p.id}.webm`} type="video/webm" />
+                      <source src={`/media/work/phone-${p.id}.mp4`} type="video/mp4" />
+                    </video>
+                  </div>
+                </div>
+                {p.chips.map((c, j) => (
+                  <span class={`rig-layer rig-chip chip-${j}`} aria-hidden="true">
+                    <i />
+                    {c}
+                  </span>
+                ))}
+                <div class="rig-glare" aria-hidden="true" />
+              </div>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .coffee {
+    padding-bottom: var(--space-section);
+  }
+
+  .cases {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  /* ---- card: the homepage's neutral card, grid and acid glow ---- */
+  .case-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+    column-gap: clamp(2rem, 4vw, 4.5rem);
+    padding: clamp(1.4rem, 3vw, 3rem);
+    border: 1px solid var(--line);
+    border-radius: clamp(1.2rem, 2vw, 1.8rem);
+    background: var(--bg-card);
+    overflow: clip;
+    transform-origin: 50% 0;
+    isolation: isolate;
+  }
+
+  .case-grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(242, 239, 232, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242, 239, 232, 0.05) 1px, transparent 1px);
+    background-size: 2.4rem 2.4rem;
+    mask-image: radial-gradient(60% 70% at 72% 50%, black, transparent 75%);
+  }
+
+  /* dims a card as the next one slides over it (driven from work.js) */
+  .case-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--bg);
+    opacity: var(--dim, 0);
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* ---- info column ---- */
+  .case-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    min-width: 0;
+  }
+
+  .case-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.2rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .case-n {
+    color: var(--acid);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .case-n span {
+    color: var(--ink-mute);
+  }
+
+  .case-kind {
+    color: var(--ink);
+  }
+
+  .case-name {
+    font-size: clamp(2.2rem, 1.3rem + 2.6vw, 3.9rem);
+  }
+
+  .case-line {
+    font-size: clamp(1.3rem, 1rem + 1vw, 1.9rem);
+    line-height: 1.15;
+    color: var(--acid);
+    margin-top: -0.4rem;
+  }
+
+  .case-summary {
+    color: var(--ink-dim);
+    max-width: 34rem;
+    text-wrap: pretty;
+  }
+
+  /* design system strip: the only place each brand's own colours appear */
+  .case-system {
+    display: grid;
+    gap: 0.6rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 0.9rem;
+    background: rgba(242, 239, 232, 0.025);
+  }
+
+  .case-label {
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .case-system-row {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .swatches {
+    list-style: none;
+    display: flex;
+  }
+
+  .swatches li {
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 50%;
+    background: var(--c);
+    box-shadow:
+      0 0 0 2px var(--bg-card),
+      inset 0 0 0 1px rgba(242, 239, 232, 0.14);
+  }
+
+  /* overlapped at rest, fanned apart on hover (the row reflows, nothing overlaps the type) */
+  .swatches li + li {
+    margin-left: -0.45rem;
+    transition: margin-left 0.5s var(--ease-expo);
+  }
+
+  .case-card:hover .swatches li + li {
+    margin-left: 0.3rem;
+  }
+
+  .case-type {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 0.9rem;
+    font-size: 0.82rem;
+    color: var(--ink);
+  }
+
+  .case-type li + li::before {
+    content: '/';
+    margin-right: 0.9rem;
+    color: var(--ink-mute);
+  }
+
+  .case-moves {
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .case-moves li {
+    display: grid;
+    grid-template-columns: 0.9rem 1fr;
+    gap: 0.7rem;
+    align-items: baseline;
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .case-moves li::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 1.5px;
+    background: var(--acid);
+    rotate: 45deg;
+    translate: 0 -1px;
+  }
+
+  .case-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .case-stat {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .case-stat strong {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.7rem, 1.2rem + 1.4vw, 2.5rem);
+    line-height: 1;
+  }
+
+  .case-stat span {
+    font-size: 0.8rem;
+    color: var(--ink-dim);
+    max-width: 15rem;
+  }
+
+  .case-link {
+    padding: 0.85rem 1.5rem;
+  }
+
+  .case-stack {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .case-stack li {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.72rem;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--ink-dim);
+  }
+
+  .case-note {
+    font-size: 0.8rem;
+    color: var(--ink-mute);
+  }
+
+  /* ---- stage: a 3D rig of browser, phone and chips ---- */
+  .case-stage {
+    position: relative;
+    align-self: center;
+    perspective: 1500px;
+    padding: clamp(1rem, 3vw, 2.5rem) clamp(2.5rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem) 0;
+  }
+
+  .case-glow {
+    position: absolute;
+    inset: 5% 5% -5% 5%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(201, 242, 75, 0.22), transparent);
+    filter: blur(50px);
+    z-index: -1;
+  }
+
+  .case-rig {
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(calc(var(--rx, 0deg) + var(--sx, 0deg))) rotateY(var(--ry, 0deg)) scale(var(--ss, 1));
+    transition: transform 0.9s var(--ease-expo);
+  }
+
+  .rig-layer {
+    transform-style: preserve-3d;
+  }
+
+  .rig-browser {
+    transform: translateZ(0);
+  }
+
+  .rig-phone {
+    position: absolute;
+    right: calc(-1 * clamp(2rem, 5vw, 4.2rem));
+    bottom: calc(-1 * clamp(2.5rem, 5vw, 4.2rem));
+    width: clamp(7rem, 24%, 12rem);
+    transform: translateZ(70px);
+  }
+
+  .phone {
+    position: relative;
+    aspect-ratio: 390 / 844;
+    border-radius: clamp(1rem, 2vw, 1.7rem);
+    overflow: clip;
+    border: clamp(4px, 0.45vw, 7px) solid #050506;
+    outline: 1px solid rgba(242, 239, 232, 0.18);
+    box-shadow: 0 30px 70px -18px rgba(0, 0, 0, 0.9);
+    background: #050506;
+    rotate: 4deg;
+  }
+
+  .phone :global(img),
+  .phone video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .phone video {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .phone video:global(.is-playing) {
+    opacity: 1;
+  }
+
+  /* floating glass chips, each at its own depth */
+  .rig-chip {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: 100px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    color: var(--ink);
+    background: rgba(22, 22, 29, 0.72);
+    border: 1px solid rgba(242, 239, 232, 0.16);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.8);
+    animation: chip-bob 5.5s ease-in-out infinite;
+  }
+
+  .rig-chip i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--acid);
+    box-shadow: 0 0 0 4px rgba(201, 242, 75, 0.18);
+  }
+
+  .chip-0 {
+    left: -1.4rem;
+    top: 18%;
+    transform: translateZ(110px);
+  }
+
+  .chip-1 {
+    left: 14%;
+    bottom: -1.2rem;
+    transform: translateZ(90px);
+    animation-delay: -2.6s;
+  }
+
+  @keyframes chip-bob {
+    50% {
+      translate: 0 -8px;
+    }
+  }
+
+  .case.is-behind .rig-chip,
+  html.reduced-motion .rig-chip {
+    animation: none;
+  }
+
+  .rig-glare {
+    position: absolute;
+    inset: 0;
+    border-radius: 0.9rem;
+    pointer-events: none;
+    background: radial-gradient(40% 50% at var(--gx, 30%) var(--gy, 20%), rgba(255, 255, 255, 0.12), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    transform: translateZ(1px);
+    mix-blend-mode: screen;
+  }
+
+  .case-stage:hover .rig-glare {
+    opacity: 1;
+  }
+
+  /* ---- stacked deck (desktop with room) ---- */
+  @media (min-width: 1024px) and (min-height: 700px) {
+    /* the gap is each card's dwell time before the next one slides over it */
+    .cases {
+      gap: 40vh;
+      padding-bottom: 4vh;
+    }
+
+    .case {
+      position: sticky;
+      top: calc(5.4rem + var(--i) * 0.75rem);
+    }
+
+    .case-card {
+      height: min(calc(100svh - 7.5rem - var(--i) * 0.75rem), 54rem);
+    }
+
+    /* text on a buried card is hidden, never left half-faded */
+    .case.is-behind .case-info {
+      visibility: hidden;
+    }
+  }
+
+  /* laptops: trim the info column so the whole card fits one screen */
+  @media (min-width: 1024px) and (min-height: 700px) and (max-height: 1000px) {
+    .case-info {
+      gap: 0.9rem;
+    }
+
+    .case-stack {
+      display: none;
+    }
+
+    .case-moves li {
+      font-size: 0.88rem;
+    }
+  }
+
+  @media (min-width: 1024px) and (min-height: 700px) and (max-height: 860px) {
+    .case-summary {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .case-card {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 2rem;
+    }
+
+    .case-stage {
+      order: -1;
+      margin-top: 0.5rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .case-stage {
+      padding-right: 2.6rem;
+    }
+
+    .rig-phone {
+      width: 34%;
+      right: -1.2rem;
+    }
+
+    .chip-0 {
+      left: -0.6rem;
+      top: 8%;
+    }
+  }
+</style>
