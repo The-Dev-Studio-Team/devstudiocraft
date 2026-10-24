@@ -1,15 +1,19 @@
 ---
 import '../styles/global.css';
+import Preloader from '../components/Preloader.astro';
 
 interface Props {
   title?: string;
   description?: string;
   // false skips the motion layer (legal pages have no animated sections)
   interactive?: boolean;
+  // false skips the once-per-session intro
+  intro?: boolean;
 }
 
 const {
   interactive = true,
+  intro = true,
   title = 'DevStudioCraft — Websites, E-Commerce & Apps Built to Sell',
   description =
     'DevStudioCraft designs and builds high-performance websites, e-commerce stores, landing pages and mobile apps for brands that want to outsell their competition.',
@@ -42,12 +46,21 @@ const ogImage = Astro.site ? new URL('/og.jpg', Astro.site).toString() : '/og.jp
 
     <link rel="preload" href="/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin />
 
     <script is:inline>
-      document.documentElement.classList.remove('no-js');
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.documentElement.classList.add('reduced-motion');
-      }
+      (function (root) {
+        root.classList.remove('no-js');
+        var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (still) root.classList.add('reduced-motion');
+        // the intro plays on the first page of a session only: work -> home never replays it
+        try {
+          if (!still && !sessionStorage.getItem('dsc-intro') && !new URLSearchParams(location.search).has('nointro')) {
+            root.classList.add('pl-play');
+          }
+          sessionStorage.setItem('dsc-intro', '1');
+        } catch (e) {}
+      })(document.documentElement);
     </script>
 
     <script
@@ -86,6 +99,7 @@ const ogImage = Astro.site ? new URL('/og.jpg', Astro.site).toString() : '/og.jp
   </head>
   <body>
     <div class="grain" aria-hidden="true"></div>
+    {intro && <Preloader />}
     <slot />
     {
       interactive && (

@@ -14,7 +14,7 @@ const tours = spaces.map((p) => ({
 ---
 
 <section class="chapter spaces" id="spaces" aria-labelledby="spaces-heading" data-chapter="spaces">
-  <ChapterHead n="03" label="Spaces" id="spaces-heading">
+  <ChapterHead n="05" label="Spaces" id="spaces-heading">
     <Fragment slot="title">Walk it before <em class="serif-i text-acid">you visit.</em></Fragment>
     Property sells on feeling, and a gallery of photos can't give one. So we build the visit instead:
     a cinematic way in, every room a click away, and the floor plan always one tap from your hand.
@@ -42,7 +42,7 @@ const tours = spaces.map((p) => ({
               ))}
             </ul>
             <div class="space-links">
-              <a href={p.url} class="btn btn-acid" target="_blank" rel="noopener" data-magnetic data-cursor="Enter">
+              <a href={p.url} class="btn btn-acid" target="_blank" rel="noopener" data-magnetic>
                 <span class="btn-fill" />
                 <span>Take the tour</span>
                 <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -50,7 +50,7 @@ const tours = spaces.map((p) => ({
                 </svg>
                 <span class="sr-only">(opens {p.host} in a new tab)</span>
               </a>
-              <a href={p.url360} class="btn btn-ghost" target="_blank" rel="noopener" data-magnetic data-cursor="360°">
+              <a href={p.url360} class="btn btn-ghost" target="_blank" rel="noopener" data-magnetic>
                 <span class="btn-fill" />
                 <span>360° walkthrough</span>
                 <span class="sr-only">(opens in a new tab)</span>

@@ -1,9 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import Cursor from '../components/Cursor.astro';
 import Nav from '../components/Nav.astro';
 import WorkHero from '../components/work/WorkHero.astro';
 import ChapterRail from '../components/work/ChapterRail.astro';
+import Trades from '../components/work/Trades.astro';
+import WorkIndex from '../components/work/WorkIndex.astro';
 import CoffeeSeries from '../components/work/CoffeeSeries.astro';
 import Aviation from '../components/work/Aviation.astro';
 import Spaces from '../components/work/Spaces.astro';
@@ -17,13 +18,14 @@ import Footer from '../components/Footer.astro';
 <Base
   interactive={false}
   title="Work — DevStudioCraft"
-  description="Selected work by DevStudioCraft: twelve coffee brands, the Pilot 100 and Airyona aviation platforms, an interactive residence tour, and the identity systems behind them. Designed, engineered and shipped by one team."
+  description="28 live sites by DevStudioCraft: flagship websites for barbers, nail studios, car detailers, gyms, physios, spas, dentists, caterers, restaurants and cafés, plus the Pilot 100 and Airyona aviation platforms, a residence tour and the identity systems behind them."
 >
-  <Cursor />
   <Nav page="work" />
   <ChapterRail />
   <main>
     <WorkHero />
+    <Trades />
+    <WorkIndex />
     <CoffeeSeries />
     <Aviation />
     <Spaces />

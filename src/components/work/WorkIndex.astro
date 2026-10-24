@@ -1,0 +1,420 @@
+---
+import { Image } from 'astro:assets';
+import { allWork, industries, industryCounts } from '../../data/work.js';
+import { media } from '../../data/media.js';
+import ChapterHead from './ChapterHead.astro';
+
+// one card per project; filtering is client-side (work.js) and mirrored in ?industry=
+const label = Object.fromEntries(industries.map((i) => [i.key, i.label]));
+const cards = allWork.map((w) => ({ ...w, trade: label[w.industry], img: media(w.poster) }));
+---
+
+<section class="chapter wi" id="index" aria-labelledby="index-heading" data-chapter="index">
+  <ChapterHead n="02" label="Index" id="index-heading">
+    <Fragment slot="title">Find a site <em class="serif-i text-acid">like yours.</em></Fragment>
+    Every project, live. Pick your industry to see what we have built for businesses like yours, then open
+    the real site and click around: nothing here is a mock-up.
+  </ChapterHead>
+
+  <div class="container">
+    <div class="wi-bar" data-wi-bar>
+      <div class="wi-filters" role="group" aria-label="Filter projects by industry">
+        <button type="button" class="wi-chip" aria-pressed="true" data-wi-filter="all">
+          All <sup>{cards.length}</sup>
+        </button>
+        {
+          industryCounts.map((i) => (
+            <button type="button" class="wi-chip" aria-pressed="false" data-wi-filter={i.key}>
+              {i.short} <sup>{i.count}</sup>
+            </button>
+          ))
+        }
+      </div>
+      <p class="wi-status" aria-live="polite" data-wi-status>Showing all {cards.length} projects</p>
+    </div>
+
+    <ul class="wi-grid" data-wi-grid>
+      {
+        cards.map((c) => (
+          <li class="wi-card" style={`--accent: ${c.accent}; --vt: wi-${c.id}`} data-industry={c.industry} data-wi-card>
+            <a href={c.url} class="wi-link" {...(c.url.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>
+              <span class="wi-media">
+                <Image src={c.img} alt="" width={560} densities={[1, 2]} quality={72} loading="lazy" />
+                {c.film && <span class="wi-film" data-film-src={c.film} />}
+                <span class="wi-open" aria-hidden="true">
+                  {c.url.startsWith('http') ? 'Open live' : 'See the system'}
+                  <svg width="11" height="11" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+                  </svg>
+                </span>
+              </span>
+              <span class="wi-text">
+                <span class="wi-series">{c.series}</span>
+                <span class="wi-name">{c.name}</span>
+                <span class="wi-line">{c.line}</span>
+                <span class="wi-meta">
+                  <span class="wi-trade">{c.trade}</span>
+                  <span>{c.place}</span>
+                </span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+      <li class="wi-card wi-next on-light" style="--vt: wi-next">
+        <a href="#contact" class="wi-link wi-next-link">
+          <span class="wi-next-k">Your trade next</span>
+          <span class="wi-next-title">Don’t see your business? <em class="serif-i">Yours goes here.</em></span>
+          <span class="wi-next-go">
+            Start a project
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+            </svg>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .wi-bar {
+    position: sticky;
+    top: 4.4rem;
+    z-index: 20;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem 1.5rem;
+    padding-block: 0.9rem;
+    margin-bottom: 1.6rem;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* one row of chips; it swipes when the trades outgrow the width */
+  .wi-filters {
+    display: flex;
+    gap: 0.4rem;
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+    mask-image: linear-gradient(90deg, #000 calc(100% - 2.5rem), transparent);
+    padding-right: 2.5rem;
+  }
+
+  .wi-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .wi-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex: none;
+    padding: 0.5rem 0.8rem;
+    border-radius: 100px;
+    border: 1px solid var(--line);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink-dim);
+    transition:
+      color 0.3s ease,
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .wi-chip sup {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--acid);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .wi-chip:hover {
+    color: var(--ink);
+    border-color: var(--ink-faint);
+  }
+
+  .wi-chip[aria-pressed='true'] {
+    background: var(--acid);
+    border-color: var(--acid);
+    color: var(--acid-ink);
+  }
+
+  .wi-chip[aria-pressed='true'] sup {
+    color: var(--acid-ink);
+  }
+
+  .wi-chip:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 3px;
+  }
+
+  .wi-status {
+    flex: none;
+    font-size: 0.8rem;
+    color: var(--ink-mute);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- grid ---- */
+  .wi-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.4rem, 2vw, 2rem) clamp(1rem, 1.6vw, 1.6rem);
+  }
+
+  .wi-card[hidden] {
+    display: none;
+  }
+
+  .wi-link {
+    display: grid;
+    gap: 0.9rem;
+    height: 100%;
+    border-radius: 0.8rem;
+  }
+
+  .wi-link:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 4px;
+  }
+
+  .wi-media {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    border-radius: 0.7rem;
+    overflow: clip;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    transition:
+      border-color 0.4s ease,
+      translate 0.6s var(--ease-expo);
+  }
+
+  .wi-media :global(img),
+  .wi-media :global(video) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: scale 0.9s var(--ease-expo);
+  }
+
+  .wi-media :global(video) {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .wi-media :global(video.is-playing) {
+    opacity: 1;
+  }
+
+  .wi-open {
+    position: absolute;
+    right: 0.7rem;
+    bottom: 0.7rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 100px;
+    background: var(--accent);
+    color: #0b0b0e;
+    font-size: 0.72rem;
+    font-weight: 700;
+    opacity: 0;
+    translate: 0 0.5rem;
+    transition:
+      opacity 0.35s ease,
+      translate 0.5s var(--ease-expo);
+  }
+
+  .wi-text {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .wi-series {
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .wi-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+    background: linear-gradient(var(--accent), var(--accent)) left bottom / 0 2px no-repeat;
+    justify-self: start;
+    padding-bottom: 0.15rem;
+    transition: background-size 0.5s var(--ease-expo);
+  }
+
+  .wi-line {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    color: var(--ink-dim);
+  }
+
+  .wi-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 0.8rem;
+    margin-top: 0.2rem;
+    font-size: 0.78rem;
+    color: var(--ink-mute);
+  }
+
+  .wi-trade {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  @media (hover: hover) {
+    .wi-link:hover .wi-media {
+      border-color: var(--accent);
+      translate: 0 -0.3rem;
+    }
+
+    .wi-link:hover .wi-media :global(img) {
+      scale: 1.04;
+    }
+
+    .wi-link:hover .wi-open,
+    .wi-link:focus-visible .wi-open {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    .wi-link:hover .wi-name {
+      background-size: 100% 2px;
+    }
+  }
+
+  /* ---- the "your trade" card ---- */
+  .wi-next-link {
+    align-content: space-between;
+    min-height: 100%;
+    padding: 1.4rem;
+    background: var(--acid);
+    color: var(--acid-ink);
+  }
+
+  .wi-next-k {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .wi-next-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 1rem + 0.9vw, 1.9rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  .wi-next-title em {
+    display: block;
+    font-size: 1.1em;
+  }
+
+  .wi-next-go {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .wi-next-link:hover .wi-next-go svg {
+    translate: 0.2rem -0.2rem;
+  }
+
+  .wi-next-go svg {
+    transition: translate 0.4s var(--ease-expo);
+  }
+
+  /* filter changes morph through the View Transitions API (work.js); names only exist while filtering,
+     so page-to-page transitions don't snapshot 29 cards */
+  :global(html.wi-filtering) .wi-card {
+    view-transition-name: var(--vt);
+  }
+
+  :global(html.wi-filtering)::view-transition-group(*) {
+    animation-duration: 0.55s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (max-width: 1279px) {
+    .wi-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 899px) {
+    .wi-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .wi-bar {
+      top: 3.6rem;
+      flex-wrap: wrap;
+    }
+
+    .wi-filters {
+      margin-inline: calc(-1 * var(--gutter));
+      padding-inline: var(--gutter);
+      flex-basis: calc(100% + 2 * var(--gutter));
+    }
+  }
+
+  @media (max-width: 559px) {
+    .wi-grid {
+      grid-template-columns: 1fr;
+      gap: 1.1rem;
+    }
+
+    /* compact rows on phones: thumbnail left, words right */
+    .wi-link {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .wi-name {
+      font-size: 1.02rem;
+    }
+
+    .wi-line {
+      font-size: 0.95rem;
+    }
+
+    .wi-open {
+      display: none;
+    }
+
+    .wi-next-link {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+</style>

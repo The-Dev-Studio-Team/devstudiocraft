@@ -1,13 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
-import Preloader from '../components/Preloader.astro';
-import Cursor from '../components/Cursor.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import Marquee from '../components/Marquee.astro';
 import Manifesto from '../components/Manifesto.astro';
 import Services from '../components/Services.astro';
-import Showcase from '../components/Showcase.astro';
+import TradePicker from '../components/TradePicker.astro';
+import Featured from '../components/Featured.astro';
 import Process from '../components/Process.astro';
 import Edge from '../components/Edge.astro';
 import Packages from '../components/Packages.astro';
@@ -16,15 +15,14 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Base>
-  <Preloader />
-  <Cursor />
   <Nav />
   <main>
     <Hero />
     <Marquee />
+    <TradePicker />
+    <Featured />
     <Manifesto />
     <Services />
-    <Showcase />
     <Process />
     <Edge />
     <Packages />

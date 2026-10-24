@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy": "astro build && wrangler pages deploy dist --project-name=devstudiocraft"
+    "deploy": "astro build && wrangler pages deploy dist --project-name=devstudiocraft",
+    "cursors": "node tools/cursors/build.mjs"
   },
   "dependencies": {
     "astro": "^5.7.0",

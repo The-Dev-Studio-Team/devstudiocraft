@@ -11,6 +11,8 @@ export const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 
 /* ---------- smooth scroll ---------- */
 export function initLenis() {
+  // touch scrolling is already native-smooth; Lenis only costs frames on phones
+  if (window.matchMedia('(pointer: coarse)').matches) return null;
   const lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1 });
   // modals pause smooth scroll so wheel stays inside them
   window.addEventListener('lenis:stop', () => lenis.stop());
@@ -32,33 +34,41 @@ export function initLenis() {
   return lenis;
 }
 
-/* ---------- generic scroll reveals ---------- */
+/* ---------- one-shot reveals ----------
+   IntersectionObserver instead of a ScrollTrigger each: a reveal costs nothing per scroll frame.
+   The bottom margin matches the old 'top 88%' / 'top 85%' starts. */
+function onceVisible(els, play, bottom = '-12%') {
+  if (!els.length) return;
+  const io = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        play(e.target);
+      }),
+    { rootMargin: `0px 0px ${bottom} 0px` }
+  );
+  els.forEach((el) => io.observe(el));
+}
+
 export function initReveals() {
-  gsap.utils.toArray('[data-reveal]').forEach((el) => {
-    if (el.closest('[data-intro]')) return; // the page intro timeline owns these
-    gsap.to(el, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: 'expo.out',
-      scrollTrigger: { trigger: el, start: 'top 88%' },
-    });
-  });
+  const els = gsap.utils.toArray('[data-reveal]').filter((el) => !el.closest('[data-intro]')); // the intro owns those
+  onceVisible(els, (el) => gsap.to(el, { opacity: 1, y: 0, duration: 1, ease: 'expo.out' }));
 }
 
 /* ---------- split-line heading reveals ---------- */
 export function initSplitHeadings() {
-  gsap.utils.toArray('[data-split-lines]').forEach((el) => {
-    const split = new SplitText(el, { type: 'lines', linesClass: 'line' });
+  const els = gsap.utils.toArray('[data-split-lines]');
+  els.forEach((el) => {
+    el._split = new SplitText(el, { type: 'lines', linesClass: 'line' });
     el.classList.add('split-mask');
-    gsap.from(split.lines, {
-      yPercent: 110,
-      duration: 1.1,
-      ease: 'expo.out',
-      stagger: 0.08,
-      scrollTrigger: { trigger: el, start: 'top 85%' },
-    });
+    gsap.set(el._split.lines, { yPercent: 110 });
   });
+  onceVisible(
+    els,
+    (el) => gsap.to(el._split.lines, { yPercent: 0, duration: 1.1, ease: 'expo.out', stagger: 0.08 }),
+    '-15%'
+  );
 }
 
 /* ---------- footer wordmark slide-up ---------- */
@@ -91,6 +101,49 @@ export function refreshOnFonts() {
   if (document.fonts?.ready) {
     document.fonts.ready.then(() => ScrollTrigger.refresh());
   }
+}
+
+/* ---------- horizontal run: a sticky panel inside a runway as tall as the travel ----------
+   Same motion as a GSAP pin, without the switch to position: fixed that scores as layout shift. */
+export function stickyRun(pin, track, media = '(min-width: 901px)') {
+  if (!pin || !track) return;
+  const mm = gsap.matchMedia();
+  mm.add(media, () => {
+    const runway = document.createElement('div');
+    pin.before(runway);
+    runway.append(pin);
+    pin.style.position = 'sticky';
+    pin.style.top = '0';
+    const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
+    const size = () => (runway.style.height = `${window.innerHeight + distance()}px`);
+    size();
+    ScrollTrigger.addEventListener('refreshInit', size);
+    const tween = gsap.to(track, {
+      x: () => -distance(),
+      ease: 'none',
+      scrollTrigger: { trigger: runway, start: 'top top', end: 'bottom bottom', scrub: 1, invalidateOnRefresh: true },
+    });
+    return () => {
+      ScrollTrigger.removeEventListener('refreshInit', size);
+      tween.scrollTrigger?.kill();
+      gsap.set(track, { clearProps: 'x' });
+      runway.before(pin);
+      runway.remove();
+      pin.style.position = '';
+      pin.style.top = '';
+    };
+  });
+}
+
+/* seconds until the session intro (Preloader.astro) opens onto the page; 0 when it isn't playing */
+export function introDelay() {
+  if (!document.documentElement.classList.contains('pl-play')) return 0;
+  const curtain = document.querySelector('.pl-curtain');
+  const anim = curtain?.getAnimations?.()[0];
+  if (!anim || anim.startTime == null) return 1.15;
+  // the curtain starts opening at 1060 ms; the page rises just behind it
+  const opens = anim.startTime + 1060 + 90;
+  return Math.max(0, (opens - document.timeline.currentTime) / 1000);
 }
 
 export function onReady(fn) {

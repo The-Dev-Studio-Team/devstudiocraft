@@ -1,51 +1,316 @@
-<div class="preloader" id="preloader" aria-hidden="true">
-  <div class="preloader-inner">
-    <span class="preloader-brand">DEVSTUDIOCRAFT<span class="preloader-dot">.</span></span>
-    <span class="preloader-count" id="preloader-count">0</span>
+---
+/*
+  The DSC intro, once per session (Base.astro's head script adds html.pl-play only on the first page view).
+  The studio's own arrow cursor drags out the diamond mark, the mark fills acid, then the screen opens
+  through a diamond aperture while the mark flies into the nav logo. Pure CSS timing, so it never waits on
+  JS; without JS, or with reduced motion, it never shows.
+*/
+const word = 'DEVSTUDIOCRAFT'.split('');
+---
+
+<div class="pl" id="preloader" aria-hidden="true">
+  <div class="pl-curtain"></div>
+
+  <div class="pl-stage">
+    <div class="pl-box">
+      <div class="pl-mark" data-pl-mark>
+        <svg class="pl-diamond" viewBox="0 0 100 100" aria-hidden="true">
+          <path class="pl-fill" d="M50 4 96 50 50 96 4 50Z" />
+          <path class="pl-line" d="M50 4 96 50 50 96 4 50Z" pathLength="1" />
+        </svg>
+      </div>
+
+      <div class="pl-cursor">
+        <svg class="pl-glyph" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true">
+          <g class="pl-rays" stroke-linecap="round">
+            <path d="M3 -1.2V-3.6M-0.6 0.2-2.3-1.5M6.6 0.2 8.3-1.5M-1.2 3H-3.6" />
+          </g>
+          <path class="pl-arrow" d="M3 3 18.2 8.4 11.8 11.8 8.4 18.2Z" />
+        </svg>
+      </div>
+    </div>
+
+    <p class="pl-word">
+      {word.map((ch, i) => <span style={`--i:${i}`}>{ch}</span>)}<span class="pl-dot" style={`--i:${word.length}`}>.</span>
+    </p>
+    <p class="pl-tag">crafted to <em>sell.</em></p>
+
+    <p class="pl-corner pl-corner-l">Digital studio — Bremen</p>
+    <p class="pl-corner pl-corner-r">Websites · Stores · Apps</p>
   </div>
 </div>
 
+<script is:inline>
+  // aim the flying mark at the nav logo's diamond (runs during parse, before the fly starts at ~1.1 s)
+  (function () {
+    var root = document.documentElement;
+    if (!root.classList.contains('pl-play')) {
+      var stale = document.getElementById('preloader');
+      if (stale) stale.remove();
+      return;
+    }
+    var aim = function () {
+      var target = document.querySelector('.nav-logo-mark');
+      var mark = document.querySelector('[data-pl-mark]');
+      if (!target || !mark) return;
+      var t = target.getBoundingClientRect();
+      var m = mark.getBoundingClientRect();
+      if (!m.width) return;
+      // the nav mark is a 10px square turned 45deg: its diagonal against our diamond's 92% span
+      var s = (t.width * Math.SQRT2) / (m.width * 0.92);
+      mark.style.setProperty('--fx', t.left + t.width / 2 - (m.left + m.width / 2) + 'px');
+      mark.style.setProperty('--fy', t.top + t.height / 2 - (m.top + m.height / 2) + 'px');
+      mark.style.setProperty('--fs', String(s));
+      mark.classList.add('has-aim');
+    };
+    document.addEventListener('DOMContentLoaded', aim);
+    var pl = document.getElementById('preloader');
+    pl.addEventListener('animationend', function (e) {
+      if (e.animationName === 'pl-out') {
+        pl.remove();
+        root.classList.remove('pl-play');
+      }
+    });
+  })();
+</script>
+
 <style>
-  .preloader {
+  /* timeline (ms): cursor in 0-260 · click 260-400 · draw 380-900 · fill 860-1000 · open + fly 1060-1520 */
+  .pl {
+    display: none;
+  }
+
+  :global(html.pl-play) .pl {
+    --pl: min(30vmin, 220px);
+    --ease-open: cubic-bezier(0.76, 0, 0.18, 1);
+    display: block;
     position: fixed;
     inset: 0;
     z-index: 3000;
+    pointer-events: none;
+    animation: pl-out 1ms linear 1540ms both;
+  }
+
+  .pl-curtain {
+    position: absolute;
+    inset: 0;
     background: var(--bg);
-    display: flex;
-    align-items: flex-end;
-    will-change: transform;
+    /* a diamond hole that starts closed and opens past the corners of the screen */
+    clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%);
+    animation: pl-open 480ms var(--ease-open) 1060ms both;
   }
 
-  .preloader-inner {
+  .pl-stage {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1.6rem;
+  }
+
+  .pl-box {
+    position: relative;
+    width: var(--pl);
+    aspect-ratio: 1;
+  }
+
+  .pl-mark,
+  .pl-cursor {
+    position: absolute;
+    inset: 0;
+  }
+
+  .pl-diamond {
     width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .pl-line {
+    fill: none;
+    stroke: var(--acid);
+    /* viewBox units: the box is ~220px for 100 units, so 0.62 is ~1.4px */
+    stroke-width: 0.62;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: pl-draw 520ms linear 380ms both;
+  }
+
+  .pl-fill {
+    fill: var(--acid);
+    opacity: 0;
+    transform-origin: 50% 50%;
+    animation: pl-fill 160ms ease-out 860ms both;
+  }
+
+  .pl-mark {
+    animation: pl-fly 460ms var(--ease-open) 1060ms both;
+  }
+
+  /* without a measured target the mark simply opens with the curtain */
+  .pl-mark:not(.has-aim) {
+    animation-name: pl-fade;
+  }
+
+  /* the glyph's tip sits at (3,3) of 24 units = 3.75px of 30px; the wrapper is the box, so % = share of the box */
+  .pl-glyph {
+    position: absolute;
+    left: -3.75px;
+    top: -3.75px;
+    overflow: visible;
+    filter: drop-shadow(0 1px 1.2px rgb(0 0 0 / 0.6));
+  }
+
+  .pl-arrow {
+    fill: var(--ink);
+    stroke: var(--bg);
+    stroke-width: 1.2;
+    stroke-linejoin: round;
+    paint-order: stroke;
+  }
+
+  .pl-rays path {
+    fill: none;
+    stroke: var(--acid);
+    stroke-width: 1.35;
+  }
+
+  .pl-rays {
+    opacity: 0;
+    animation: pl-click 200ms ease-out 250ms both;
+  }
+
+  .pl-cursor {
+    animation:
+      pl-travel 900ms linear both,
+      pl-leave 220ms ease-in 900ms forwards;
+  }
+
+  .pl-word {
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding: var(--gutter);
-  }
-
-  .preloader-brand {
     font-family: var(--font-display);
     font-weight: 600;
-    letter-spacing: 0.04em;
-    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-size: clamp(1.15rem, 0.8rem + 1.6vw, 2.1rem);
+    letter-spacing: 0.06em;
+    line-height: 1;
+    overflow: clip;
+    padding-block: 0.08em;
   }
 
-  .preloader-dot {
+  .pl-word span {
+    display: inline-block;
+    animation:
+      pl-rise 520ms var(--ease-expo) calc(420ms + var(--i) * 26ms) both,
+      pl-lift 320ms var(--ease-open) calc(980ms + var(--i) * 8ms) forwards;
+  }
+
+  .pl-word .pl-dot {
     color: var(--acid);
   }
 
-  .preloader-count {
-    font-family: var(--font-display);
-    font-weight: 600;
-    line-height: 0.8;
-    font-size: clamp(4rem, 14vw, 12rem);
-    color: var(--acid);
-    font-variant-numeric: tabular-nums;
+  .pl-tag {
+    margin-top: -0.9rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.3rem);
+    color: var(--ink-dim);
+    animation:
+      pl-in 420ms ease-out 700ms both,
+      pl-fade 260ms ease-in 1040ms forwards;
   }
 
-  html.reduced-motion .preloader,
-  html.no-js .preloader {
-    display: none;
+  .pl-tag em {
+    color: var(--acid);
+  }
+
+  .pl-corner {
+    position: absolute;
+    bottom: var(--gutter);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    animation:
+      pl-in 400ms ease-out 200ms both,
+      pl-fade 240ms ease-in 1040ms forwards;
+  }
+
+  .pl-corner-l {
+    left: var(--gutter);
+  }
+
+  .pl-corner-r {
+    right: var(--gutter);
+  }
+
+  @keyframes pl-travel {
+    /* glide in from the lower right, click on the top corner, then drag the diamond clockwise */
+    0% { translate: 150% 160%; animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1); }
+    28.9% { translate: 50% 4%; }
+    42.2% { translate: 50% 4%; }
+    56.6% { translate: 96% 50%; }
+    71.1% { translate: 50% 96%; }
+    85.5% { translate: 4% 50%; }
+    100% { translate: 50% 4%; }
+  }
+
+  @keyframes pl-leave {
+    to { opacity: 0; translate: 64% -6%; }
+  }
+
+  @keyframes pl-click {
+    0% { opacity: 0; scale: 0.6; }
+    40% { opacity: 1; scale: 1; }
+    100% { opacity: 0; scale: 1.15; }
+  }
+
+  @keyframes pl-draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes pl-fill {
+    from { opacity: 0; transform: scale(0.86); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes pl-fly {
+    to { translate: var(--fx) var(--fy); scale: var(--fs); }
+  }
+
+  @keyframes pl-open {
+    to {
+      clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% -110vmax, calc(50% + 110vmax) 50%, 50% calc(50% + 110vmax), calc(50% - 110vmax) 50%, 50% -110vmax);
+    }
+  }
+
+  @keyframes pl-rise {
+    from { translate: 0 110%; }
+    to { translate: 0 0; }
+  }
+
+  @keyframes pl-lift {
+    to { translate: 0 -110%; opacity: 0; }
+  }
+
+  @keyframes pl-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes pl-fade {
+    to { opacity: 0; }
+  }
+
+  @keyframes pl-out {
+    to { visibility: hidden; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.pl-play) .pl {
+      display: none;
+    }
   }
 </style>

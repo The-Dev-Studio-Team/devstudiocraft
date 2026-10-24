@@ -81,16 +81,30 @@ const { film, host, poster, alt, class: className } = Astro.props;
   }
 
   .browser-live b {
+    position: relative;
     width: 6px;
     height: 6px;
     border-radius: 50%;
     background: var(--acid);
+  }
+
+  /* the pulse is a ring that scales and fades (compositor only), and only while the film plays */
+  .browser-live b::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(201, 242, 75, 0.6);
+    opacity: 0;
+  }
+
+  .browser:has(.is-playing) .browser-live b::after {
     animation: live-pulse 1.8s ease-out infinite;
   }
 
   @keyframes live-pulse {
-    0% { box-shadow: 0 0 0 0 rgba(201, 242, 75, 0.6); }
-    100% { box-shadow: 0 0 0 7px rgba(201, 242, 75, 0); }
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(3.3); opacity: 0; }
   }
 
   .browser-view {
