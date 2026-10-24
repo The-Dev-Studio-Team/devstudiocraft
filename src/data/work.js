@@ -370,6 +370,7 @@ export const industries = [
   { key: 'events', label: 'Events & catering', short: 'Events', trade: true },
   { key: 'restaurant', label: 'Restaurants', short: 'Restaurants', trade: true },
   { key: 'cafe', label: 'Cafés & coffee', short: 'Cafés', trade: true },
+  { key: 'fashion', label: 'Fashion & online shops', short: 'Fashion' },
   { key: 'aviation', label: 'Aviation', short: 'Aviation' },
   { key: 'realestate', label: 'Real estate', short: 'Real estate' },
   { key: 'keepsakes', label: 'Weddings & keepsakes', short: 'Weddings' },
@@ -542,6 +543,37 @@ export const keepsakes = [
   },
 ];
 
+/* ---------------------------------------------------------------------------
+   More sites outside the series: client work and store builds.
+   `series` is the label the index card shows above the name.
+--------------------------------------------------------------------------- */
+export const sites = [
+  {
+    id: 'ozea',
+    name: 'Ozea Dental Clinic',
+    industry: 'dental',
+    series: 'Client site',
+    place: 'Cairo · English & Arabic',
+    line: 'Restoring facial harmony.',
+    summary:
+      'The website of Dr. Youssef Nasser’s oral and maxillofacial surgery clinic in Nasr City, in English and Arabic: a line-drawn face as the opening, a before-and-after slider you drag, a case gallery you can filter, the partner hospitals and booking on WhatsApp.',
+    accent: '#cdb98f',
+    url: 'https://ozeamaxillofacialclinic.com',
+  },
+  {
+    id: 'crwn',
+    name: 'CRWN',
+    industry: 'fashion',
+    series: 'Online store',
+    place: 'Streetwear · English & Arabic',
+    line: 'Vibes created.',
+    summary:
+      'A streetwear store: collections, a product grid with colour options, prices in Egyptian pounds, an English and Arabic switch and a light and dark theme.',
+    accent: '#d4a64a',
+    url: 'https://crwn-psi.vercel.app',
+  },
+];
+
 const hostOf = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
 /* the most colourful palette swatch that still reads as small text on the page (WCAG AA on #0b0b0e) */
@@ -572,6 +604,19 @@ export const allWork = [
     poster: `films/${t.id}.jpg`,
     film: t.id,
     series: 'Trade series',
+  })),
+  ...sites.map((x) => ({
+    id: x.id,
+    name: x.name,
+    industry: x.industry,
+    place: x.place,
+    line: x.line,
+    accent: x.accent,
+    url: x.url,
+    host: hostOf(x.url),
+    poster: `films/${x.id}.jpg`,
+    film: x.id,
+    series: x.series,
   })),
   ...coffee.map((c) => ({
     id: c.id,
