@@ -18,7 +18,7 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
 ---
 
 <section class="chapter coffee" id="coffee" aria-labelledby="coffee-heading" data-chapter="coffee">
-  <ChapterHead n="01" label="The coffee series" id="coffee-heading">
+  <ChapterHead n="03" label="The coffee series" id="coffee-heading">
     <Fragment slot="title">Twelve coffee brands. <em class="serif-i text-acid">Twelve languages.</em></Fragment>
     A comic-book kaiju, a lunar Swiss grid, volcanic machines, a 1924 post office, a mission-control
     roastery, a calm German reishi brand, and a second series built from the same studies. One category,
@@ -31,6 +31,7 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
         <article class="case" id={`case-${p.id}`} style={`--i: ${i}`} aria-labelledby={`case-${p.id}-name`} data-case>
           <div class="case-card" data-case-card>
             <div class="case-grid" aria-hidden="true" />
+            <div class="case-dim" aria-hidden="true" />
 
             <div class="case-info">
               <div class="case-meta">
@@ -76,7 +77,7 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
                   <strong>{p.stat.value}</strong>
                   <span>{p.stat.label}</span>
                 </p>
-                <a href={p.url} class="btn btn-acid case-link" target="_blank" rel="noopener" data-magnetic data-cursor="Live">
+                <a href={p.url} class="btn btn-acid case-link" target="_blank" rel="noopener" data-magnetic>
                   <span class="btn-fill" />
                   <span>Visit live</span>
                   <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -115,7 +116,7 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
                     {c}
                   </span>
                 ))}
-                <div class="rig-glare" aria-hidden="true" />
+                <div class="rig-glare" aria-hidden="true"><i data-glare /></div>
               </div>
             </div>
           </div>
@@ -164,12 +165,11 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
   }
 
   /* dims a card as the next one slides over it (driven from work.js) */
-  .case-card::after {
-    content: '';
+  .case-dim {
     position: absolute;
     inset: 0;
     background: var(--bg);
-    opacity: var(--dim, 0);
+    opacity: 0;
     pointer-events: none;
     z-index: 5;
   }
@@ -488,6 +488,11 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
     }
   }
 
+  /* chips only bob while their stage is near the viewport (work.js toggles .is-near) */
+  .case-stage:not(.is-near) .rig-chip {
+    animation-play-state: paused;
+  }
+
   .case.is-behind .rig-chip,
   html.reduced-motion .rig-chip {
     animation: none;
@@ -498,11 +503,22 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
     inset: 0;
     border-radius: 0.9rem;
     pointer-events: none;
-    background: radial-gradient(40% 50% at var(--gx, 30%) var(--gy, 20%), rgba(255, 255, 255, 0.12), transparent 70%);
+    overflow: clip;
     opacity: 0;
     transition: opacity 0.6s ease;
     transform: translateZ(1px);
     mix-blend-mode: screen;
+  }
+
+  /* the light is a fixed gradient twice the size, slid by transform (work.js), so it never repaints */
+  .rig-glare i {
+    position: absolute;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(20% 25% at 50% 50%, rgba(255, 255, 255, 0.12), transparent 70%);
+    will-change: transform;
   }
 
   .case-stage:hover .rig-glare {
@@ -524,6 +540,11 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
 
     .case-card {
       height: min(calc(100svh - 7.5rem - var(--i) * 0.75rem), 54rem);
+      will-change: transform;
+    }
+
+    .case-dim {
+      will-change: opacity;
     }
 
     /* text on a buried card is hidden, never left half-faded */

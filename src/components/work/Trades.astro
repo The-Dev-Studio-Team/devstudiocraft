@@ -1,0 +1,622 @@
+---
+import { Image } from 'astro:assets';
+import { trades, industries } from '../../data/work.js';
+import { media } from '../../data/media.js';
+import ChapterHead from './ChapterHead.astro';
+
+// desktop: one sticky stage, scroll walks the list; phones: a stack of cards with the phone film
+const label = Object.fromEntries(industries.map((i) => [i.key, i.label]));
+const sites = trades.map((t, i) => ({
+  ...t,
+  n: String(i + 1).padStart(2, '0'),
+  host: new URL(t.url).host,
+  trade: label[t.industry],
+  poster: media(`films/${t.id}.jpg`),
+  phone: media(`phones/${t.id}.jpg`),
+}));
+const total = String(sites.length).padStart(2, '0');
+---
+
+<section class="chapter trades" id="trades" aria-labelledby="trades-heading" data-chapter="trades">
+  <ChapterHead n="01" label="The trade series" id="trades-heading">
+    <Fragment slot="title">Ten trades. <em class="serif-i text-acid">Ten flagships.</em></Fragment>
+    The barber, the nail studio, the detailer, the gym, the physio, the bathhouse, the dentist, the caterer
+    and the restaurant down the street. For each trade we invented a brand and built its flagship from
+    scratch: name, photography, film, motion and code. This is the level your business gets.
+  </ChapterHead>
+
+  <!-- desktop theatre -->
+  <div class="th" style={`--n: ${sites.length}`} data-theatre>
+    <div class="th-sticky">
+      <div class="container th-grid">
+        <ol class="th-list" aria-label="Trade series">
+          {
+            sites.map((s, i) => (
+              <li>
+                <button type="button" class:list={['th-item', { 'is-active': i === 0 }]} style={`--accent: ${s.accent}`} aria-controls={`th-info-${s.id}`} data-th-item={i}>
+                  <span class="th-n">{s.n}</span>
+                  <span class="th-name">{s.name}</span>
+                  <span class="th-trade">{s.trade}</span>
+                </button>
+              </li>
+            ))
+          }
+        </ol>
+
+        <div class="th-stage">
+          <div class="th-screen" data-th-screen>
+            <div class="th-bar" aria-hidden="true">
+              <i></i><i></i><i></i>
+              <span class="th-url">
+                {sites.map((s, i) => <span class:list={{ 'is-active': i === 0 }} data-th-url={i}>{s.host}</span>)}
+              </span>
+              <span class="th-live"><b></b>Live</span>
+            </div>
+            <div class="th-view">
+              {
+                sites.map((s, i) => (
+                  <div class:list={['th-shot', { 'is-active': i === 0 }]} data-th-shot={i}>
+                    <Image src={s.poster} alt={`${s.name}, home page`} width={1100} densities={[1, 1.5]} quality={74} loading="lazy" />
+                    <video muted loop playsinline preload="none" aria-hidden="true" data-th-film>
+                      <source src={`/media/work/film-${s.id}.webm`} type="video/webm" />
+                      <source src={`/media/work/film-${s.id}.mp4`} type="video/mp4" />
+                    </video>
+                  </div>
+                ))
+              }
+              <span class="th-progress" aria-hidden="true"><i data-th-progress></i></span>
+            </div>
+          </div>
+
+          <div class="th-infos">
+            {
+              sites.map((s, i) => (
+                <div class:list={['th-info', { 'is-active': i === 0 }]} id={`th-info-${s.id}`} style={`--accent: ${s.accent}`} inert={i !== 0} data-th-info={i}>
+                  <p class="th-meta">
+                    <span>{s.n} / {total}</span>
+                    <span>{s.trade}</span>
+                    <span>{s.city}</span>
+                  </p>
+                  <p class="th-line">{s.line}</p>
+                  <p class="th-summary">{s.summary}</p>
+                  <div class="th-row">
+                    <ul class="th-palette" aria-label={`${s.name} palette`}>
+                      {s.palette.map((c) => <li style={`--c: ${c}`} title={c} />)}
+                    </ul>
+                    <p class="th-stat"><strong>{s.stat.value}</strong> {s.stat.label}</p>
+                    <a href={s.url} class="btn btn-acid th-link" target="_blank" rel="noopener" data-magnetic>
+                      <span class="btn-fill" />
+                      <span>Visit {s.name}</span>
+                      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                        <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- phones and tablets: a card per site -->
+  <ol class="container th-cards">
+    {
+      sites.map((s) => (
+        <li class="th-card" style={`--accent: ${s.accent}`} data-reveal>
+          <div class="th-card-phone">
+            <Image src={s.phone} alt={`${s.name} on a phone`} width={170} densities={[1, 2]} quality={74} loading="lazy" />
+            <video muted loop playsinline preload="none" aria-hidden="true" data-film>
+              <source src={`/media/work/phone-${s.id}.webm`} type="video/webm" />
+              <source src={`/media/work/phone-${s.id}.mp4`} type="video/mp4" />
+            </video>
+          </div>
+          <div class="th-card-text">
+            <p class="th-meta">
+              <span>{s.n}</span>
+              <span>{s.trade}</span>
+            </p>
+            <h3 class="th-card-name">{s.name}</h3>
+            <p class="th-line">{s.line}</p>
+            <p class="th-card-city">{s.city}</p>
+            <a href={s.url} class="th-card-link" target="_blank" rel="noopener">
+              {s.host}
+              <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+              </svg>
+            </a>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  /* ------------ desktop theatre ------------ */
+  .th {
+    position: relative;
+    height: calc(var(--n) * 52vh + 100vh);
+  }
+
+  .th-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 4.5rem;
+  }
+
+  .th-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.5fr);
+    gap: clamp(2rem, 4vw, 4.5rem);
+    align-items: center;
+  }
+
+  .th-list {
+    list-style: none;
+    display: grid;
+  }
+
+  .th-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 0.4rem;
+    width: 100%;
+    padding-block: 0.42rem;
+    text-align: left;
+    color: rgb(242 239 232 / 0.46);
+    transition: color 0.45s ease;
+  }
+
+  .th-n {
+    color: var(--ink-mute);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.45s ease;
+  }
+
+  .th-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.25rem, 0.6rem + 1.45vw, 2.15rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    transition:
+      translate 0.6s var(--ease-expo),
+      color 0.45s ease;
+  }
+
+  .th-trade {
+    grid-column: 2;
+    max-height: 0;
+    overflow: clip;
+    font-size: 0.78rem;
+    color: var(--ink-mute);
+    opacity: 0;
+    transition:
+      max-height 0.5s var(--ease-expo),
+      opacity 0.4s ease,
+      margin 0.5s var(--ease-expo);
+  }
+
+  .th-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 1.6rem;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-expo);
+  }
+
+  .th-item:hover {
+    color: rgb(242 239 232 / 0.75);
+  }
+
+  .th-item.is-active {
+    color: var(--ink);
+  }
+
+  .th-item.is-active .th-n {
+    color: transparent;
+  }
+
+  .th-item.is-active::before {
+    transform: scaleX(1);
+    top: 0.95rem;
+  }
+
+  .th-item.is-active .th-name {
+    translate: 0.6rem 0;
+  }
+
+  .th-item.is-active .th-trade {
+    max-height: 1.6rem;
+    opacity: 1;
+    margin-top: 0.35rem;
+    margin-left: 0.6rem;
+  }
+
+  .th-item:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* stage */
+  .th-stage {
+    position: relative;
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .th-stage::before {
+    /* the active brand's colour glows behind the screen */
+    content: '';
+    position: absolute;
+    inset: 8% 6% 30%;
+    background: var(--glow, #c9f24b);
+    filter: blur(90px);
+    opacity: 0.22;
+    border-radius: 50%;
+    transition: background-color 0.8s ease;
+    pointer-events: none;
+  }
+
+  .th-screen {
+    position: relative;
+    border-radius: 0.9rem;
+    overflow: clip;
+    border: 1px solid rgba(242, 239, 232, 0.14);
+    background: #0f0f13;
+    box-shadow: 0 50px 100px -40px rgba(0, 0, 0, 0.9);
+  }
+
+  .th-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 0.8rem;
+    background: #17171d;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .th-bar i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(242, 239, 232, 0.16);
+  }
+
+  .th-url {
+    position: relative;
+    display: grid;
+    margin-inline: auto;
+    padding: 0.2rem 1.2rem;
+    border-radius: 100px;
+    background: rgba(242, 239, 232, 0.06);
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    min-width: 15rem;
+    text-align: center;
+  }
+
+  .th-url span {
+    grid-area: 1 / 1;
+    opacity: 0;
+    translate: 0 40%;
+    transition:
+      opacity 0.35s ease,
+      translate 0.5s var(--ease-expo);
+  }
+
+  .th-url span.is-active {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .th-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .th-live b {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--acid);
+  }
+
+  .th-view {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: #0b0b0e;
+  }
+
+  .th-shot {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transition:
+      clip-path 0.9s var(--ease-expo),
+      opacity 0s linear 0.9s;
+  }
+
+  .th-shot.is-active {
+    z-index: 1;
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transition:
+      clip-path 0.9s var(--ease-expo),
+      opacity 0s;
+  }
+
+  /* leaving upward: the old shot wipes away the other way */
+  .th-shot.is-before {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  .th-shot :global(img),
+  .th-shot video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .th-shot video {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .th-shot video:global(.is-playing) {
+    opacity: 1;
+  }
+
+  .th-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    height: 2px;
+    background: rgba(242, 239, 232, 0.08);
+  }
+
+  .th-progress i {
+    display: block;
+    height: 100%;
+    background: var(--glow, var(--acid));
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+
+  /* info under the screen */
+  .th-infos {
+    display: grid;
+  }
+
+  .th-info {
+    grid-area: 1 / 1;
+    display: grid;
+    gap: 0.7rem;
+    align-content: start;
+    opacity: 0;
+    visibility: hidden;
+    translate: 0 0.8rem;
+    transition:
+      opacity 0.4s ease,
+      translate 0.6s var(--ease-expo),
+      visibility 0s linear 0.4s;
+  }
+
+  .th-info.is-active {
+    opacity: 1;
+    visibility: visible;
+    translate: 0 0;
+    transition:
+      opacity 0.5s ease 0.1s,
+      translate 0.7s var(--ease-expo) 0.1s,
+      visibility 0s;
+  }
+
+  .th-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .th-meta span:first-child {
+    color: var(--accent);
+  }
+
+  .th-line {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.4rem, 1rem + 1.1vw, 2.1rem);
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  .th-summary {
+    max-width: 46rem;
+    color: var(--ink-dim);
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .th-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem 1.6rem;
+    margin-top: 0.3rem;
+  }
+
+  .th-palette {
+    list-style: none;
+    display: flex;
+  }
+
+  .th-palette li {
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 50%;
+    background: var(--c);
+    border: 2px solid var(--bg);
+    margin-left: -0.35rem;
+  }
+
+  .th-palette li:first-child {
+    margin-left: 0;
+  }
+
+  .th-stat {
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+  }
+
+  .th-stat strong {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin-right: 0.2rem;
+  }
+
+  .th-link {
+    margin-left: auto;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.85rem;
+  }
+
+  /* ------------ cards (phones, tablets, short screens) ------------ */
+  .th-cards {
+    display: none;
+    list-style: none;
+  }
+
+  .th-card {
+    display: grid;
+    grid-template-columns: minmax(0, 7.5rem) minmax(0, 1fr);
+    gap: 1.2rem;
+    align-items: center;
+    padding-block: 1.4rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .th-card-phone {
+    position: relative;
+    aspect-ratio: 390 / 844;
+    border-radius: 1.1rem;
+    overflow: clip;
+    border: 3px solid #1f1f27;
+    background: #000;
+    box-shadow: 0 0 0 1px var(--line), 0 24px 40px -20px var(--accent);
+  }
+
+  .th-card-phone :global(img),
+  .th-card-phone video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .th-card-phone video {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .th-card-phone video:global(.is-playing) {
+    opacity: 1;
+  }
+
+  .th-card-text {
+    display: grid;
+    gap: 0.45rem;
+    justify-items: start;
+  }
+
+  .th-card-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 1rem + 2.4vw, 2.2rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .th-card .th-line {
+    font-size: 1.15rem;
+  }
+
+  .th-card-city {
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+  }
+
+  .th-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.3rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: 100px;
+    background: var(--acid);
+    color: var(--acid-ink);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .th-card-link:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 1023px), (max-height: 699px) {
+    .th {
+      display: none;
+    }
+
+    .th-cards {
+      display: block;
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .th-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 2rem;
+    }
+  }
+</style>

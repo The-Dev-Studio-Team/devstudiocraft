@@ -16,13 +16,13 @@ const home = page === 'home' ? '' : '/';
     </a>
     <nav class="nav-links" aria-label="Main navigation">
       <a href="/work/" class="nav-link-work" aria-current={page === 'work' ? 'page' : undefined}>Work</a>
+      <a href={`${home}#trades`}>Your trade</a>
       <a href={`${home}#services`}>Services</a>
-      <a href={`${home}#work`}>Capabilities</a>
       <a href={`${home}#process`}>Process</a>
       <a href={`${home}#edge`}>Why us</a>
       <a href={`${home}#packages`}>Packages</a>
     </nav>
-    <a href="#contact" class="btn btn-acid nav-cta" data-magnetic data-cursor="Go" aria-label="Start a project">
+    <a href="#contact" class="btn btn-acid nav-cta" data-magnetic aria-label="Start a project">
       <span class="btn-fill"></span>
       <span>Start<span class="nav-cta-more"> a project</span></span>
     </a>
@@ -45,7 +45,7 @@ const home = page === 'home' ? '' : '/';
 
   .nav.is-scrolled {
     padding-block: 0.7rem;
-    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    background: color-mix(in srgb, var(--bg) 90%, transparent);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--line);
@@ -85,7 +85,7 @@ const home = page === 'home' ? '' : '/';
     gap: 2.2rem;
     font-size: 0.9rem;
     font-weight: 500;
-    color: var(--ink-dim);
+    color: rgb(242 239 232 / 0.72);
   }
 
   .nav-links a {

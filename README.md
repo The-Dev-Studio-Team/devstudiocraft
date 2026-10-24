@@ -20,6 +20,7 @@ landing pages and mobile apps built to sell.
 | `npm run build`   | Production build to `./dist/`                   |
 | `npm run preview` | Preview the production build locally            |
 | `npm run deploy`  | Build + deploy to Cloudflare Pages via Wrangler |
+| `npm run cursors` | Regenerate the SVG cursor family (`src/styles/cursor.css`) |
 
 ## Deploy
 
@@ -44,12 +45,18 @@ Since the domain was bought at Hostinger, either:
 
 ```
 src/
-├── layouts/Base.astro        # head, meta, OG, JSON-LD, fonts
+├── layouts/Base.astro        # head, meta, OG, JSON-LD, fonts, once-per-session intro flag
 ├── pages/index.astro         # section composition
-├── components/               # one section per file
-├── scripts/main.js           # GSAP/Lenis animation engine
-├── scripts/interactions.js   # cursor, magnetic buttons, nav
-└── styles/global.css         # design tokens + base styles
+├── pages/work.astro          # the work page (boots scripts/work.js)
+├── components/               # one section per file (Preloader.astro: the intro)
+├── components/work/          # work page chapters
+├── data/work.js              # every project, industries, the reel's cut list
+├── scripts/core.js           # shared GSAP/Lenis engine
+├── scripts/main.js           # home motion
+├── scripts/work.js           # work page motion (theatre, index filter, deck)
+├── scripts/interactions.js   # magnetic buttons, nav, previews
+├── styles/global.css         # design tokens + base styles
+└── styles/cursor.css         # generated: native SVG cursors (tools/cursors/)
 public/
 ├── fonts/                    # self-hosted woff2
 ├── _headers                  # security + cache headers (Cloudflare Pages)
@@ -57,6 +64,16 @@ public/
 ```
 
 ## Editing content
+
+- **Add a project:** one entry in `src/data/work.js` (`trades` for a new trade site: name, industry key, city,
+  line, palette, accent, url). It then shows in the /work theatre and index, the home trade picker and the
+  industry counts. Media: `public/media/work/film-<id>.{webm,mp4}` and `phone-<id>.{webm,mp4}`,
+  `src/assets/work/films/<id>.jpg` and `phones/<id>.jpg` (capture + encode tools live outside the repo in
+  `ui-breakdown/claude/work-page/tools/`; encode web video in TV range, VP9 + H.264). A new industry is one line
+  in `industries`.
+- **Cursors:** every `cursor:` keyword in our CSS is rewritten to a `--dsc-cursor-*` token by
+  `tools/cursors/postcss-plugin.cjs` (registered in `postcss.config.cjs`); add `.on-light` to light surfaces.
+- **Intro:** plays on the first page of a session only (`sessionStorage` key `dsc-intro`); `?nointro` skips it.
 
 - Copy lives directly in the section components (`src/components/*.astro`).
 - Design tokens (colors, type scale, spacing) in `src/styles/global.css` `:root`.

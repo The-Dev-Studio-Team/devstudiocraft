@@ -1,0 +1,348 @@
+---
+import { Image } from 'astro:assets';
+import { allWork, industries } from '../data/work.js';
+import { media } from '../data/media.js';
+
+// a pinned horizontal run of recent launches (main.js: initShowcase); phones swipe it
+const picks = ['kelvin', 'namjim', 'ferro', 'salus', 'pilot100', 'kaiju'];
+const label = Object.fromEntries(industries.map((i) => [i.key, i.label]));
+const cards = picks.map((id, i) => {
+  const w = allWork.find((p) => p.id === id);
+  return { ...w, n: String(i + 1).padStart(2, '0'), trade: label[w.industry], img: media(w.poster) };
+});
+---
+
+<section class="featured" id="featured" aria-labelledby="featured-heading">
+  <div class="featured-pin" data-showcase-pin>
+    <div class="container featured-head">
+      <p class="eyebrow" data-reveal>Selected work</p>
+      <h2 class="h-display h2" id="featured-heading" data-split-lines>
+        Recent launches. <em class="serif-i text-acid">All live.</em>
+      </h2>
+    </div>
+
+    <div class="featured-track" data-showcase-track>
+      {
+        cards.map((c) => (
+          <article class="fw-card" style={`--accent: ${c.accent}`} aria-labelledby={`fw-${c.id}`}>
+            <a href={c.url} class="fw-link" target="_blank" rel="noopener">
+              <span class="fw-screen">
+                <span class="fw-bar" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                  <span>{c.host}</span>
+                </span>
+                <span class="fw-view">
+                  <Image src={c.img} alt="" width={980} densities={[1, 1.5]} quality={74} loading="lazy" />
+                  <video muted loop playsinline preload="none" aria-hidden="true" data-ambient-video>
+                    <source src={`/media/work/film-${c.film}.webm`} type="video/webm" />
+                    <source src={`/media/work/film-${c.film}.mp4`} type="video/mp4" />
+                  </video>
+                </span>
+              </span>
+              <span class="fw-text">
+                <span class="fw-n">{c.n}</span>
+                <span class="fw-name" id={`fw-${c.id}`}>{c.name}</span>
+                <span class="fw-line">{c.line}</span>
+                <span class="fw-meta">
+                  <b>{c.trade}</b> {c.place}
+                </span>
+                <span class="fw-go" aria-hidden="true">
+                  Visit
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+                  </svg>
+                </span>
+              </span>
+            </a>
+          </article>
+        ))
+      }
+      <a href="/work/" class="fw-end on-light">
+        <span class="fw-end-k">The full index</span>
+        <span class="fw-end-n">{allWork.length}</span>
+        <span class="fw-end-t">
+          sites, <em class="serif-i">all live.</em>
+        </span>
+        <span class="fw-end-go">
+          See the work
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .featured {
+    padding-top: var(--space-section);
+  }
+
+  .featured-pin {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(2rem, 4vh, 3rem);
+    padding-block: 5.5rem 2.5rem;
+    overflow: clip;
+  }
+
+  .featured-head {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .featured-track {
+    display: flex;
+    align-items: stretch;
+    gap: clamp(1.2rem, 2.4vw, 2.4rem);
+    width: max-content;
+    padding-inline: var(--gutter);
+    will-change: transform;
+  }
+
+  .fw-card {
+    flex: none;
+    width: min(58vw, calc((100vh - 27rem) * 1.6), 62rem);
+  }
+
+  .fw-link {
+    display: grid;
+    gap: 1.1rem;
+    border-radius: 1rem;
+  }
+
+  .fw-link:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 5px;
+  }
+
+  .fw-screen {
+    display: block;
+    border-radius: 0.9rem;
+    overflow: clip;
+    border: 1px solid rgb(242 239 232 / 0.14);
+    background: #0f0f13;
+    transition:
+      border-color 0.5s ease,
+      translate 0.7s var(--ease-expo);
+  }
+
+  .fw-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 0.75rem;
+    background: #17171d;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .fw-bar i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgb(242 239 232 / 0.16);
+  }
+
+  .fw-bar span {
+    margin-inline: auto;
+    padding: 0.15rem 1.2rem;
+    border-radius: 100px;
+    background: rgb(242 239 232 / 0.06);
+    font-size: 0.7rem;
+    color: var(--ink-dim);
+  }
+
+  .fw-view {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+  }
+
+  .fw-view :global(img),
+  .fw-view video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .fw-text {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 0.25rem 1rem;
+  }
+
+  .fw-n {
+    grid-row: 1 / span 2;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .fw-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 0.9rem + 1.3vw, 2.3rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .fw-line {
+    grid-column: 2;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--ink-dim);
+  }
+
+  .fw-meta {
+    grid-column: 3;
+    grid-row: 1;
+    font-size: 0.8rem;
+    color: var(--ink-mute);
+    text-align: right;
+  }
+
+  .fw-meta b {
+    color: var(--accent);
+    font-weight: 600;
+    margin-right: 0.4rem;
+  }
+
+  .fw-go {
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.95rem;
+    border-radius: 100px;
+    border: 1px solid var(--line);
+    font-size: 0.78rem;
+    font-weight: 600;
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease,
+      border-color 0.4s ease;
+  }
+
+  @media (hover: hover) {
+    .fw-link:hover .fw-screen {
+      border-color: var(--accent);
+      translate: 0 -0.4rem;
+    }
+
+    .fw-link:hover .fw-go {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0b0b0e;
+    }
+  }
+
+  /* the last card: count + way into /work */
+  .fw-end {
+    flex: none;
+    width: clamp(16rem, 24vw, 22rem);
+    display: grid;
+    align-content: space-between;
+    padding: 1.8rem;
+    border-radius: 1rem;
+    background: var(--acid);
+    color: var(--acid-ink);
+  }
+
+  .fw-end-k {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .fw-end-n {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(5rem, 9vw, 9rem);
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+  }
+
+  .fw-end-t {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .fw-end-go {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+  }
+
+  .fw-end-go svg {
+    transition: translate 0.4s var(--ease-expo);
+  }
+
+  .fw-end:hover .fw-end-go svg {
+    translate: 0.25rem -0.25rem;
+  }
+
+  .fw-end:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 900px) {
+    .featured-pin {
+      min-height: 0;
+      padding-block: 0;
+    }
+
+    .featured-track {
+      width: auto;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--gutter);
+      scrollbar-width: none;
+      padding-bottom: 0.5rem;
+    }
+
+    .fw-card,
+    .fw-end {
+      width: min(84vw, 30rem);
+      scroll-snap-align: start;
+    }
+
+    .fw-text {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .fw-meta,
+    .fw-go {
+      grid-column: 2;
+      grid-row: auto;
+      justify-self: start;
+      text-align: left;
+    }
+
+    .fw-go {
+      display: none;
+    }
+
+    .fw-end {
+      gap: 1.2rem;
+    }
+  }
+</style>

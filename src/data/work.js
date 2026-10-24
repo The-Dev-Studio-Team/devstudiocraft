@@ -356,3 +356,270 @@ export const kitParts = [
   'Guidelines deck',
   'Brand boards',
 ];
+
+/* ---------------------------------------------------------------------------
+   Industries: the trades we build for. `trade: true` marks the local-business
+   categories the studio sells to (the home page picker lists those).
+--------------------------------------------------------------------------- */
+export const industries = [
+  { key: 'hair', label: 'Barbers & hair', short: 'Barbers', trade: true },
+  { key: 'nails', label: 'Nails & beauty', short: 'Nails', trade: true },
+  { key: 'detailing', label: 'Car detailing', short: 'Detailing', trade: true },
+  { key: 'gym', label: 'Gyms & fitness', short: 'Gyms', trade: true },
+  { key: 'physio', label: 'Physio & rehab', short: 'Physio', trade: true },
+  { key: 'massage', label: 'Massage & spa', short: 'Massage', trade: true },
+  { key: 'dental', label: 'Dental clinics', short: 'Dental', trade: true },
+  { key: 'events', label: 'Events & catering', short: 'Events', trade: true },
+  { key: 'restaurant', label: 'Restaurants', short: 'Restaurants', trade: true },
+  { key: 'cafe', label: 'Cafés & coffee', short: 'Cafés', trade: true },
+  { key: 'aviation', label: 'Aviation', short: 'Aviation' },
+  { key: 'realestate', label: 'Real estate', short: 'Real estate' },
+  { key: 'identity', label: 'Brand identity', short: 'Identity' },
+];
+
+/* ---------------------------------------------------------------------------
+   The trade series: one flagship site per local trade, each for a brand we
+   invented and built end to end (brand, photography, film, code).
+   Add a site: one entry here, film-<id>.{webm,mp4} in public/media/work/,
+   films/<id>.jpg and phones/<id>.jpg in src/assets/work/.
+--------------------------------------------------------------------------- */
+export const trades = [
+  {
+    id: 'bluehour',
+    name: 'Blue Hour Barbers',
+    industry: 'hair',
+    city: 'Chicago',
+    line: 'Sit down tired, stand up sharp.',
+    summary:
+      'Five late-opening barbershops written like a fashion magazine: cobalt spreads that rise over each other, serif headlines that turn italic mid-sentence and a booking app you can tilt.',
+    moves: ['Sections rise over each other like magazine spreads', 'Five location pages from one data file', 'A tilting phone with the real booking app'],
+    palette: ['#2b3df5', '#0b0d1a', '#f3f1ea', '#6474ff'],
+    accent: '#6474ff',
+    stat: { value: '9', label: 'pages, five shops' },
+    url: 'https://bluehour.devstudiocraft.com',
+  },
+  {
+    id: 'vernis',
+    name: 'Maison Vernis',
+    industry: 'nails',
+    city: 'Montréal',
+    line: 'Lacquer, laid in quiet coats.',
+    summary:
+      'A lacquer house for nails and head spa. Glossy slats close over the hero film as you scroll, every arch tightens as it rises, and a shade picker re-lacquers the whole site.',
+    moves: ['Lacquer slats that coat the hero as you scroll', 'A shade picker that recolours the site', 'Four-step booking and a live gift-card builder'],
+    palette: ['#7a2630', '#f2ece4', '#c4a57a', '#2e1b1e'],
+    accent: '#d4a07a',
+    stat: { value: '8', label: 'pages, booking to gift card' },
+    url: 'https://vernis.devstudiocraft.com',
+  },
+  {
+    id: 'kelvin',
+    name: 'KELVIN',
+    industry: 'detailing',
+    city: 'Detroit',
+    line: 'Haze out. Depth back.',
+    summary:
+      'A paint-correction studio with one dark bay, one car and one light you hold. A real 911 Turbo S turns in 3D, the lamp’s colour temperature follows your pointer, and a garage swaps the car.',
+    moves: ['A 3D studio bay with a real Porsche 911 Turbo S', 'The lamp’s 1800–6500 K temperature follows the pointer', 'Garage swap: 911, G 63 or our own Kelvin GT'],
+    palette: ['#07080a', '#e8ecef', '#ff9a4a', '#9fd0ff'],
+    accent: '#ff9a4a',
+    stat: { value: '3', label: 'cars in one 3D bay' },
+    url: 'https://kelvin.devstudiocraft.com',
+  },
+  {
+    id: 'ferro',
+    name: 'FERRO Clubs',
+    industry: 'gym',
+    city: 'Milano · Torino · Verona',
+    line: 'Strike while it’s hot.',
+    summary:
+      'Gyms in restored iron foundries. Molten type bands over film, a forged 3D plate, clubs open 05:30 to 23:00, and class names taken from the forge: Anvil, Bellows, Temper, Quench.',
+    moves: ['Molten type bands that roll over the films', 'A forged plate modelled in Blender', 'Club finder and class timetable'],
+    palette: ['#ff5b1a', '#140b07', '#f6ede6', '#ffd8c2'],
+    accent: '#ff5b1a',
+    stat: { value: '05:30', label: 'to 23:00, every day of the year' },
+    url: 'https://ferro.devstudiocraft.com',
+  },
+  {
+    id: 'firn',
+    name: 'Firn Dental',
+    industry: 'dental',
+    city: 'Innsbruck',
+    line: 'Dentistry with the patience of ice.',
+    summary:
+      'An implant and aesthetic clinic in the Alps. You scroll through a flight over the peaks into a white-out, a sea of dots gathers into a globe of patients’ home countries, and one switch turns day into night.',
+    moves: ['A scroll flight over the Alps into a white-out', 'Dots that gather into a globe of patient countries', 'A day/night switch and an implant viewer built in code'],
+    palette: ['#e8ecee', '#0b2a3c', '#1a6e91', '#f4f7f8'],
+    accent: '#5fb6d9',
+    stat: { value: '2', label: 'worlds: dental by day, aesthetics by night' },
+    url: 'https://firn.devstudiocraft.com',
+  },
+  {
+    id: 'loadtheory',
+    name: 'Load Theory',
+    industry: 'physio',
+    city: 'Melbourne',
+    line: 'Load it right. Come back stronger.',
+    summary:
+      'A sports physio and rehab lab laid out like a lab report: poster-sized type, a big-type proof wall, sticky “how it works” cards and buttons that decode as you hover.',
+    moves: ['A big-type proof wall with scrubbed fills', 'Sticky “how it works” cards', 'Four service pages from one template'],
+    palette: ['#2e3bff', '#141414', '#f2f2f0', '#8c95ff'],
+    accent: '#8c95ff',
+    stat: { value: '11', label: 'pages from one source' },
+    url: 'https://loadtheory.devstudiocraft.com',
+  },
+  {
+    id: 'salus',
+    name: 'Salus',
+    industry: 'massage',
+    city: 'Bath & massage house',
+    line: 'An unhurried hour.',
+    summary:
+      'A Mediterranean hammam and massage house told as a threshold: a curtain parts, the S a l u S wordmark breathes out, photo doors open into the menu and a doorway grows until you stand in the lobby.',
+    moves: ['Photo doors that part into the treatment menu', 'A doorway that scales until you step inside', 'Twelve ritual pages with a pinned booking bar'],
+    palette: ['#8f4630', '#e3d5bf', '#5e4433', '#efe5d4'],
+    accent: '#d98a6a',
+    stat: { value: '12', label: 'rituals, each with its own page' },
+    url: 'https://salus.devstudiocraft.com',
+  },
+  {
+    id: 'longtable',
+    name: 'Longtable',
+    industry: 'events',
+    city: 'Lisbon · Copenhagen',
+    line: 'Pull up a chair.',
+    summary:
+      'Events, feasts and hospitality. Coral light falls over a long table, film plays inside the headline, counters roll, a city list turns over a globe, and twelve case pages sit behind a filter.',
+    moves: ['Coral light wedges over the long table', 'Film inside the headline, pixel-exact', 'Twelve case pages with a filter overlay'],
+    palette: ['#f28b6e', '#f4eee6', '#ffe17d', '#c7381d'],
+    accent: '#f28b6e',
+    stat: { value: '12', label: 'case pages behind one filter' },
+    url: 'https://longtable.devstudiocraft.com',
+  },
+  {
+    id: 'namjim',
+    name: 'NAMJIM',
+    industry: 'restaurant',
+    city: 'London + 5 cities',
+    line: 'Every plate comes with its sauce.',
+    summary:
+      'Thai street kitchens in six cities. A film reel opens the house, the logo letters rise and fly into the header, each restaurant has its own page, and a booking drawer opens from every Book button.',
+    moves: ['A film reel with a logo that flies into the header', 'Eight restaurant pages and an HTML menu', 'Hand-engraved illustrations that sway'],
+    palette: ['#ff62a8', '#1d1748', '#d7ff3a', '#fff4e4'],
+    accent: '#ff62a8',
+    stat: { value: '8', label: 'restaurants, one booking drawer' },
+    url: 'https://namjim.devstudiocraft.com',
+  },
+  {
+    id: 'knip',
+    name: 'KNIP',
+    industry: 'hair',
+    city: 'Rotterdam',
+    line: 'The city blurs. The cut doesn’t.',
+    summary:
+      'A Rotterdam barbershop in harbour orange and concrete. The menu scales the whole page into the corner, an index drops a tilted photo per link, and stepped full-screen sections cut like a fade.',
+    moves: ['A menu that scales the page into the corner', 'An index that drops a tilted photo per link', 'Price grid, school and careers pages'],
+    palette: ['#ff5a1f', '#0e0e0d', '#e7e6e1', '#f1f0ec'],
+    accent: '#ff5a1f',
+    stat: { value: '8', label: 'pages, shop to school' },
+    url: 'https://knip.devstudiocraft.com',
+  },
+];
+
+const hostOf = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
+/* the most colourful palette swatch that still reads as small text on the page (WCAG AA on #0b0b0e) */
+const lum = (hex) => {
+  const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+};
+const sat = (hex) => {
+  const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  return Math.max(...c) - Math.min(...c);
+};
+const readable = (palette) =>
+  palette
+    .filter((c) => (lum(c) + 0.05) / (lum('#0b0b0e') + 0.05) >= 4.6 && sat(c) > 40)
+    .sort((a, b) => sat(b) - sat(a))[0] ?? '#c9f24b';
+
+/* Every project as one flat, filterable list (the /work index and the home picker read this). */
+export const allWork = [
+  ...trades.map((t) => ({
+    id: t.id,
+    name: t.name,
+    industry: t.industry,
+    place: t.city,
+    line: t.line,
+    accent: t.accent,
+    url: t.url,
+    host: hostOf(t.url),
+    poster: `films/${t.id}.jpg`,
+    film: t.id,
+    series: 'Trade series',
+  })),
+  ...coffee.map((c) => ({
+    id: c.id,
+    name: c.name,
+    industry: 'cafe',
+    place: c.place ?? c.discipline,
+    line: c.line,
+    accent: readable(c.palette),
+    url: c.url,
+    host: hostOf(c.url),
+    poster: `films/${c.id}.jpg`,
+    film: c.id,
+    series: c.series === 2 ? 'Coffee · Series II' : 'Coffee series',
+  })),
+  ...aviation.map((a) => ({
+    id: a.id,
+    name: a.name,
+    industry: 'aviation',
+    place: a.sector,
+    line: a.line,
+    accent: a.accent,
+    url: a.url,
+    host: a.host,
+    poster: `films/${a.id}.jpg`,
+    film: a.id,
+    series: 'Aviation',
+  })),
+  ...spaces.map((s) => ({
+    id: s.id,
+    name: `${s.name} · ${s.title}`,
+    industry: 'realestate',
+    place: s.sector,
+    line: s.line,
+    accent: '#d9c6a5',
+    url: s.url,
+    host: s.host,
+    poster: `films/${s.id}.jpg`,
+    film: s.id,
+    series: 'Spaces',
+  })),
+  ...identities.map((b) => ({
+    id: `id-${b.id}`,
+    name: b.name,
+    industry: 'identity',
+    place: b.sector,
+    line: b.idea,
+    accent: { p100: '#5eead4', ary: '#7c9bff', m2a: '#6f93ff' }[b.id],
+    url: '#identity',
+    poster: { p100: 'brand/board-p100-aurora.jpg', ary: 'brand/board-ary-bluehour.jpg', m2a: 'brand/board-m2a-weser.jpg' }[b.id],
+    series: 'Identity system',
+  })),
+];
+
+/* industries that actually have work, with counts, in taxonomy order */
+export const industryCounts = industries
+  .map((i) => ({ ...i, count: allWork.filter((w) => w.industry === i.key).length }))
+  .filter((i) => i.count > 0);
+
+/* The studio reel (public/media/work/reel*.{webm,mp4}): which site is on screen from which second.
+   Cut by work-page/tools/make_reel.py: 28 frames per site at 24 fps. */
+export const reelCuts = ['kelvin', 'ferro', 'namjim', 'bluehour', 'salus', 'longtable', 'firn', 'knip', 'vernis', 'loadtheory', 'kaiju', 'pilot100'].map(
+  (id, i) => {
+    const w = allWork.find((p) => p.id === id);
+    const trade = industries.find((x) => x.key === w.industry);
+    return { id, at: (i * 28) / 24, name: w.name, trade: trade.label, place: w.place, accent: w.accent, url: w.url };
+  }
+);

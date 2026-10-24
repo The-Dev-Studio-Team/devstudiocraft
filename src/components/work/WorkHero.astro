@@ -1,271 +1,350 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
+import { allWork, industryCounts, trades } from '../../data/work.js';
 import { media } from '../../data/media.js';
 
-// three drifting rows of real frames from the work below
-const rows = [
-  ['films/kaiju.jpg', 'brand/board-p100-aurora.jpg', 'films/dayform.jpg', 'films/basalt.jpg', 'films/airyona.jpg', 'films/poste.jpg', 'films/emberline.jpg'],
-  ['films/grounds.jpg', 'films/pilot100.jpg', 'brand/board-ary-midnight.jpg', 'films/tour.jpg', 'films/halfmoon.jpg', 'films/chicafe.jpg'],
-  ['films/afterhours.jpg', 'brand/board-m2a-morning.jpg', 'brand/space-terrace.jpg', 'films/velora.jpg', 'films/lacune.jpg', 'brand/wear-hoodie.jpg'],
-].map((row) => row.map((p) => ({ src: media(p), tall: /^brand\/(board|wear)-/.test(p) })));
+const reelPoster = await getImage({ src: media('films/reel.jpg'), format: 'webp', width: 1280, quality: 70 });
+const total = allWork.length;
+
+// the rolling word: every trade we build for, in its own site's accent
+const roll = [
+  ['barbers', 'hair'],
+  ['nail studios', 'nails'],
+  ['detailers', 'detailing'],
+  ['gyms', 'gym'],
+  ['physios', 'physio'],
+  ['spas', 'massage'],
+  ['dentists', 'dental'],
+  ['caterers', 'events'],
+  ['restaurants', 'restaurant'],
+  ['cafés', 'cafe'],
+].map(([word, key]) => ({ word, accent: trades.find((t) => t.industry === key)?.accent ?? '#c9f24b' }));
+
+const stats = [
+  { value: total, label: 'live sites' },
+  { value: industryCounts.length, label: 'industries' },
+  { value: trades.length, label: 'new trades this season' },
+  { value: 1, label: 'team, brand to code' },
+];
 ---
 
-<section class="work-hero" id="top" aria-labelledby="work-heading" data-intro data-work-hero>
-  <div class="wall" aria-hidden="true">
-    <div class="wall-plane">
+<section class="wh" aria-labelledby="work-title" data-work-hero data-intro>
+  <h1 class="sr-only" id="work-title">Work: {total} live sites by DevStudioCraft</h1>
+
+  <div class="container wh-top">
+    <p class="eyebrow" data-reveal>Selected work — 2025–2026</p>
+    <p class="wh-count" data-reveal>
+      <span class="wh-count-n" data-count={total}>{total}</span> sites, all live
+    </p>
+  </div>
+
+  <!-- the reel plays inside the letters: white-on-black type multiplies onto the film, the page tone screens on top -->
+  <div class="wh-word" aria-hidden="true" data-wh-word>
+    <video class="wh-reel" muted loop playsinline preload="none" poster={reelPoster.src} data-wh-reel>
+      <source src="/media/work/reel.webm" type="video/webm" />
+      <source src="/media/work/reel.mp4" type="video/mp4" />
+    </video>
+    <div class="wh-knock"><span class="wh-letters" data-intro-title><span class="hl">W</span><span class="hl">O</span><span class="hl">R</span><span class="hl">K</span></span></div>
+    <div class="wh-tint"></div>
+  </div>
+
+  <div class="container wh-foot">
+    <p class="wh-lede" data-reveal>
+      Flagship websites for
+      <span class="wh-roll" aria-hidden="true" data-roll>
+        {roll.map((r, i) => <span class="wh-roll-word" style={`--c:${r.accent}`} data-roll-word={i}>{r.word}</span>)}
+      </span>
+      <span class="sr-only">barbers, nail studios, detailers, gyms, physios, spas, dentists, caterers, restaurants and cafés</span>
+      <br />designed, filmed and coded by one team.
+    </p>
+
+    <ul class="wh-stats" data-reveal>
       {
-        rows.map((row, r) => (
-          <div class={`wall-row ${r % 2 ? 'is-reverse' : ''}`}>
-            {[0, 1].map(() => (
-              <div class="wall-group">
-                {row.map((t) => (
-                  <div class={`wall-tile ${t.tall ? 'is-tall' : ''}`}>
-                    <Image src={t.src} alt="" width={520} quality={62} loading="eager" decoding="async" />
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
+        stats.map((s) => (
+          <li>
+            <strong data-count={s.value}>{String(s.value).padStart(2, '0')}</strong>
+            <span>{s.label}</span>
+          </li>
         ))
       }
-    </div>
-    <div class="wall-scrim"></div>
+    </ul>
   </div>
 
-  <div class="container work-hero-inner">
-    <p class="eyebrow" data-reveal>Selected work — 2026</p>
-
-    <h1 class="h-display work-title split-mask" id="work-heading" data-intro-title>
-      <span class="line-wrap"><span class="hl outline-text">Work that</span></span>
-      <span class="line-wrap"><span class="hl">pours, flies</span></span>
-      <span class="line-wrap"><span class="hl">and <em class="serif-i text-acid">sells.</em></span></span>
-    </h1>
-
-    <div class="work-hero-row">
-      <p class="work-hero-sub" data-reveal>
-        Coffee brands with their own physics, aviation
-        platforms people study and fly with, a home you can walk before you visit,
-        and the identity systems underneath. Every pixel and every line of code from one team.
-      </p>
-      <ul class="work-hero-stats" data-reveal>
-        <li><strong>12</strong><span>coffee brands</span></li>
-        <li><strong>02</strong><span>aviation platforms</span></li>
-        <li><strong>01</strong><span>residence tour</span></li>
-        <li><strong>03</strong><span>identity systems</span></li>
-      </ul>
-    </div>
-  </div>
-
-  <a href="#coffee" class="work-hero-scroll" aria-label="Skip to the work">
-    <span>Scroll</span>
-    <span class="work-hero-scroll-line" aria-hidden="true"></span>
-  </a>
+  <nav class="container wh-jump" aria-label="Jump to an industry" data-reveal>
+    <span class="wh-jump-label">Find yours</span>
+    <ul>
+      {
+        industryCounts.map((i) => (
+          <li>
+            <a href={`?industry=${i.key}#index`} data-filter-link={i.key}>
+              {i.short}
+              <sup>{i.count}</sup>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 </section>
 
 <style>
-  .work-hero {
+  .wh {
     position: relative;
     min-height: 100svh;
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: clamp(1rem, 2vh, 1.6rem);
+    padding-top: clamp(6rem, 12vh, 8rem);
+    padding-bottom: clamp(1.4rem, 3vh, 2.4rem);
     overflow: clip;
-    padding-block: clamp(8rem, 16vh, 12rem) clamp(4rem, 9vh, 6.5rem);
-    isolation: isolate;
   }
 
-  /* ---- the drifting wall ---- */
-  .wall {
+  .wh-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .wh-count {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .wh-count-n {
+    color: var(--acid);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- the word ---- */
+  .wh-word {
+    position: relative;
+    isolation: isolate;
+    margin-inline: auto;
+    width: min(100% - 2 * var(--gutter), 90rem);
+    overflow: clip;
+  }
+
+  .wh-reel {
     position: absolute;
     inset: 0;
-    z-index: -1;
-    perspective: 1600px;
-  }
-
-  .wall-plane {
-    position: absolute;
-    inset: -30% -20%;
-    display: grid;
-    align-content: center;
-    gap: clamp(0.8rem, 1.4vw, 1.4rem);
-    transform: rotateX(24deg) rotateZ(-9deg) translateY(-6%);
-    transform-origin: 50% 40%;
-  }
-
-  .wall-row {
-    display: flex;
-    width: max-content;
-    animation: wall-drift 90s linear infinite;
-    will-change: transform;
-  }
-
-  .wall-row.is-reverse {
-    animation-direction: reverse;
-    animation-duration: 110s;
-  }
-
-  .wall-group {
-    display: flex;
-    gap: clamp(0.8rem, 1.4vw, 1.4rem);
-    padding-right: clamp(0.8rem, 1.4vw, 1.4rem);
-  }
-
-  .wall-tile {
-    height: clamp(11rem, 19vw, 19rem);
-    aspect-ratio: 16 / 10;
-    border-radius: 0.9rem;
-    overflow: clip;
-    border: 1px solid var(--line);
-    background: var(--bg-card);
-  }
-
-  .wall-tile.is-tall {
-    aspect-ratio: 9 / 13;
-  }
-
-  .wall-tile :global(img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top;
+    z-index: 0;
   }
 
-  .work-hero.is-paused .wall-row {
-    animation-play-state: paused;
+  .wh-knock {
+    position: relative;
+    z-index: 1;
+    background: #000;
+    color: #fff;
+    mix-blend-mode: multiply;
+    font-family: var(--font-display);
+    font-weight: 700;
+    /* four letters fill the column: ~3.06em of Clash Display 700 caps */
+    font-size: min(29.6vw, 28.6rem, 58svh);
+    line-height: 0.74;
+    letter-spacing: -0.035em;
+    text-align: center;
+    padding-block: 0.04em 0.02em;
   }
 
-  .wall-scrim {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(90deg, rgba(11, 11, 14, 0.82), rgba(11, 11, 14, 0.4) 62%, rgba(11, 11, 14, 0.15)),
-      radial-gradient(120% 80% at 20% 100%, rgba(11, 11, 14, 0.96) 30%, rgba(11, 11, 14, 0.55) 70%, rgba(11, 11, 14, 0.35)),
-      linear-gradient(to bottom, rgba(11, 11, 14, 0.7), transparent 30%, transparent 60%, var(--bg));
-  }
-
-  @keyframes wall-drift {
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  /* ---- copy ---- */
-  .work-hero-inner {
-    display: grid;
-    gap: clamp(1.6rem, 3vw, 2.4rem);
-  }
-
-  .work-title {
-    font-size: var(--text-hero);
-  }
-
-  .work-title .line-wrap {
-    display: block;
+  .wh-letters {
+    display: inline-flex;
     overflow: clip;
-    padding-block: 0.04em;
+    padding-block: 0.02em;
   }
 
-  .work-title .hl {
+  .wh-letters .hl {
     display: inline-block;
   }
 
-  .work-title .outline-text {
-    -webkit-text-stroke-width: 2px;
+  .wh-tint {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: var(--bg);
+    mix-blend-mode: screen;
+    pointer-events: none;
   }
 
-  .work-hero-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 2.5rem;
-    flex-wrap: wrap;
-  }
-
-  .work-hero-sub {
-    max-width: 34rem;
-    color: var(--ink-dim);
-    font-size: var(--text-lg);
-    text-wrap: pretty;
-  }
-
-  .work-hero-stats {
-    list-style: none;
-    display: flex;
-    gap: clamp(1.4rem, 3vw, 3rem);
-    flex-wrap: wrap;
-  }
-
-  .work-hero-stats li {
+  /* ---- foot ---- */
+  .wh-foot {
     display: grid;
-    gap: 0.2rem;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: end;
   }
 
-  .work-hero-stats strong {
+  .wh-lede {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem);
+    font-size: clamp(1.35rem, 0.9rem + 1.5vw, 2.3rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    max-width: 40rem;
+  }
+
+  .wh-roll {
+    position: relative;
+    display: inline-grid;
+    vertical-align: bottom;
+    height: 1.12em;
+    overflow: clip;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 1.12em;
+    line-height: 1;
+  }
+
+  .wh-roll-word {
+    grid-area: 1 / 1;
+    color: var(--c);
+    white-space: nowrap;
+    translate: 0 110%;
+  }
+
+  .wh-roll-word:first-child {
+    translate: 0 0;
+  }
+
+  .wh-stats {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+  }
+
+  .wh-stats strong {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.6rem, 1rem + 1.8vw, 2.8rem);
     line-height: 1;
     color: var(--acid);
     font-variant-numeric: tabular-nums;
   }
 
-  .work-hero-stats span {
+  .wh-stats span {
+    display: block;
+    margin-top: 0.4rem;
     font-size: 0.8rem;
-    color: var(--ink-dim);
-    letter-spacing: 0.04em;
+    color: var(--ink-mute);
+    line-height: 1.35;
   }
 
-  .work-hero-scroll {
-    position: absolute;
-    right: var(--gutter);
-    bottom: clamp(4rem, 9vh, 6.5rem);
-    display: grid;
-    justify-items: center;
-    gap: 0.8rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.24em;
+  /* ---- jump chips ---- */
+  .wh-jump {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .wh-jump-label {
+    flex: none;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--ink-mute);
-    writing-mode: vertical-rl;
   }
 
-  .work-hero-scroll-line {
-    width: 1px;
-    height: 4.5rem;
-    background: linear-gradient(var(--acid), transparent);
-    animation: scroll-line 2.2s var(--ease-expo) infinite;
-    transform-origin: top;
+  .wh-jump ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
   }
 
-  @keyframes scroll-line {
-    0% { transform: scaleY(0); }
-    50% { transform: scaleY(1); transform-origin: top; }
-    51% { transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
+  .wh-jump a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink-dim);
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease,
+      background-color 0.3s ease;
   }
 
-  html.reduced-motion .wall-row {
-    animation: none;
+  .wh-jump sup {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--acid);
+    font-variant-numeric: tabular-nums;
   }
 
-  @media (max-width: 900px) {
-    .work-hero-scroll {
-      display: none;
+  .wh-jump a:hover {
+    color: var(--acid-ink);
+    background: var(--acid);
+    border-color: var(--acid);
+  }
+
+  .wh-jump a:hover sup {
+    color: var(--acid-ink);
+  }
+
+  .wh-jump a:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 1023px) {
+    .wh-foot {
+      grid-template-columns: 1fr;
+      gap: 1.4rem;
     }
   }
 
-  @media (max-width: 640px) {
-    .wall-plane {
-      inset: -20% -60%;
+  @media (max-width: 760px) {
+    .wh {
+      min-height: auto;
+      padding-top: 6.5rem;
     }
 
-    .wall-scrim {
-      background: linear-gradient(to bottom, rgba(11, 11, 14, 0.55), rgba(11, 11, 14, 0.86) 34%, rgba(11, 11, 14, 0.97) 60%, var(--bg));
+    /* four letters at ~3.1em must fit inside the gutters */
+    .wh-knock {
+      font-size: calc((100vw - 2 * var(--gutter)) / 3.2);
     }
 
-    .work-hero-stats {
-      display: grid;
+    .wh-stats {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      width: 100%;
+      row-gap: 1.2rem;
+    }
+
+    .wh-jump {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* one swipeable row instead of four wrapped lines */
+    .wh-jump ul {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      width: calc(100% + var(--gutter));
+      padding-right: var(--gutter);
+      mask-image: linear-gradient(90deg, #000 85%, transparent);
+    }
+
+    .wh-jump li {
+      flex: none;
     }
   }
 </style>
