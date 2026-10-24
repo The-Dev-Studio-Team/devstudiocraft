@@ -1,10 +1,9 @@
 ---
 import { getImage } from 'astro:assets';
-import { allWork, industryCounts, trades } from '../../data/work.js';
+import { industryCounts, trades } from '../../data/work.js';
 import { media } from '../../data/media.js';
 
 const reelPoster = await getImage({ src: media('films/reel.jpg'), format: 'webp', width: 1280, quality: 70 });
-const total = allWork.length;
 
 // the rolling word: every trade we build for, in its own site's accent
 const roll = [
@@ -20,22 +19,14 @@ const roll = [
   ['cafés', 'cafe'],
 ].map(([word, key]) => ({ word, accent: trades.find((t) => t.industry === key)?.accent ?? '#c9f24b' }));
 
-const stats = [
-  { value: total, label: 'live sites' },
-  { value: industryCounts.length, label: 'industries' },
-  { value: trades.length, label: 'new trades this season' },
-  { value: 1, label: 'team, brand to code' },
-];
 ---
 
 <section class="wh" aria-labelledby="work-title" data-work-hero data-intro>
-  <h1 class="sr-only" id="work-title">Work: {total} live sites by DevStudioCraft</h1>
+  <h1 class="sr-only" id="work-title">Work by DevStudioCraft</h1>
 
   <div class="container wh-top">
     <p class="eyebrow" data-reveal>Selected work — 2025–2026</p>
-    <p class="wh-count" data-reveal>
-      <span class="wh-count-n" data-count={total}>{total}</span> sites, all live
-    </p>
+    <p class="wh-count" data-reveal>Every site <span class="wh-count-n">live</span></p>
   </div>
 
   <!-- the reel plays inside the letters: white-on-black type multiplies onto the film, the page tone screens on top -->
@@ -58,16 +49,10 @@ const stats = [
       <br />designed, filmed and coded by one team.
     </p>
 
-    <ul class="wh-stats" data-reveal>
-      {
-        stats.map((s) => (
-          <li>
-            <strong data-count={s.value}>{String(s.value).padStart(2, '0')}</strong>
-            <span>{s.label}</span>
-          </li>
-        ))
-      }
-    </ul>
+    <p class="wh-side" data-reveal>
+      Every project below is a real, working site. Open any of them, click around, try the booking. Then pick
+      your industry and see what we would build for you.
+    </p>
   </div>
 
   <nav class="container wh-jump" aria-label="Jump to an industry" data-reveal>
@@ -217,31 +202,14 @@ const stats = [
     translate: 0 0;
   }
 
-  .wh-stats {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
-    border-top: 1px solid var(--line);
+  .wh-side {
+    max-width: 30rem;
+    justify-self: end;
     padding-top: 1rem;
-  }
-
-  .wh-stats strong {
-    display: block;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(1.6rem, 1rem + 1.8vw, 2.8rem);
-    line-height: 1;
-    color: var(--acid);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .wh-stats span {
-    display: block;
-    margin-top: 0.4rem;
-    font-size: 0.8rem;
-    color: var(--ink-mute);
-    line-height: 1.35;
+    border-top: 1px solid var(--line);
+    color: var(--ink-dim);
+    font-size: 0.98rem;
+    line-height: 1.55;
   }
 
   /* ---- jump chips ---- */
@@ -323,9 +291,8 @@ const stats = [
       font-size: calc((100vw - 2 * var(--gutter)) / 3.2);
     }
 
-    .wh-stats {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      row-gap: 1.2rem;
+    .wh-side {
+      justify-self: start;
     }
 
     .wh-jump {

@@ -14,21 +14,7 @@ import {
 } from './core.js';
 import { initMagnetic, initNav } from './interactions.js';
 
-/* ---------- hero: WORK rises out of the intro, counters roll, the reel plays inside the letters ---------- */
-function countUp(root) {
-  root.querySelectorAll('[data-count]').forEach((el) => {
-    const end = Number(el.dataset.count);
-    const pad = el.textContent.trim().startsWith('0') ? 2 : 0;
-    const v = { n: 0 };
-    gsap.to(v, {
-      n: end,
-      duration: 1.6,
-      ease: 'power3.out',
-      onUpdate: () => (el.textContent = String(Math.round(v.n)).padStart(pad, '0')),
-    });
-  });
-}
-
+/* ---------- hero: WORK rises out of the intro, the reel plays inside the letters ---------- */
 function initIntro() {
   const hero = document.querySelector('[data-intro]');
   if (!hero) return;
@@ -37,8 +23,7 @@ function initIntro() {
   gsap
     .timeline({ defaults: { ease: 'expo.out' }, delay: introDelay() + 0.05 })
     .fromTo(letters, { yPercent: 104 }, { yPercent: 0, duration: 1.5, stagger: 0.07 })
-    .to(reveals, { opacity: 1, y: 0, duration: 0.9, stagger: 0.06 }, '-=1.1')
-    .add(() => countUp(hero), '-=1.0');
+    .to(reveals, { opacity: 1, y: 0, duration: 0.9, stagger: 0.06 }, '-=1.1');
 }
 
 function initReel() {
@@ -169,7 +154,7 @@ function initIndex(lenis) {
     });
     chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.wiFilter === key)));
     status.textContent =
-      key === 'all' ? `Showing all ${shown} projects` : `${shown} ${shown === 1 ? 'project' : 'projects'} in ${label(key)}`;
+      key === 'all' ? 'Showing every project' : `${shown} ${shown === 1 ? 'project' : 'projects'} in ${label(key)}`;
   };
 
   const choose = (key) => {

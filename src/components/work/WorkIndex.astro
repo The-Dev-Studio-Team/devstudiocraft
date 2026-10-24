@@ -19,7 +19,7 @@ const cards = allWork.map((w) => ({ ...w, trade: label[w.industry], img: media(w
     <div class="wi-bar" data-wi-bar>
       <div class="wi-filters" role="group" aria-label="Filter projects by industry">
         <button type="button" class="wi-chip" aria-pressed="true" data-wi-filter="all">
-          All <sup>{cards.length}</sup>
+          All
         </button>
         {
           industryCounts.map((i) => (
@@ -29,7 +29,7 @@ const cards = allWork.map((w) => ({ ...w, trade: label[w.industry], img: media(w
           ))
         }
       </div>
-      <p class="wi-status" aria-live="polite" data-wi-status>Showing all {cards.length} projects</p>
+      <p class="wi-status" aria-live="polite" data-wi-status>Showing every project</p>
     </div>
 
     <ul class="wi-grid" data-wi-grid>

@@ -1,7 +1,7 @@
 ---
 import { getImage } from 'astro:assets';
 import { media } from '../data/media.js';
-import { allWork, reelCuts } from '../data/work.js';
+import { reelCuts } from '../data/work.js';
 
 const reelPoster = await getImage({ src: media('films/reel.jpg'), format: 'webp', width: 1280, quality: 72 });
 const first = reelCuts[0];
@@ -37,7 +37,7 @@ const first = reelCuts[0];
           </a>
           <a href="/work/" class="btn btn-ghost" data-magnetic>
             <span class="btn-fill"></span>
-            <span>See {allWork.length} live sites</span>
+            <span>See the work</span>
           </a>
         </div>
         <ul class="hero-stats" data-reveal>
@@ -57,7 +57,7 @@ const first = reelCuts[0];
         <div class="hero-bar">
           <i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
           <span class="hero-url" aria-hidden="true" data-reel-host>{new URL(first.url).host}</span>
-          <a href="/work/" class="hero-all">All {allWork.length} sites →</a>
+          <a href="/work/" class="hero-all">All the work →</a>
         </div>
         <div class="hero-view">
           <video class="hero-reel" muted loop playsinline preload="none" poster={reelPoster.src} aria-hidden="true" data-hero-video>
