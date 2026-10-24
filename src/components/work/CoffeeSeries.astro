@@ -20,9 +20,8 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
 <section class="chapter coffee" id="coffee" aria-labelledby="coffee-heading" data-chapter="coffee">
   <ChapterHead n="03" label="The coffee series" id="coffee-heading">
     <Fragment slot="title">Twelve coffee brands. <em class="serif-i text-acid">Twelve languages.</em></Fragment>
-    A comic-book kaiju, a lunar Swiss grid, volcanic machines, a 1924 post office, a mission-control
-    roastery, a calm German reishi brand, and a second series built from the same studies. One category,
-    nothing reused: each one gets its own type, its own motion and its own physics.
+    Cafés, roasters and coffee-machine makers: twelve brands, twelve completely different looks. Online shops,
+    menus, table booking and 3D products, each one designed from a blank page. Nothing is reused.
   </ChapterHead>
 
   <div class="container cases" data-stack>
@@ -73,10 +72,12 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
               </ul>
 
               <div class="case-foot">
-                <p class="case-stat">
-                  <strong>{p.stat.value}</strong>
-                  <span>{p.stat.label}</span>
-                </p>
+                {p.stat && (
+                  <p class="case-stat">
+                    <strong>{p.stat.value}</strong>
+                    <span>{p.stat.label}</span>
+                  </p>
+                )}
                 <a href={p.url} class="btn btn-acid case-link" target="_blank" rel="noopener" data-magnetic>
                   <span class="btn-fill" />
                   <span>Visit live</span>
@@ -87,11 +88,6 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
                 </a>
               </div>
 
-              <ul class="case-stack" aria-label="Built with">
-                {p.stack.map((t) => (
-                  <li>{t}</li>
-                ))}
-              </ul>
               {p.note && <p class="case-note">{p.note}</p>}
             </div>
 
@@ -346,24 +342,6 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
     padding: 0.85rem 1.5rem;
   }
 
-  .case-stack {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
-  }
-
-  .case-stack li {
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.72rem;
-    border: 1px solid var(--line);
-    border-radius: 100px;
-    color: var(--ink-dim);
-  }
-
   .case-note {
     font-size: 0.8rem;
     color: var(--ink-mute);
@@ -557,10 +535,6 @@ const cases = coffee.filter((p) => p.series !== 2).map((p, i) => ({
   @media (min-width: 1024px) and (min-height: 700px) and (max-height: 1000px) {
     .case-info {
       gap: 0.9rem;
-    }
-
-    .case-stack {
-      display: none;
     }
 
     .case-moves li {

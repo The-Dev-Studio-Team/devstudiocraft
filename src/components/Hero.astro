@@ -1,7 +1,7 @@
 ---
 import { getImage } from 'astro:assets';
 import { media } from '../data/media.js';
-import { allWork, reelCuts } from '../data/work.js';
+import { reelCuts } from '../data/work.js';
 
 const reelPoster = await getImage({ src: media('films/reel.jpg'), format: 'webp', width: 1280, quality: 72 });
 const first = reelCuts[0];
@@ -14,18 +14,18 @@ const first = reelCuts[0];
 <section class="hero" id="top" aria-labelledby="hero-heading" data-hero data-intro>
   <div class="hero-sticky">
     <div class="container hero-copy" data-hero-copy>
-      <p class="eyebrow hero-eyebrow" data-reveal>Digital studio — Bremen, shipping worldwide</p>
+      <p class="eyebrow hero-eyebrow" data-reveal>Web studio in Bremen · working worldwide</p>
 
       <h1 class="h-display hero-title split-mask" id="hero-heading" data-hero-title>
-        <span class="line-wrap"><span class="hl outline-text">We craft</span></span>
-        <span class="line-wrap"><span class="hl">digital experiences</span></span>
-        <span class="line-wrap"><span class="hl">that <em class="serif-i text-acid">sell.</em></span></span>
+        <span class="line-wrap"><span class="hl outline-text">We build</span></span>
+        <span class="line-wrap"><span class="hl">websites that</span></span>
+        <span class="line-wrap"><span class="hl">bring <em class="serif-i text-acid">customers.</em></span></span>
       </h1>
 
       <div class="hero-side">
         <p class="hero-sub" data-reveal>
-          We partner with ambitious brands to design, build and launch e-commerce stores, landing pages,
-          websites and mobile apps — engineered to turn attention into revenue.
+          Websites, online shops, apps and brands for businesses that want more bookings, orders and calls.
+          One team designs, films and builds it, and you own all of it.
         </p>
         <div class="hero-ctas" data-reveal>
           <a href="#contact" class="btn btn-acid" data-magnetic>
@@ -37,14 +37,14 @@ const first = reelCuts[0];
           </a>
           <a href="/work/" class="btn btn-ghost" data-magnetic>
             <span class="btn-fill"></span>
-            <span>See {allWork.length} live sites</span>
+            <span>See the work</span>
           </a>
         </div>
         <ul class="hero-stats" data-reveal>
-        <li><strong>48h</strong><span>to first concept</span></li>
-        <li><strong>95+</strong><span>Lighthouse target, every build</span></li>
-        <li><strong>100%</strong><span>custom — zero templates</span></li>
-        <li><strong>1</strong><span>team, design to deploy</span></li>
+        <li><strong>48h</strong><span>to your first design</span></li>
+        <li><strong>95+</strong><span>Google speed score we build to</span></li>
+        <li><strong>0</strong><span>templates: every site is made for you</span></li>
+        <li><strong>1</strong><span>team, first call to launch</span></li>
       </ul>
       </div>
 
@@ -57,7 +57,7 @@ const first = reelCuts[0];
         <div class="hero-bar">
           <i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
           <span class="hero-url" aria-hidden="true" data-reel-host>{new URL(first.url).host}</span>
-          <a href="/work/" class="hero-all">All {allWork.length} sites →</a>
+          <a href="/work/" class="hero-all">All the work →</a>
         </div>
         <div class="hero-view">
           <video class="hero-reel" muted loop playsinline preload="none" poster={reelPoster.src} aria-hidden="true" data-hero-video>

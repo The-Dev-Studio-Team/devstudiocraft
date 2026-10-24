@@ -1,7 +1,6 @@
 import {
   gsap,
   ScrollTrigger,
-  SplitText,
   reducedMotion,
   initLenis,
   initReveals,
@@ -13,7 +12,7 @@ import {
   stickyRun,
   onReady,
 } from './core.js';
-import { initMagnetic, initNav, initServicePreview, initAmbientVideos } from './interactions.js';
+import { initMagnetic, initNav, initAmbientVideos } from './interactions.js';
 
 /* ---------- hero intro: the headline rises as the session intro opens ---------- */
 function initIntro() {
@@ -155,94 +154,36 @@ function initTradePicker() {
   });
 }
 
-/* ---------- manifesto word scrub ---------- */
-function initManifesto() {
-  const el = document.querySelector('[data-manifesto]');
-  if (!el) return;
-
-  // the words stay real text, so no aria-label on the paragraph (axe: aria-prohibited-attr)
-  const split = new SplitText(el, { type: 'words', wordsClass: 'w', aria: 'none' });
-  gsap.fromTo(
-    split.words,
-    { opacity: 0.14 },
-    {
-      opacity: 1,
-      stagger: 0.04,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 78%',
-        end: 'bottom 45%',
-        scrub: 0.6,
-      },
-    }
-  );
+/* ---------- services: each card's film loads and plays only while it is hovered ---------- */
+function initServiceFilms() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  document.querySelectorAll('[data-sv-card]').forEach((card) => {
+    const id = card.dataset.svCard;
+    if (!id) return;
+    const base = id === 'reel' ? '/media/work/reel' : `/media/work/film-${id}`;
+    let video = null;
+    card.addEventListener('pointerenter', () => {
+      if (!video) {
+        video = document.createElement('video');
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.setAttribute('aria-hidden', 'true');
+        video.innerHTML = `<source src="${base}.webm" type="video/webm"><source src="${base}.mp4" type="video/mp4">`;
+        card.querySelector('.sv-media').append(video);
+      }
+      video
+        .play()
+        .then(() => video.classList.add('is-playing'))
+        .catch(() => {});
+    });
+    card.addEventListener('pointerleave', () => video?.pause());
+  });
 }
 
 /* ---------- pinned horizontal showcase (desktop only) ---------- */
 function initShowcase() {
   stickyRun(document.querySelector('[data-showcase-pin]'), document.querySelector('[data-showcase-track]'));
-}
-
-/* ---------- edge speed-race demo loop ---------- */
-function initSpeedRace() {
-  const root = document.querySelector('[data-race]');
-  if (!root) return;
-
-  const els = root.querySelectorAll('[data-race-el]');
-  const sale = root.querySelector('[data-race-sale]');
-  const leave = root.querySelector('[data-race-leave]');
-  const timer = root.querySelector('[data-race-timer]');
-  const spin = root.querySelector('[data-race-spin]');
-  const clock = { v: 0 };
-
-  const tl = gsap.timeline({
-    repeat: -1,
-    repeatDelay: 1.6,
-    paused: true,
-    defaults: { ease: 'expo.out' },
-  });
-
-  tl.set(els, { opacity: 0, y: 10, scale: 0.94 })
-    .set([sale, leave], { opacity: 0, scale: 0.6, y: 4 })
-    .set(spin, { opacity: 1 })
-    .set(clock, { v: 0 })
-    // your site: content pops in almost immediately
-    .to(els, { opacity: 1, y: 0, scale: 1, duration: 0.45, stagger: 0.07 }, 0.35)
-    // competitor: the clock just keeps running
-    .to(
-      clock,
-      {
-        v: 6,
-        duration: 6,
-        ease: 'none',
-        onUpdate: () => {
-          timer.textContent = `${clock.v.toFixed(1)}s`;
-        },
-      },
-      0
-    )
-    // first order lands while the other side still shows bones
-    .to(sale, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(2.4)' }, 1.5)
-    // a second order pulse
-    .to(sale, { scale: 1.1, duration: 0.16, yoyo: true, repeat: 1, ease: 'power2.inOut' }, 4.4)
-    // competitor's visitor walks
-    .to(leave, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(2)' }, 3.4)
-    .to(spin, { opacity: 0.22, duration: 0.4 }, 3.4)
-    // reset beat
-    .to(root, { opacity: 0, duration: 0.4, ease: 'power2.in' }, 7.0)
-    .set(els, { opacity: 0 })
-    .set([sale, leave], { opacity: 0, scale: 0.6 })
-    .to(root, { opacity: 1, duration: 0.3 }, 7.5);
-
-  ScrollTrigger.create({
-    trigger: root,
-    start: 'top 88%',
-    onEnter: () => tl.play(),
-    onLeave: () => tl.pause(),
-    onEnterBack: () => tl.play(),
-    onLeaveBack: () => tl.pause(),
-  });
 }
 
 /* ---------- boot ---------- */
@@ -261,12 +202,10 @@ function boot() {
   initHeroScreen();
   initAmbientVideos();
   initTradePicker();
-  initServicePreview();
+  initServiceFilms();
   initReveals();
   initSplitHeadings();
-  initManifesto();
   initShowcase();
-  initSpeedRace();
   initWordmark();
 
   refreshOnFonts();

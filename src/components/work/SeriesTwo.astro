@@ -20,11 +20,10 @@ const pours = coffee
   <header class="s2-head">
     <p class="eyebrow" data-reveal>Series II</p>
     <h3 class="h-display s2-title" id="series-two-heading" data-split-lines>
-      Same studies. <em class="serif-i text-acid">Different hands.</em>
+      Six more cafés. <em class="serif-i text-acid">Six more looks.</em>
     </h3>
     <p class="s2-intro" data-reveal>
-      A second team of ours took the same reference studies, plus one more, and went somewhere else
-      entirely. Six more brands, each with its own system, each live.
+      A second round of coffee brands, each with its own shop, menu or booking, and its own look. All live.
     </p>
   </header>
 
@@ -78,11 +77,6 @@ const pours = coffee
             </ul>
 
             <div class="pour-foot">
-              <ul class="pour-stack" aria-label="Built with">
-                {p.stack.map((t) => (
-                  <li>{t}</li>
-                ))}
-              </ul>
               <a href={p.url} class="btn btn-ghost pour-link" target="_blank" rel="noopener" data-magnetic>
                 <span class="btn-fill" />
                 <span>Visit live</span>
@@ -342,24 +336,6 @@ const pours = coffee
     margin-top: auto;
     padding-top: 0.9rem;
     border-top: 1px solid var(--line);
-  }
-
-  .pour-stack {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-  }
-
-  .pour-stack li {
-    font-size: 0.64rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.28rem 0.65rem;
-    border: 1px solid var(--line);
-    border-radius: 100px;
-    color: var(--ink-dim);
   }
 
   .pour-link {

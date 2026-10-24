@@ -12,15 +12,14 @@ const cards = allWork.map((w) => ({ ...w, trade: label[w.industry], img: media(w
 <section class="chapter wi" id="index" aria-labelledby="index-heading" data-chapter="index">
   <ChapterHead n="02" label="Index" id="index-heading">
     <Fragment slot="title">Find a site <em class="serif-i text-acid">like yours.</em></Fragment>
-    Every project, live. Pick your industry to see what we have built for businesses like yours, then open
-    the real site and click around: nothing here is a mock-up.
+    Every project, live. Pick your industry, open the real site and click around. Nothing here is a mock-up.
   </ChapterHead>
 
   <div class="container">
     <div class="wi-bar" data-wi-bar>
       <div class="wi-filters" role="group" aria-label="Filter projects by industry">
         <button type="button" class="wi-chip" aria-pressed="true" data-wi-filter="all">
-          All <sup>{cards.length}</sup>
+          All
         </button>
         {
           industryCounts.map((i) => (
@@ -30,7 +29,7 @@ const cards = allWork.map((w) => ({ ...w, trade: label[w.industry], img: media(w
           ))
         }
       </div>
-      <p class="wi-status" aria-live="polite" data-wi-status>Showing all {cards.length} projects</p>
+      <p class="wi-status" aria-live="polite" data-wi-status>Showing every project</p>
     </div>
 
     <ul class="wi-grid" data-wi-grid>

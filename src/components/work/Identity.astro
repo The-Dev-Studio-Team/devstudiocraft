@@ -21,9 +21,9 @@ const reels = identities.map((k) => ({ id: k.id, name: k.name, poster: media(`br
 <section class="chapter identity" id="identity" aria-labelledby="identity-heading" data-chapter="identity">
   <ChapterHead n="06" label="Identity systems" id="identity-heading">
     <Fragment slot="title">Brands built to <em class="serif-i text-acid">outlive the launch.</em></Fragment>
-    A logo is one file. A system is the book, the tokens, the films, the deck, the stationery and the
-    rules that keep it all one voice. Every kit we ship is generated from a single source, so it stays
-    in sync long after we hand it over.
+    A logo is one file. A brand is everything around it: the guide book, the colours, the films, the
+    presentation, the stationery and the rules that keep it consistent. We build all of it from one source,
+    so it stays consistent long after we hand it over.
   </ChapterHead>
 
   <!-- the three kits -->
@@ -92,8 +92,8 @@ const reels = identities.map((k) => ({ id: k.id, name: k.name, poster: media(`br
         Every kit ships with <em class="serif-i text-acid">its own films.</em>
       </h3>
       <p class="reels-sub" data-reveal>
-        Brand film, logo stings in day and night, the book flip-through and a 38-cut case-study reel,
-        rendered from the same parts as the book, so a change to the system re-renders the films too.
+        A brand film, short logo animations for day and night, a flip-through of the brand book and a
+        case-study reel, made from the same parts as the book, so the films always match the brand.
       </p>
     </div>
     <div class="reels-row" role="region" aria-label="Case-study reels" tabindex="0">
@@ -114,41 +114,6 @@ const reels = identities.map((k) => ({ id: k.id, name: k.name, poster: media(`br
     </div>
   </div>
 
-  <!-- streetwear capsule -->
-  <article class="container capsule" id="capsule" aria-labelledby="capsule-heading">
-    <figure class="capsule-hero" data-reveal>
-      <Image
-        src={media('brand/wear-hoodie.jpg')}
-        alt="White Airyona hoodie, back print: a single climbing contrail and the line Room on board"
-        width={760}
-        densities={[1, 1.5]}
-        quality={78}
-        loading="lazy"
-      />
-    </figure>
-    <div class="capsule-copy">
-      <p class="eyebrow" data-reveal>Capsule · Airyona</p>
-      <h3 class="h-display capsule-title" id="capsule-heading" data-split-lines>
-        Room <em class="serif-i text-acid">on board.</em>
-      </h3>
-      <p class="capsule-text" data-reveal>
-        Three pieces that carry the Airyona identity onto fabric: one climbing contrail, one sentence and
-        a lot of quiet cloth. Every graphic is the kit’s own mark, copied byte for byte and drawn in
-        millimetres at print size, with the contrail’s rules kept: it always climbs, and it never carries text.
-      </p>
-      <div class="capsule-pair">
-        <figure data-reveal>
-          <Image src={media('brand/wear-tee.jpg')} alt="Midnight-blue Airyona tee, front print" width={380} densities={[1, 2]} quality={76} loading="lazy" />
-          <figcaption>Tee · front print</figcaption>
-        </figure>
-        <figure data-reveal>
-          <Image src={media('brand/wear-cap.jpg')} alt="Sky-blue Airyona cap with an embroidered mark" width={380} densities={[1, 2]} quality={76} loading="lazy" />
-          <figcaption>Cap · embroidered mark</figcaption>
-        </figure>
-      </div>
-      <p class="capsule-note">Self-initiated concept. Mockups are AI-generated; the artwork on them is ours.</p>
-    </div>
-  </article>
 </section>
 
 <style>
@@ -412,59 +377,6 @@ const reels = identities.map((k) => ({ id: k.id, name: k.name, poster: media(`br
     letter-spacing: 0.04em;
   }
 
-  /* ---- capsule ---- */
-  .capsule {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(2rem, 5vw, 5rem);
-    align-items: center;
-    margin-top: var(--space-section);
-  }
-
-  .capsule-hero :global(img),
-  .capsule-pair :global(img) {
-    width: 100%;
-    height: auto;
-    border-radius: 1.2rem;
-    border: 1px solid var(--line);
-  }
-
-  .capsule-copy {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .capsule-title {
-    font-size: clamp(2.6rem, 1.4rem + 4vw, 5.6rem);
-  }
-
-  .capsule-text {
-    color: var(--ink-dim);
-    font-size: var(--text-lg);
-    text-wrap: pretty;
-  }
-
-  .capsule-pair {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-
-  .capsule-pair figure {
-    display: grid;
-    gap: 0.6rem;
-  }
-
-  .capsule-pair figcaption {
-    font-size: 0.75rem;
-    color: var(--ink-mute);
-  }
-
-  .capsule-note {
-    font-size: 0.8rem;
-    color: var(--ink-mute);
-  }
-
   .boards:focus-visible,
   .reels-row:focus-visible {
     outline: 2px solid var(--acid);
@@ -478,8 +390,7 @@ const reels = identities.map((k) => ({ id: k.id, name: k.name, poster: media(`br
     }
 
     .kit-parts,
-    .reels,
-    .capsule {
+    .reels {
       grid-template-columns: minmax(0, 1fr);
     }
 

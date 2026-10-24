@@ -1,275 +1,418 @@
 ---
 import { Image } from 'astro:assets';
-import srvIdentity from '../assets/gen/srv-identity.jpg';
-import srvWeb from '../assets/gen/srv-web.jpg';
-import srvEcom from '../assets/gen/srv-ecom.jpg';
-import srvLanding from '../assets/gen/srv-landing.jpg';
-import srvApps from '../assets/gen/srv-apps.jpg';
-import srvMotion from '../assets/gen/srv-motion.jpg';
+import { media } from '../data/media.js';
 
+// Six services, each shown with work that is live today. The names match the JSON-LD offers in Base.astro.
 const services = [
   {
     n: '01',
     title: 'Brand Identity',
     desc: 'Logos, visual systems, guidelines and voice — a brand people remember.',
     tags: ['Logo', 'Visual system', 'Guidelines'],
-    img: srvIdentity,
+    accent: '#5eead4',
+    still: media('brand/board-p100-aurora.jpg'),
+    proof: [
+      ['Pilot 100', '/work/#identity'],
+      ['Airyona', '/work/#identity'],
+      ['M2A', '/work/#identity'],
+    ],
   },
   {
     n: '02',
     title: 'Web Design & Development',
     desc: 'Custom-coded websites engineered for speed, story and search.',
     tags: ['Astro', 'Next.js', 'Headless CMS'],
-    img: srvWeb,
+    accent: '#ff9a4a',
+    still: media('films/kelvin.jpg'),
+    film: 'kelvin',
+    proof: [
+      ['KELVIN', 'https://kelvin.devstudiocraft.com'],
+      ['Salus', 'https://salus.devstudiocraft.com'],
+      ['Firn Dental', 'https://firn.devstudiocraft.com'],
+    ],
   },
   {
     n: '03',
     title: 'E-Commerce',
     desc: 'Stores that turn browsers into buyers — checkout to fulfillment.',
     tags: ['Shopify', 'Custom carts', 'Payments'],
-    img: srvEcom,
+    accent: '#ee3b2b',
+    still: media('films/kaiju.jpg'),
+    film: 'kaiju',
+    proof: [
+      ['Kaiju Coffee', 'https://kaiju.devstudiocraft.com'],
+      ['Half Moon', 'https://halfmoon.devstudiocraft.com'],
+      ['Emberline', 'https://emberline.devstudiocraft.com'],
+    ],
   },
   {
     n: '04',
     title: 'Landing Pages',
     desc: 'One page, one goal. Built to convert campaigns into customers.',
     tags: ['CRO', 'A/B ready', 'Analytics'],
-    img: srvLanding,
+    accent: '#7c9bff',
+    still: media('films/airyona.jpg'),
+    film: 'airyona',
+    proof: [
+      ['Airyona', 'https://www.airyona.com'],
+      ['Longtable', 'https://longtable.devstudiocraft.com'],
+    ],
   },
   {
     n: '05',
     title: 'Mobile Apps',
     desc: 'iOS & Android products your users open every day.',
     tags: ['React Native', 'Flutter', 'PWA'],
-    img: srvApps,
+    accent: '#5eead4',
+    phones: [media('brand/phone-p100-home.png'), media('brand/phone-p100-question.png'), media('brand/phone-ary-flight.png')],
+    proof: [
+      ['Pilot 100 iOS', 'https://pilot100atpl.com'],
+      ['Airyona', 'https://www.airyona.com'],
+    ],
   },
   {
     n: '06',
     title: 'Motion & Content',
     desc: 'Video, 3D and creative content that stops the scroll.',
     tags: ['Motion design', '3D', 'Social kits'],
-    img: srvMotion,
+    accent: '#ff62a8',
+    still: media('films/namjim.jpg'),
+    film: 'reel',
+    proof: [
+      ['NAMJIM', 'https://namjim.devstudiocraft.com'],
+      ['The studio reel', '/work/'],
+    ],
   },
 ];
 ---
 
-<section class="section services" id="services" aria-labelledby="services-heading">
+<section class="section sv" id="services" aria-labelledby="services-heading">
   <div class="container">
-    <div class="services-head">
+    <div class="sv-head">
       <p class="eyebrow" data-reveal>What we do</p>
       <h2 class="h-display h2" id="services-heading" data-split-lines>
-        Everything your brand needs to <em class="serif-i text-acid">win online.</em>
+        Six things we build. <em class="serif-i text-acid">All of them live.</em>
       </h2>
+      <p class="sv-intro" data-reveal>
+        Each one comes with proof you can open: real sites, apps and brands we designed and shipped. One team does
+        all six, so nothing gets lost between them.
+      </p>
     </div>
 
-    <ul class="services-list" data-services-list>
+    <ol class="sv-grid" data-sv-grid>
       {
         services.map((s) => (
-          <li class="service-row" data-service>
-            <span class="service-n">{s.n}</span>
-            <div class="service-main">
-              <h3 class="service-title">{s.title}</h3>
-              <p class="service-desc">{s.desc}</p>
+          <li class="sv-card" style={`--accent: ${s.accent}`} data-reveal data-sv-card={s.film ?? ''}>
+            <div class={`sv-media${s.phones ? ' sv-media-phones' : ''}`} aria-hidden="true">
+              {s.phones ? (
+                s.phones.map((p, i) => (
+                  <span class="sv-phone" style={`--k: ${i - 1}; --a: ${Math.abs(i - 1)}`}>
+                    <Image src={p} alt="" width={170} densities={[1, 2]} quality={74} loading="lazy" />
+                  </span>
+                ))
+              ) : (
+                <Image src={s.still} alt="" width={640} densities={[1, 1.5]} quality={72} loading="lazy" />
+              )}
             </div>
-            <div class="service-tags">
-              {s.tags.map((t) => (
-                <span class="tag">{t}</span>
-              ))}
+
+            <div class="sv-body">
+              <p class="sv-n">{s.n}</p>
+              <h3 class="sv-title">{s.title}</h3>
+              <p class="sv-desc">{s.desc}</p>
+              <ul class="sv-tags" aria-label={`${s.title}: tools`}>
+                {s.tags.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+              <p class="sv-proof">
+                <span class="sv-proof-k">Live proof</span>
+                {s.proof.map(([name, url]) => (
+                  <a href={url} {...(url.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>
+                    {name}
+                    <svg width="9" height="9" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                      <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.8" />
+                    </svg>
+                  </a>
+                ))}
+              </p>
             </div>
-            <span class="service-arrow" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 14 14" fill="none">
-                <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.4" />
-              </svg>
-            </span>
           </li>
         ))
       }
-    </ul>
-  </div>
-
-  <div class="service-preview" data-service-preview aria-hidden="true">
-    {
-      services.map((s) => (
-        <Image
-          class="preview-img"
-          data-preview-img
-          src={s.img}
-          alt=""
-          width={520}
-          densities={[1, 2]}
-          quality={72}
-          loading="lazy"
-        />
-      ))
-    }
+    </ol>
   </div>
 </section>
 
 <style>
-  .services {
-    background: var(--bg);
-  }
-
-  .services-head {
+  .sv-head {
     display: grid;
-    gap: 1.8rem;
-    margin-bottom: clamp(3rem, 6vw, 5rem);
-    max-width: 56rem;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 1.6rem 3rem;
+    align-items: end;
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
   }
 
-  .services-list {
+  .sv-head .eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .sv-intro {
+    color: var(--ink-dim);
+    font-size: var(--text-lg);
+    max-width: 30rem;
+    text-wrap: pretty;
+  }
+
+  .sv-grid {
     list-style: none;
-    border-top: 1px solid var(--line);
-  }
-
-  .service-row {
-    position: relative;
     display: grid;
-    grid-template-columns: 4rem 1fr auto 3rem;
-    align-items: center;
-    gap: 2rem;
-    padding: clamp(1.6rem, 3vw, 2.4rem) 1rem;
-    border-bottom: 1px solid var(--line);
-    overflow: clip;
-    isolation: isolate;
-    transition: color 0.45s var(--ease-expo);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 1.6vw, 1.6rem);
   }
 
-  .service-row::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--acid);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.5s var(--ease-expo);
-    z-index: -1;
-  }
-
-  .service-row:hover {
-    color: var(--acid-ink);
-  }
-
-  .service-row:hover::before {
-    transform: scaleY(1);
-  }
-
-  .service-n {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: var(--ink-faint);
-    transition: color 0.45s var(--ease-expo);
-  }
-
-  .service-row:hover .service-n {
-    color: var(--acid-ink);
-  }
-
-  .service-main {
-    display: grid;
-    gap: 0.4rem;
-  }
-
-  .service-title {
-    font-family: var(--font-display);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-    font-size: clamp(1.5rem, 1rem + 2.4vw, 3rem);
-    line-height: 1;
-  }
-
-  .service-desc {
-    color: var(--ink-dim);
-    max-width: 34rem;
-    font-size: 0.95rem;
-    transition: color 0.45s var(--ease-expo);
-  }
-
-  .service-row:hover .service-desc {
-    color: rgba(12, 14, 4, 0.7);
-  }
-
-  .service-tags {
+  .sv-card {
     display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
-  .tag {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.35rem 0.8rem;
+    flex-direction: column;
+    border-radius: 1rem;
     border: 1px solid var(--line);
-    border-radius: 100px;
-    color: var(--ink-dim);
-    transition:
-      color 0.45s var(--ease-expo),
-      border-color 0.45s var(--ease-expo);
-  }
-
-  .service-row:hover .tag {
-    color: var(--acid-ink);
-    border-color: rgba(12, 14, 4, 0.35);
-  }
-
-  .service-arrow {
-    display: grid;
-    place-items: center;
-    transition: transform 0.5s var(--ease-expo);
-  }
-
-  .service-row:hover .service-arrow {
-    transform: translate(4px, -4px) rotate(0deg);
-  }
-
-  .service-preview {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 60;
-    width: clamp(200px, 22vw, 330px);
-    aspect-ratio: 4 / 3;
-    border-radius: 0.9rem;
+    background: var(--bg-card);
     overflow: clip;
-    pointer-events: none;
-    opacity: 0;
-    translate: -50% -58%;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
-    border: 1px solid var(--line);
+    transition:
+      border-color 0.5s ease,
+      translate 0.7s var(--ease-expo);
   }
 
-  .service-preview :global(.preview-img) {
+  /* ---- media: a real piece of the work, the film plays on hover (main.js) ---- */
+  .sv-media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: clip;
+    background: #0f0f13;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .sv-media :global(img),
+  .sv-media :global(video) {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.35s ease;
+    object-position: top;
+    transition: scale 0.9s var(--ease-expo);
   }
 
-  .service-preview :global(.preview-img.is-active) {
+  .sv-media :global(video) {
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+
+  .sv-media :global(video.is-playing) {
     opacity: 1;
   }
 
-  @media (hover: none), (max-width: 900px) {
-    .service-preview {
-      display: none;
+  /* the apps card fans three real app screens over the brand colour */
+  .sv-media-phones {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background:
+      radial-gradient(70% 90% at 50% 100%, color-mix(in srgb, var(--accent) 34%, transparent), transparent 70%),
+      #0f0f13;
+  }
+
+  .sv-phone {
+    position: relative;
+    flex: none;
+    width: 27%;
+    aspect-ratio: 9 / 19.5;
+    margin: 0 -2.5%;
+    margin-bottom: -16%;
+    border-radius: 0.9rem;
+    overflow: clip;
+    border: 3px solid #050506;
+    box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.9);
+    rotate: calc(var(--k) * 8deg);
+    translate: 0 calc(var(--a) * 8%);
+    transition:
+      rotate 0.8s var(--ease-expo),
+      translate 0.8s var(--ease-expo);
+  }
+
+  .sv-phone :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* ---- words ---- */
+  .sv-body {
+    flex: 1;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto auto;
+    gap: 0.7rem;
+    padding: 1.3rem 1.4rem 1.4rem;
+  }
+
+  .sv-n {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sv-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.35rem, 0.95rem + 0.9vw, 1.9rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .sv-desc {
+    color: var(--ink-dim);
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .sv-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .sv-tags li {
+    padding: 0.3rem 0.65rem;
+    border-radius: 100px;
+    border: 1px solid var(--line);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--ink-mute);
+  }
+
+  .sv-proof {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.9rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.84rem;
+  }
+
+  .sv-proof-k {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .sv-proof a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: linear-gradient(var(--accent), var(--accent)) left bottom / 0 1.5px no-repeat;
+    padding-bottom: 0.1rem;
+    transition: background-size 0.45s var(--ease-expo);
+  }
+
+  .sv-proof a:hover,
+  .sv-proof a:focus-visible {
+    background-size: 100% 1.5px;
+  }
+
+  .sv-proof a:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (hover: hover) {
+    .sv-card:hover {
+      border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+      translate: 0 -0.35rem;
+    }
+
+    .sv-card:hover .sv-media :global(img) {
+      scale: 1.04;
+    }
+
+    .sv-card:hover .sv-phone {
+      rotate: calc(var(--k) * 12deg);
+      translate: calc(var(--k) * 10%) calc(var(--a) * 4% - 6%);
     }
   }
 
-  @media (max-width: 900px) {
-    .service-row {
-      grid-template-columns: 2.6rem 1fr 2rem;
+  @media (max-width: 1023px) {
+    .sv-head {
+      grid-template-columns: 1fr;
     }
 
-    .service-tags {
+    .sv-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* phones: one compact row per service, the work beside the words */
+  @media (max-width: 639px) {
+    .sv-grid {
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+
+    .sv-card {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    }
+
+    .sv-media {
+      aspect-ratio: auto;
+      min-height: 100%;
+      border-bottom: 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .sv-body {
+      grid-template-rows: none;
+      gap: 0.45rem;
+      padding: 0.95rem 1rem 1rem;
+    }
+
+    .sv-title {
+      font-size: 1.15rem;
+    }
+
+    .sv-desc {
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .sv-tags {
       display: none;
+    }
+
+    .sv-proof {
+      gap: 0.3rem 0.7rem;
+      padding-top: 0.6rem;
+      font-size: 0.8rem;
+    }
+
+    .sv-proof-k {
+      flex-basis: 100%;
+    }
+
+    .sv-phone {
+      width: 38%;
+      margin-bottom: -30%;
     }
   }
 </style>

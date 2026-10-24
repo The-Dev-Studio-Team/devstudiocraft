@@ -6,6 +6,8 @@ import { media } from '../data/media.js';
 // a pinned horizontal run of recent launches (main.js: initShowcase); phones swipe it
 const picks = ['kelvin', 'namjim', 'ferro', 'salus', 'pilot100', 'kaiju'];
 const label = Object.fromEntries(industries.map((i) => [i.key, i.label]));
+// the end card previews more live work instead of counting it
+const more = ['bluehour', 'vernis', 'firn', 'loadtheory', 'longtable', 'knip'].map((id) => media(`films/${id}.jpg`));
 const cards = picks.map((id, i) => {
   const w = allWork.find((p) => p.id === id);
   return { ...w, n: String(i + 1).padStart(2, '0'), trade: label[w.industry], img: media(w.poster) };
@@ -59,17 +61,23 @@ const cards = picks.map((id, i) => {
           </article>
         ))
       }
-      <a href="/work/" class="fw-end on-light">
-        <span class="fw-end-k">The full index</span>
-        <span class="fw-end-n">{allWork.length}</span>
-        <span class="fw-end-t">
-          sites, <em class="serif-i">all live.</em>
+      <a href="/work/" class="fw-end">
+        <span class="fw-end-mosaic" aria-hidden="true">
+          {more.map((img) => (
+            <Image src={img} alt="" width={260} densities={[1, 2]} quality={66} loading="lazy" />
+          ))}
         </span>
-        <span class="fw-end-go">
-          See the work
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
-          </svg>
+        <span class="fw-end-copy">
+          <span class="fw-end-k">The full index</span>
+          <span class="fw-end-t">
+            Your trade is <em class="serif-i">probably already in here.</em>
+          </span>
+          <span class="fw-end-go">
+            See all the work
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+            </svg>
+          </span>
         </span>
       </a>
     </div>
@@ -249,16 +257,47 @@ const cards = picks.map((id, i) => {
     }
   }
 
-  /* the last card: count + way into /work */
+  /* the last card: a mosaic of more live sites and the way into /work */
   .fw-end {
     flex: none;
-    width: clamp(16rem, 24vw, 22rem);
+    position: relative;
+    width: clamp(18rem, 28vw, 26rem);
     display: grid;
-    align-content: space-between;
-    padding: 1.8rem;
     border-radius: 1rem;
-    background: var(--acid);
-    color: var(--acid-ink);
+    overflow: clip;
+    border: 1px solid var(--line);
+    background: #0f0f13;
+    isolation: isolate;
+  }
+
+  .fw-end-mosaic {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 3px;
+    rotate: -6deg;
+    scale: 1.3;
+    transition: scale 0.9s var(--ease-expo);
+  }
+
+  .fw-end-mosaic :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* the copy sits on a fade to the page colour, so it always reads */
+  .fw-end-copy {
+    align-self: end;
+    display: grid;
+    gap: 0.9rem;
+    justify-items: start;
+    padding: 6rem 1.6rem 1.6rem;
+    background: linear-gradient(transparent, rgb(11 11 14 / 0.86) 38%, var(--bg));
   }
 
   .fw-end-k {
@@ -266,28 +305,31 @@ const cards = picks.map((id, i) => {
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-  }
-
-  .fw-end-n {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(5rem, 9vw, 9rem);
-    line-height: 0.8;
-    letter-spacing: -0.04em;
+    color: var(--acid);
   }
 
   .fw-end-t {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.6rem;
-    line-height: 1;
+    font-size: clamp(1.5rem, 1.1rem + 0.9vw, 2rem);
+    line-height: 1.02;
     text-transform: uppercase;
+  }
+
+  .fw-end-t em {
+    display: block;
+    color: var(--acid);
   }
 
   .fw-end-go {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 100px;
+    background: var(--acid);
+    color: var(--acid-ink);
+    font-size: 0.86rem;
     font-weight: 700;
   }
 
@@ -295,12 +337,16 @@ const cards = picks.map((id, i) => {
     transition: translate 0.4s var(--ease-expo);
   }
 
+  .fw-end:hover .fw-end-mosaic {
+    scale: 1.38;
+  }
+
   .fw-end:hover .fw-end-go svg {
-    translate: 0.25rem -0.25rem;
+    translate: 0.2rem -0.2rem;
   }
 
   .fw-end:focus-visible {
-    outline: 2px solid var(--ink);
+    outline: 2px solid var(--acid);
     outline-offset: 4px;
   }
 
@@ -342,7 +388,7 @@ const cards = picks.map((id, i) => {
     }
 
     .fw-end {
-      gap: 1.2rem;
+      min-height: 22rem;
     }
   }
 </style>
