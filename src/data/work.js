@@ -11,16 +11,16 @@ export const coffee = [
     summary:
       'A loud, comic-book roaster with a kaiju mascot. Bags spin on a real 3D lazy susan, a rooftop searchlight re-lights in every roast’s colour, and a bean pit you can stomp.',
     moves: [
-      'A tipped-back 3D turntable with momentum and a detent click per bag',
-      'Halftone searchlight carousel that leans toward the cursor',
-      'Matter.js bean pit: poke the kaiju and the pile goes flying',
-      'Eight roast pages joined by cross-document View Transitions',
+      'A 3D shelf of coffee bags you spin with your mouse or finger',
+      'A comic-book searchlight that lights up each roast in its own colour',
+      'A playful bean pit: poke the mascot and the beans go flying',
+      'Eight roast pages that flow into each other like an app',
     ],
     palette: ['#0e0e0c', '#f1ebdf', '#c8f23a', '#ee3b2b', '#1fa39c'],
     type: ['Anton', 'Permanent Marker', 'DM Mono'],
     chips: ['Turntable physics', 'Searchlight beam'],
     stack: ['GSAP', 'Matter.js', 'View Transitions', 'Web Audio'],
-    stat: { value: '0 ms', label: 'blocking time on desktop at 4× CPU' },
+    stat: { value: '8', label: 'roast pages in one shop' },
     url: 'https://kaiju.devstudiocraft.com',
   },
   {
@@ -33,16 +33,16 @@ export const coffee = [
     summary:
       'A Swiss-grid roaster where the half-disc moon is the whole brand. Five roasts, one per lunar phase, and a live moon engine that recommends tonight’s coffee.',
     moves: [
-      'A real astronomical moon phase picks tonight’s roast',
-      'One WebGL canvas renders every 3D tin through scissor viewports',
-      'A 27-second hand-built SVG motion graphic as the hero',
-      'Tins morph between pages with View Transitions',
+      'Tonight’s real moon phase picks the coffee for you',
+      'Every coffee tin in 3D, without slowing the page down',
+      'A 27-second animated film as the opening',
+      'Tins glide from page to page as you browse',
     ],
     palette: ['#2e3192', '#f28cab', '#ff6f2c', '#ffc533', '#5fd3a8'],
     type: ['Inter Tight', 'Instrument Serif'],
     chips: ['Live moon phase', 'WebGL tins'],
     stack: ['three.js', 'GSAP', 'Matter.js', 'SVG motion'],
-    stat: { value: '60 fps', label: 'in every section on a 6× throttled phone' },
+    stat: { value: '5', label: 'roasts, one for each phase of the moon' },
     url: 'https://halfmoon.devstudiocraft.com',
   },
   {
@@ -55,16 +55,16 @@ export const coffee = [
     summary:
       'Commercial espresso machines from a volcanic island. Four machines modelled part by part, a moving bento wall, and a live 3D viewer that takes each one apart on stage.',
     moves: [
-      'Four machines modelled as hard-surface parts, lit by a studio HDR',
-      'A staged take-apart viewer with spinning parts and click-to-focus labels',
-      'Live finish configurator and a lease-priced quote flow',
-      'A dotted earth with ember arcs to 13 service hubs',
+      'Four espresso machines built in 3D, part by part',
+      'Take a machine apart on screen and see every part explained',
+      'Choose a finish and get a lease quote in a few clicks',
+      'A globe showing all 13 service hubs',
     ],
     palette: ['#0c0c0b', '#32312e', '#8b877f', '#ece8df', '#ff5b1f'],
     type: ['Mona Sans', 'IBM Plex Mono'],
     chips: ['Take-apart viewer', 'Quote builder'],
     stack: ['three.js', 'Blender', 'glTF', 'GSAP'],
-    stat: { value: '4', label: 'machines built in code, from bolt to badge' },
+    stat: { value: '4', label: 'espresso machines, built in 3D part by part' },
     url: 'https://basalt.devstudiocraft.com',
   },
   {
@@ -77,16 +77,15 @@ export const coffee = [
     summary:
       'Coffee and brunch in a lakeside post office. Every title is a line of a postcard, written live by a handwriting engine that inks each letter along its spine.',
     moves: [
-      'A handwriting engine that strokes each glyph’s true centre line',
-      'A reservation postcard that writes itself as you type',
-      'A wordmark filled with the menu’s own photography',
-      'Self-drawing line art of the old sorting room',
+      'Headlines that write themselves by hand, letter by letter',
+      'A table booking that turns into a postcard as you type',
+      'The logo filled with photos from the real menu',
+      'Line drawings of the old post office that draw themselves',
     ],
     palette: ['#f8f3ea', '#1c2541', '#c63d24', '#2c5a86', '#f0b54a'],
     type: ['Ms Madi', 'Fraunces', 'Barlow'],
     chips: ['Handwriting engine', 'Live postcard'],
     stack: ['opentype.js', 'SVG', 'GSAP', 'Python'],
-    stat: { value: '57', label: 'glyphs on first paint, 135 on demand' },
     url: 'https://poste.devstudiocraft.com',
   },
   {
@@ -99,16 +98,15 @@ export const coffee = [
     summary:
       'A Lisbon roaster run like mission control. Every coffee is a flight from farm to cup: pictures acquire signal, roasts depart on a Solari board, cafés are drop zones.',
     moves: [
-      'A quadtree depixelate “signal lock”, scrubbable both ways',
-      'A split-flap departures board for the week’s roasts, on one canvas',
-      'Farm-to-cup flight plan scrubbed by scroll',
-      'A dot-matrix map of every café that pours it',
+      'Photos that sharpen into focus like a signal locking on',
+      'An airport-style departures board for the week’s roasts',
+      'Scroll to follow each coffee from farm to cup',
+      'A map of every café that serves it',
     ],
     palette: ['#0d0c0a', '#1a130f', '#efebe4', '#ff4f00', '#59f2a4'],
     type: ['Big Shoulders', 'Martian Mono', 'Hanken Grotesk'],
     chips: ['Signal lock', 'Solari board'],
     stack: ['Canvas 2D', 'GSAP', 'Web Audio', 'Video'],
-    stat: { value: '57–60', label: 'fps on a 6× throttled phone' },
     url: 'https://groundscontrol.devstudiocraft.com',
   },
   {
@@ -121,9 +119,9 @@ export const coffee = [
     summary:
       'A calm, premium redesign concept for a reishi coffee brand. The real tins in 3D, one particle field that breathes through the story, and a quiz that finds your blend.',
     moves: [
-      'The brand’s tins rebuilt in 3D, labels unwrapped from packshots',
-      'One particle field that morphs steam → 氣 → reishi → ensō',
-      'A three-question quiz that matches each guest to a blend',
+      'The brand’s real tins, rebuilt in 3D',
+      'One animation that turns steam into the brand’s symbols as you scroll',
+      'A three-question quiz that finds your blend',
     ],
     palette: ['#140d09', '#241811', '#f4ede3', '#e0a06a', '#9cc46f'],
     type: ['Instrument Serif', 'Inter Tight'],
@@ -145,9 +143,9 @@ export const coffee = [
     summary:
       'An ivory, charcoal and electric-violet roaster for the late ones: a theatrical product stage under a moon seal, torn-paper chapters and a cart that remembers your grind.',
     moves: [
-      'A product carousel with depth, keyboard and swipe',
-      'A scroll-driven horizontal concept timeline',
-      'A local cart with grind, cadence and subscription preview',
+      'A product carousel that works with mouse, keys or swipe',
+      'The brand story told as a sideways scroll',
+      'A cart that remembers your grind and subscription',
     ],
     palette: ['#232321', '#f5f0e5', '#8054f5', '#b29aff'],
     type: ['Anton', 'Archivo', 'DM Mono'],
@@ -164,9 +162,9 @@ export const coffee = [
     summary:
       'A bold, colour-blocked roaster: full-field hero scenes, a cascade mosaic of photo flips, packages built in CSS you can turn, and a family of geometric café marks.',
     moves: [
-      'Four authored hero chapters, each a full field of colour',
-      'Package models built in CSS that turn as you drag',
-      'Coffee dialogs with tasting chips and matching recipes',
+      'Four opening scenes, each in its own bold colour',
+      'Coffee bags you can turn by dragging them',
+      'Each coffee with tasting notes and a matching recipe',
     ],
     palette: ['#254ce8', '#ed603e', '#f4d95b', '#c5b4e8', '#417c5e'],
     type: ['Georgia', 'Arial'],
@@ -183,9 +181,9 @@ export const coffee = [
     summary:
       'Professional coffee machines in a calm, cool key: a horizontal showroom of flip cards, a flagship story told in chapters, and a Three.js explorer that loads only when you ask.',
     moves: [
-      'A horizontal showroom with slider, arrows and flip cards',
-      'An on-demand Three.js machine explorer',
-      'A coffee brief that points you to the right machine',
+      'A showroom you browse sideways, card by card',
+      'Explore each machine in 3D when you ask for it',
+      'A short questionnaire that picks the right machine',
     ],
     palette: ['#111313', '#f4f3ed', '#bed5d8', '#ffffff'],
     type: ['Noto Sans'],
@@ -202,9 +200,9 @@ export const coffee = [
     summary:
       'Coffee and conversation on a single screen of tiles. Every tile opens its own room, from the coffee shop to Take Five, a set of prompts with a five-minute timer.',
     moves: [
-      'A tile board that reorders itself into a phone stack',
-      'A 20-second animated brand interlude',
-      'Conversation prompts with a five-minute timer',
+      'A board of tiles that rearranges itself for phones',
+      'A 20-second animated brand moment',
+      'Conversation cards with a five-minute timer',
     ],
     palette: ['#243ee8', '#f9f5e9', '#ffc39f', '#f8df7c', '#202315'],
     type: ['Bricolage Grotesque'],
@@ -221,9 +219,9 @@ export const coffee = [
     summary:
       'A lakeside café on oat paper and lake-green ink: food-filled lettering, handwriting drawn stroke by stroke, eight photographed dishes and booking with a real inline calendar.',
     moves: [
-      'A wordmark filled with the menu’s own food photography',
-      'Handwritten lettering drawn glyph by glyph',
-      'An accessible inline calendar for reservations',
+      'The logo filled with photos of the real dishes',
+      'Handwritten lettering that draws itself',
+      'Book a table with a calendar anyone can use',
     ],
     palette: ['#f6f1e6', '#244a3b', '#dce1cf', '#e9ad81', '#617063'],
     type: ['Caveat'],
@@ -240,9 +238,9 @@ export const coffee = [
     summary:
       'Warm paper, charcoal and ember: three roasts with full detail pages, a bag that keeps every variant straight, a bean-to-brew story and brew guides with live timers.',
     moves: [
-      'Roast, brew and flavour filters into full coffee details',
-      'A five-stage bean-to-brew story with a reversible taste loop',
-      'Brew guides with dose calculators and timers',
+      'Filter coffees by roast, brew and flavour',
+      'The story from bean to cup in five steps',
+      'Brew guides with a dose calculator and timer',
     ],
     palette: ['#171915', '#f0eee5', '#ff7950', '#777c6d'],
     type: ['Arial', 'Courier New'],

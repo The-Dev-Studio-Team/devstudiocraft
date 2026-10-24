@@ -1,197 +1,180 @@
 ---
+/*
+  Packages: who each plan is for, what you get, when, and what it buys you.
+  `title` + `category` are the keys the inquiry function and its email templates use
+  (functions/api/_email-templates.js PLANS): keep them in sync if a plan is renamed.
+*/
 const tabs = [
   {
-    id: 'marketing',
-    label: 'Marketing',
-    count: '04',
+    id: 'technology',
+    label: 'Websites & apps',
+    category: 'Technology',
+    count: '03',
+    blurb: 'A site that loads fast, shows up on Google and turns visitors into calls, bookings and orders.',
     cards: [
       {
-        num: '01',
-        badge: 'Getting started',
-        title: 'Spark',
-        forLine: 'For brands ready to look serious online.',
-        desc: 'We take content off your plate — created, designed and published, with your community handled across three platforms. You run the business. We run the feed.',
-        items: [
-          'Content creation & publishing',
-          'Graphic design',
-          'Community management — 3 platforms',
-        ],
+        title: 'Launch',
+        what: 'One landing page, live in two weeks',
+        forWho: 'A launch, an offer or a campaign that can’t wait.',
+        gets: ['Design and copy structure', 'Hand-coded page', 'Analytics set up from day one'],
+        timing: '2-week sprint',
+        result: 'A page with one job, turning visitors into sign-ups or sales, and numbers that show how it’s doing.',
       },
       {
-        num: '02',
-        badge: 'The machine',
-        title: 'Engine',
-        forLine: 'For brands that want the whole machine.',
-        desc: 'Your full marketing department, outsourced: strategy, content calendar, paid media and video — every platform managed, every metric reported, reviewed with you each cycle.',
-        items: [
-          'Everything in Spark',
-          'Growth strategy & KPI reporting',
-          'Paid media management',
-          'Video editing',
-          'All platforms moderated',
-        ],
+        title: 'Foundation',
+        what: 'Your business website',
+        forWho: 'A salon, clinic, gym or restaurant that needs a site customers trust.',
+        gets: ['Design for phone and desktop', 'Custom build, security-hardened', 'Set up to be found on Google', '95+ Google speed score target'],
+        timing: '3 months of support after launch',
+        result: 'A fast site that shows up in search and makes it easy to call, book or walk in.',
       },
       {
-        num: '03',
+        title: 'Powerhouse',
         badge: 'Most brands pick this',
         featured: true,
-        title: 'Overdrive',
-        forLine: 'For brands ready to own attention.',
-        desc: "Everything in Engine — plus a dedicated creative team shooting real photography and full video production for your brand. The content stops looking outsourced, because it isn't. Billed annually, 20% off.",
-        items: [
-          'Everything in Engine',
-          'Brand photography',
-          'Full video production',
-          'Dedicated creative team',
-          '20% off, billed annually',
-        ],
-      },
-      {
-        num: '04',
-        badge: 'Full command',
-        title: 'Command',
-        forLine: 'For brands where marketing is mission-critical.',
-        desc: "Overdrive, amplified: active website management, reputation and risk cover, and a dedicated account manager who answers like it's their own brand on the line. 360° covered.",
-        items: [
-          'Everything in Overdrive',
-          'Website management',
-          'Reputation & risk cover',
-          'Dedicated account manager',
-        ],
+        what: 'Your website, plus custom features',
+        forWho: 'A business that runs on its site: a shop, bookings, logins or connected tools.',
+        gets: ['Everything in Foundation', 'Custom features, front to back', 'Connects to the tools you already use', 'Built to stay fast under real traffic'],
+        timing: '6 months of support after launch',
+        result: 'One system that handles real customers, real orders and real traffic.',
       },
     ],
   },
   {
     id: 'branding',
     label: 'Branding',
+    category: 'Branding',
     count: '03',
+    blurb: 'Look like the business you are, on the sign, the cup, the card and the screen.',
     cards: [
       {
-        num: '01',
-        badge: 'The essentials',
         title: 'Mark',
-        forLine: 'For new businesses that need to look real, fast.',
-        desc: "One logo done properly — primary and secondary marks plus a social-ready variant, shaped through real revision rounds and delivered in every format you'll ever be asked for.",
-        items: [
-          '1 logo — real revision rounds',
-          'Primary + secondary marks',
-          'Social media kit',
-          'SVG / PNG / PDF / JPEG delivery',
-        ],
+        what: 'Your logo, done properly',
+        forWho: 'A new business that needs to look real, fast.',
+        gets: ['1 logo, with real revision rounds', 'Primary and secondary versions', 'Social media kit', 'Every format: SVG, PNG, PDF, JPEG'],
+        result: 'A logo that looks right on a shopfront, a cup and a phone screen.',
       },
       {
-        num: '02',
+        title: 'System',
         badge: 'Most brands pick this',
         featured: true,
-        title: 'System',
-        forLine: 'For a first impression that sticks.',
-        desc: 'Two competing logo directions refined to one winner — plus business card and letterhead designed to match. Show up consistent everywhere your customer meets you.',
-        items: [
-          '2 logo concepts',
-          'Business card + letterhead',
-          'Social media kit',
-          'Full source files',
-        ],
+        what: 'Logo plus business stationery',
+        forWho: 'A business that wants one consistent look everywhere.',
+        gets: ['2 logo directions, refined to one', 'Business card and letterhead', 'Social media kit', 'Full source files'],
+        result: 'Every card, post and letter looks like it comes from the same business.',
       },
       {
-        num: '03',
-        badge: 'The long game',
         title: 'Legacy',
-        forLine: 'For organisations building to last.',
-        desc: 'A complete identity system your team can use without you in the room — guidelines, type, colour, voice, email signature, every printable. Documented. Owned. Forever.',
-        items: [
-          '2 logo concepts',
-          'Full brand guidelines',
-          'Email signature + letterhead',
-          'Every printable asset',
-          'Full ownership docs',
-        ],
+        what: 'A complete brand system',
+        forWho: 'An organisation building to last, with a team that needs clear rules.',
+        gets: ['2 logo directions', 'Full brand guidelines', 'Email signature and letterhead', 'Every printable asset', 'Full ownership documents'],
+        result: 'A brand your whole team can use correctly, without calling us.',
       },
     ],
   },
   {
-    id: 'technology',
-    label: 'Technology',
-    count: '03',
+    id: 'marketing',
+    label: 'Marketing',
+    category: 'Marketing',
+    count: '04',
+    blurb: 'Keep new customers finding you and old ones coming back, without doing it yourself.',
     cards: [
       {
-        num: '01',
-        badge: '2-week sprint',
-        title: 'Launch',
-        forLine: "For campaigns that can't wait.",
-        desc: 'A single conversion-obsessed landing page — designed, written and hand-coded in a two-week sprint, with analytics wired from day one so you know exactly what it earns.',
-        items: [
-          'UI/UX design',
-          'Hand-coded build',
-          'Conversion copy structure',
-          'Analytics wired in',
-        ],
+        title: 'Spark',
+        what: 'Social media, done for you',
+        forWho: 'A business that wants an active, good-looking feed without the work.',
+        gets: ['Posts created and published', 'Graphic design', 'Comments and messages answered on 3 platforms'],
+        timing: 'Ongoing',
+        result: 'Your feed stays active and professional while you run the business.',
       },
       {
-        num: '02',
-        badge: 'The workhorse',
-        title: 'Foundation',
-        forLine: 'For websites with a job to do.',
-        desc: 'A security-hardened, search-visible site built to our 95+ Lighthouse bar — then protected by three months of post-launch support so it stays fast, current and safe.',
-        items: [
-          'UI/UX design',
-          'Custom build + security hardening',
-          'SEO setup',
-          '95+ Lighthouse target',
-          '3 months support',
-        ],
+        title: 'Engine',
+        what: 'Your marketing department, outsourced',
+        forWho: 'A business ready to grow with a plan and paid ads.',
+        gets: ['Everything in Spark', 'Growth plan and KPI reports', 'Paid ads managed', 'Video editing', 'Every platform moderated'],
+        timing: 'Reviewed with you every cycle',
+        result: 'A plan, measured ads and a report that shows what actually worked.',
       },
       {
-        num: '03',
+        title: 'Overdrive',
         badge: 'Most brands pick this',
         featured: true,
-        title: 'Powerhouse',
-        forLine: 'For businesses that need infrastructure, not a brochure.',
-        desc: 'Everything in Foundation, elevated to full-stack: custom features, integrations and performance engineering that holds under real load — with six months of support at your side.',
-        items: [
-          'Everything in Foundation',
-          'Full-stack development',
-          'Custom integrations',
-          'Performance engineering',
-          '6 months support',
-        ],
+        what: 'Marketing with your own photo and video team',
+        forWho: 'A brand ready to own attention in its city or niche.',
+        gets: ['Everything in Engine', 'Brand photography', 'Full video production', 'A dedicated creative team'],
+        timing: 'Billed annually, 20% off',
+        result: 'Content that looks like you, because it was shot for you.',
+      },
+      {
+        title: 'Command',
+        what: 'Marketing, website and reputation, handled',
+        forWho: 'A business where marketing simply can’t fail.',
+        gets: ['Everything in Overdrive', 'Website management', 'Reputation and risk cover', 'A dedicated account manager'],
+        timing: 'Ongoing',
+        result: 'One team owns your marketing, your website and your reputation.',
       },
     ],
   },
 ];
 
 const singles = [
-  { title: 'Market analysis', desc: 'Deep-dive competitor research and market positioning report.', time: '25 days' },
-  { title: 'Marketing strategy', desc: 'Actionable brand strategy with channel plan, messaging and KPIs.', time: '25 days' },
-  { title: 'Content plan + designs', desc: 'Monthly content calendar with every graphic designed, ready to post.', time: '25 days' },
-  { title: 'Media buying', desc: 'Paid ad management — budgets, creative testing, honest reporting.', time: '30 days' },
-  { title: 'Social moderation', desc: 'Daily community management — replies, DMs and engagement.', time: '30 days' },
-  { title: 'Photoshoot', desc: 'Professional brand photography — product, portrait or lifestyle.', time: 'By arrangement' },
-  { title: 'Video editing', desc: 'Cuts, colour grade, captions, music — up to 8 minutes.', time: '5 days' },
-  { title: 'Reel pack', desc: 'Three 60-second short-form reels — filmed, edited, optimised.', time: 'By arrangement' },
-  { title: 'SEO audit', desc: 'Full technical + content audit with a prioritised fix list.', time: '5 days' },
-  { title: 'Speed rescue', desc: "Find and fix what's slowing your site — measured before and after.", time: '3 days' },
-  { title: 'Bug fixing', desc: 'Rapid diagnosis and repair of bugs, broken links and errors.', time: '1 day' },
-  { title: 'Website care', desc: 'Monthly upkeep — updates, security checks, performance watch.', time: 'Monthly' },
+  { title: 'Market analysis', desc: 'Who your competitors are, what they do well, and where you can win.', time: '25 days' },
+  { title: 'Marketing strategy', desc: 'A clear plan: which channels, what to say, how to measure it.', time: '25 days' },
+  { title: 'Content plan + designs', desc: 'A month of posts planned and designed, ready to publish.', time: '25 days' },
+  { title: 'Media buying', desc: 'Your ads run for you: budgets, creative tests, honest reports.', time: '30 days' },
+  { title: 'Social moderation', desc: 'Comments, DMs and replies handled every day.', time: '30 days' },
+  { title: 'Photoshoot', desc: 'Professional photos of your products, your team or your space.', time: 'By arrangement' },
+  { title: 'Video editing', desc: 'Cut, colour, captions and music, up to 8 minutes.', time: '5 days' },
+  { title: 'Reel pack', desc: 'Three 60-second reels, filmed and edited for social.', time: 'By arrangement' },
+  { title: 'SEO audit', desc: 'A full check of your site with a ranked list of fixes.', time: '5 days' },
+  { title: 'Speed rescue', desc: 'We find what slows your site and fix it, measured before and after.', time: '3 days' },
+  { title: 'Bug fixing', desc: 'Broken links, errors and bugs found and fixed.', time: '1 day' },
+  { title: 'Website care', desc: 'Updates, security checks and a speed watch, every month.', time: 'Monthly' },
+];
+
+// "Which one fits?": a recommendation per kind of business, each jumping to its plan
+const guide = [
+  {
+    who: 'Opening a café, salon or studio',
+    pick: 'System + Foundation',
+    why: 'A look people remember, then a website they trust.',
+    tab: 'branding',
+    plan: 'System',
+  },
+  {
+    who: 'Running a clinic, gym or practice',
+    pick: 'Foundation or Powerhouse',
+    why: 'A site people find on Google. Powerhouse when you need features like online booking.',
+    tab: 'technology',
+    plan: 'Powerhouse',
+  },
+  {
+    who: 'Growing a brand or an online shop',
+    pick: 'Engine or Overdrive',
+    why: 'A steady stream of content and ads, measured and reported.',
+    tab: 'marketing',
+    plan: 'Overdrive',
+  },
 ];
 
 const industries = [
+  'Barbers & hair',
+  'Nails & beauty',
+  'Car detailing',
+  'Gyms & fitness',
+  'Physio & health',
+  'Massage & spa',
+  'Dental & clinics',
+  'Events & catering',
+  'Restaurants & cafés',
   'E-commerce',
-  'Restaurants & food',
-  'Fashion & beauty',
   'Real estate',
-  'Health & clinics',
   'Education',
   'SaaS & startups',
   'Other',
 ];
 
-const trust = [
-  'First concept in 48h',
-  'You own everything',
-  'No lock-in contracts',
-  'Replies within 24h',
-];
+const trust = ['First design in 48h', 'You own everything', 'No lock-in contracts', 'Replies within 24h'];
 ---
 
 <section class="section packages" id="packages" aria-labelledby="packages-heading">
@@ -200,13 +183,49 @@ const trust = [
       <div>
         <p class="eyebrow" data-reveal>Packages</p>
         <h2 class="h-display h2" id="packages-heading" data-split-lines>
-          Your growth, <em class="serif-i text-acid">packaged.</em>
+          Pick what you need. <em class="serif-i text-acid">We handle the rest.</em>
         </h2>
       </div>
       <p class="pkg-note" data-reveal>
-        One clear scope, one launch date, zero surprises. Every plan opens with a free
-        15-minute discovery call — and everything we build is yours, forever.
+        Websites, branding and marketing, in clear plans: who each one is for, what you get and what it does for
+        your business. Every plan starts with a free 15-minute call, and everything we make is yours.
       </p>
+    </div>
+
+    <div class="pkg-guide" data-reveal>
+      <p class="pkg-guide-k">Which one fits?</p>
+      <ul class="pkg-guide-list">
+        {
+          guide.map((g) => (
+            <li>
+              <button type="button" class="pkg-fit" data-pkg-fit={g.tab} data-pkg-plan={g.plan}>
+                <span class="pkg-fit-who">{g.who}</span>
+                <span class="pkg-fit-pick">{g.pick}</span>
+                <span class="pkg-fit-why">{g.why}</span>
+                <span class="pkg-fit-go">
+                  See the plan
+                  <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+                  </svg>
+                </span>
+              </button>
+            </li>
+          ))
+        }
+        <li>
+          <button type="button" class="pkg-fit pkg-fit-call on-light" data-pkg-select data-package="Free 15-minute call" data-category="Not sure yet">
+            <span class="pkg-fit-who">Not sure yet?</span>
+            <span class="pkg-fit-pick">Book the free 15-minute call</span>
+            <span class="pkg-fit-why">Tell us about your business. We’ll tell you honestly what you need, and what you don’t.</span>
+            <span class="pkg-fit-go">
+              Book the call
+              <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
+              </svg>
+            </span>
+          </button>
+        </li>
+      </ul>
     </div>
 
     <div class="pkg-tabs" role="tablist" aria-label="Package categories" data-reveal>
@@ -224,50 +243,53 @@ const trust = [
           </button>
         ))
       }
-      <button
-        class="pkg-tab"
-        role="tab"
-        id="tab-singles"
-        aria-selected="false"
-        aria-controls="panel-singles"
-        data-pkg-tab="singles"
-      >
-        À la carte <sup>12</sup>
+      <button class="pkg-tab" role="tab" id="tab-singles" aria-selected="false" aria-controls="panel-singles" data-pkg-tab="singles">
+        One-off jobs <sup>12</sup>
       </button>
     </div>
 
     {
       tabs.map((t, i) => (
-        <div
-          class={`pkg-panel${i === 0 ? ' is-active' : ''}`}
-          role="tabpanel"
-          id={`panel-${t.id}`}
-          aria-labelledby={`tab-${t.id}`}
-          data-pkg-panel={t.id}
-        >
+        <div class={`pkg-panel${i === 0 ? ' is-active' : ''}`} role="tabpanel" id={`panel-${t.id}`} aria-labelledby={`tab-${t.id}`} data-pkg-panel={t.id}>
+          <p class="pkg-blurb">{t.blurb}</p>
           <div class={`pkg-grid cols-${t.cards.length}`}>
             {t.cards.map((c) => (
-              <article class={`pkg-card${c.featured ? ' is-featured' : ''}`}>
-                <span class="pkg-num" aria-hidden="true">
-                  {c.num}
-                </span>
-                <span class="pkg-badge">{c.badge}</span>
-                <h3 class="pkg-title">{c.title}</h3>
-                <p class="pkg-for">{c.forLine}</p>
-                <p class="pkg-desc">{c.desc}</p>
-                <ul class="pkg-list">
-                  {c.items.map((it) => (
-                    <li>{it}</li>
-                  ))}
-                </ul>
-                <button
-                  class="pkg-select"
-                  data-pkg-select
-                  data-package={c.title}
-                  data-category={t.label}
-                 
-                >
-                  <span>{c.featured ? 'Start selling more' : 'Claim this plan'}</span>
+              <article class={`pc${c.featured ? ' is-featured on-light' : ''}`} aria-labelledby={`pc-${c.title}`} data-pkg-card={c.title}>
+                <header class="pc-head">
+                  {c.badge && <span class="pc-badge">{c.badge}</span>}
+                  <h3 class="pc-name" id={`pc-${c.title}`}>
+                    {c.title}
+                  </h3>
+                  <p class="pc-what">{c.what}</p>
+                </header>
+                <dl class="pc-rows">
+                  <div class="pc-row">
+                    <dt>For</dt>
+                    <dd>{c.forWho}</dd>
+                  </div>
+                  <div class="pc-row">
+                    <dt>You get</dt>
+                    <dd>
+                      <ul class="pc-gets">
+                        {c.gets.map((g) => (
+                          <li>{g}</li>
+                        ))}
+                      </ul>
+                    </dd>
+                  </div>
+                  {c.timing && (
+                    <div class="pc-row">
+                      <dt>Timing</dt>
+                      <dd>{c.timing}</dd>
+                    </div>
+                  )}
+                  <div class="pc-row pc-result">
+                    <dt>The result</dt>
+                    <dd>{c.result}</dd>
+                  </div>
+                </dl>
+                <button class="pc-cta" data-pkg-select data-package={c.title} data-category={t.category}>
+                  <span>Talk about {c.title}</span>
                   <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                     <path d="M1 13 13 1M13 1H3M13 1v10" stroke="currentColor" stroke-width="1.6" />
                   </svg>
@@ -279,13 +301,8 @@ const trust = [
       ))
     }
 
-    <div
-      class="pkg-panel"
-      role="tabpanel"
-      id="panel-singles"
-      aria-labelledby="tab-singles"
-      data-pkg-panel="singles"
-    >
+    <div class="pkg-panel" role="tabpanel" id="panel-singles" aria-labelledby="tab-singles" data-pkg-panel="singles">
+      <p class="pkg-blurb">Need one thing done well? Pick a job, see how long it takes, book it.</p>
       <div class="single-grid">
         {
           singles.map((s) => (
@@ -295,13 +312,7 @@ const trust = [
                 <span class="single-time">{s.time}</span>
               </div>
               <p class="single-desc">{s.desc}</p>
-              <button
-                class="single-select"
-                data-pkg-select
-                data-package={s.title}
-                data-category="À la carte"
-               
-              >
+              <button class="single-select" data-pkg-select data-package={s.title} data-category="À la carte">
                 Book it →
               </button>
             </article>
@@ -438,17 +449,34 @@ const trust = [
   const tabButtons = section.querySelectorAll('[data-pkg-tab]');
   const panels = section.querySelectorAll('[data-pkg-panel]');
 
+  const activate = (id) => {
+    tabButtons.forEach((b) => {
+      const on = b.getAttribute('data-pkg-tab') === id;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach((p) => {
+      p.classList.toggle('is-active', p.getAttribute('data-pkg-panel') === id);
+    });
+  };
+
   tabButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('data-pkg-tab');
-      tabButtons.forEach((b) => {
-        const on = b === btn;
-        b.classList.toggle('is-active', on);
-        b.setAttribute('aria-selected', on ? 'true' : 'false');
-      });
-      panels.forEach((p) => {
-        p.classList.toggle('is-active', p.getAttribute('data-pkg-panel') === id);
-      });
+    btn.addEventListener('click', () => activate(btn.getAttribute('data-pkg-tab')));
+  });
+
+  /* ---- which one fits: open the right tab and point at the plan ---- */
+  section.querySelectorAll('[data-pkg-fit]').forEach((tile) => {
+    tile.addEventListener('click', () => {
+      activate(tile.getAttribute('data-pkg-fit'));
+      const card = section.querySelector(`[data-pkg-card="${tile.getAttribute('data-pkg-plan')}"]`);
+      if (!card) return;
+      const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      card.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'center' });
+      card.classList.remove('is-flash');
+      void card.offsetWidth;
+      card.classList.add('is-flash');
+      setTimeout(() => card.classList.remove('is-flash'), 1800);
+      card.querySelector('[data-pkg-select]')?.focus({ preventScroll: true });
     });
   });
 
@@ -673,55 +701,145 @@ const trust = [
 <style>
   .packages {
     background: var(--bg);
-    border-top: 1px solid var(--line);
   }
 
   .pkg-head {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 2.5rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 1.6rem 3rem;
+    align-items: end;
     margin-bottom: clamp(2.2rem, 4vw, 3.5rem);
   }
 
-  .pkg-head .eyebrow {
-    margin-bottom: 1.4rem;
-  }
-
   .pkg-note {
-    max-width: 24rem;
     color: var(--ink-dim);
-    font-size: 0.95rem;
+    font-size: var(--text-lg);
+    max-width: 32rem;
     text-wrap: pretty;
   }
 
+  /* ---- which one fits ---- */
+  .pkg-guide {
+    margin-bottom: clamp(2.4rem, 4vw, 3.6rem);
+  }
+
+  .pkg-guide-k {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 0.9rem;
+  }
+
+  .pkg-guide-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .pkg-fit {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 0.45rem;
+    width: 100%;
+    height: 100%;
+    padding: 1.15rem 1.2rem;
+    border-radius: 0.9rem;
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    text-align: left;
+    transition:
+      border-color 0.4s ease,
+      translate 0.6s var(--ease-expo);
+  }
+
+  .pkg-fit-who {
+    font-size: 0.82rem;
+    color: var(--ink-mute);
+  }
+
+  .pkg-fit-pick {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .pkg-fit-why {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--ink-dim);
+  }
+
+  .pkg-fit-go {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--acid);
+  }
+
+  .pkg-fit-call {
+    background: var(--acid);
+    border-color: var(--acid);
+    color: var(--acid-ink);
+  }
+
+  .pkg-fit-call .pkg-fit-who,
+  .pkg-fit-call .pkg-fit-why,
+  .pkg-fit-call .pkg-fit-go {
+    color: var(--acid-ink);
+  }
+
+  .pkg-fit:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 3px;
+  }
+
+  .pkg-fit-call:focus-visible {
+    outline-color: var(--ink);
+  }
+
+  @media (hover: hover) {
+    .pkg-fit:hover {
+      border-color: var(--ink-faint);
+      translate: 0 -0.25rem;
+    }
+
+    .pkg-fit-call:hover {
+      border-color: var(--acid);
+    }
+  }
+
+  /* ---- tabs ---- */
   .pkg-tabs {
     display: flex;
-    gap: 0.5rem;
     flex-wrap: wrap;
-    margin-bottom: clamp(1.8rem, 3vw, 2.6rem);
+    gap: 0.45rem;
+    margin-bottom: 1.2rem;
   }
 
   .pkg-tab {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
-    background: transparent;
-    border: 1px solid var(--line);
+    padding: 0.7rem 1.2rem;
     border-radius: 100px;
-    padding: 0.62rem 1.25rem;
+    border: 1px solid var(--line);
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--ink-dim);
     cursor: pointer;
     transition:
-      color 0.35s var(--ease-expo),
-      background 0.35s var(--ease-expo),
-      border-color 0.35s var(--ease-expo);
+      color 0.3s ease,
+      background-color 0.3s ease,
+      border-color 0.3s ease;
   }
 
   .pkg-tab sup {
-    font-size: 0.56rem;
+    font-size: 0.6rem;
     margin-left: 0.2rem;
   }
 
@@ -731,9 +849,14 @@ const trust = [
   }
 
   .pkg-tab.is-active {
-    background: var(--acid);
-    border-color: var(--acid);
-    color: var(--acid-ink);
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+
+  .pkg-tab:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 3px;
   }
 
   .pkg-panel {
@@ -742,234 +865,233 @@ const trust = [
 
   .pkg-panel.is-active {
     display: block;
-    animation: panel-in 0.55s var(--ease-expo);
+    animation: panel-in 0.6s var(--ease-expo);
   }
 
   @keyframes panel-in {
     from {
       opacity: 0;
-      transform: translateY(14px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
+      translate: 0 1rem;
     }
   }
 
+  .pkg-blurb {
+    max-width: 44rem;
+    margin-bottom: 1.4rem;
+    color: var(--ink-dim);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.15rem, 1rem + 0.5vw, 1.45rem);
+    line-height: 1.3;
+  }
+
+  /* ---- plan cards ---- */
   .pkg-grid {
     display: grid;
-    gap: 1.2rem;
+    gap: 1rem;
+    align-items: stretch;
   }
 
   .pkg-grid.cols-3 {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .pkg-grid.cols-4 {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .pkg-card {
-    position: relative;
+  .pc {
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
-    background: var(--bg-card);
+    gap: 1.2rem;
+    padding: 1.5rem 1.4rem 1.4rem;
+    border-radius: 1rem;
     border: 1px solid var(--line);
-    border-radius: 1.4rem;
-    padding: clamp(1.5rem, 2.4vw, 2.1rem);
-    overflow: clip;
-    transition:
-      transform 0.5s var(--ease-expo),
-      border-color 0.5s var(--ease-expo);
+    background: var(--bg-card);
+    transition: border-color 0.4s ease, box-shadow 0.6s ease;
   }
 
-  .pkg-card:hover {
-    transform: translateY(-6px);
-    border-color: var(--ink-faint);
+  .pc.is-flash {
+    border-color: var(--acid);
+    box-shadow: 0 0 0 4px rgb(201 242 75 / 0.25);
   }
 
-  .pkg-num {
-    position: absolute;
-    top: 0.9rem;
-    right: 1.2rem;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 2.6rem;
-    line-height: 1;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(242, 239, 232, 0.14);
-    pointer-events: none;
-  }
-
-  .pkg-card.is-featured {
+  .pc.is-featured {
     background: var(--acid);
     border-color: var(--acid);
     color: var(--acid-ink);
-    box-shadow: 0 30px 90px rgba(201, 242, 75, 0.16);
   }
 
-  .pkg-card.is-featured:hover {
-    border-color: var(--acid);
-    transform: translateY(-8px);
+  .pc-head {
+    display: grid;
+    gap: 0.35rem;
+    justify-items: start;
   }
 
-  .is-featured .pkg-num {
-    -webkit-text-stroke: 1px rgba(12, 14, 4, 0.25);
+  .pc-badge {
+    padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    background: var(--acid-ink);
+    color: var(--acid);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
   }
 
-  .pkg-badge {
-    width: fit-content;
-    font-size: 0.62rem;
+  .pc-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.7rem, 1.2rem + 1vw, 2.3rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .pc-what {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.2;
+    color: var(--ink-dim);
+  }
+
+  .pc.is-featured .pc-what {
+    color: var(--acid-ink);
+  }
+
+  .pc-rows {
+    display: grid;
+    gap: 0.9rem;
+    flex: 1;
+    align-content: start;
+  }
+
+  .pc-row {
+    display: grid;
+    gap: 0.3rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .pc.is-featured .pc-row {
+    border-top-color: rgb(12 14 4 / 0.18);
+  }
+
+  .pc-row dt {
+    font-size: 0.66rem;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    padding: 0.32rem 0.75rem;
-    border-radius: 100px;
-    border: 1px solid var(--line);
-    color: var(--ink-dim);
+    color: var(--ink-mute);
   }
 
-  .is-featured .pkg-badge {
-    background: var(--acid-ink);
-    border-color: var(--acid-ink);
-    color: var(--acid);
+  .pc.is-featured .pc-row dt {
+    color: rgb(12 14 4 / 0.72);
   }
 
-  .pkg-title {
-    font-family: var(--font-display);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: clamp(1.6rem, 2vw, 2rem);
-    line-height: 1;
+  .pc-row dd {
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--ink);
   }
 
-  .pkg-for {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--acid);
+  .pc.is-featured .pc-row dd {
+    color: var(--acid-ink);
   }
 
-  .is-featured .pkg-for {
-    color: rgba(12, 14, 4, 0.85);
-  }
-
-  .pkg-desc {
-    color: var(--ink-dim);
-    font-size: 0.88rem;
-    line-height: 1.6;
-    text-wrap: pretty;
-  }
-
-  .is-featured .pkg-desc {
-    color: rgba(12, 14, 4, 0.74);
-  }
-
-  .pkg-list {
+  .pc-gets {
     list-style: none;
     display: grid;
-    gap: 0.55rem;
-    border-top: 1px solid var(--line);
-    padding-top: 1.1rem;
-    margin-top: auto;
+    gap: 0.35rem;
   }
 
-  .is-featured .pkg-list {
-    border-top-color: rgba(12, 14, 4, 0.2);
+  .pc-gets li {
+    display: grid;
+    grid-template-columns: 1rem 1fr;
+    gap: 0.4rem;
   }
 
-  .pkg-list li {
-    position: relative;
-    padding-left: 1.35rem;
-    font-size: 0.88rem;
-    font-weight: 500;
-  }
-
-  .pkg-list li::before {
+  .pc-gets li::before {
     content: '✓';
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: var(--acid);
     font-weight: 700;
-    font-size: 0.8rem;
+    color: var(--acid);
   }
 
-  .is-featured .pkg-list li::before {
+  .pc.is-featured .pc-gets li::before {
     color: var(--acid-ink);
   }
 
-  .pkg-select {
-    display: flex;
+  .pc-result dd {
+    font-weight: 600;
+  }
+
+  .pc-cta {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.55rem;
+    justify-content: space-between;
+    gap: 0.6rem;
     width: 100%;
-    margin-top: 0.4rem;
-    padding: 0.85rem 1rem;
-    font-family: var(--font-body);
-    font-size: 0.85rem;
+    padding: 0.9rem 1.15rem;
+    border-radius: 100px;
+    border: 1px solid var(--ink-faint);
+    font-size: 0.88rem;
     font-weight: 700;
     color: var(--ink);
-    background: rgba(242, 239, 232, 0.05);
-    border: 1px solid var(--line);
-    border-radius: 100px;
     cursor: pointer;
     transition:
-      background 0.4s var(--ease-expo),
-      color 0.4s var(--ease-expo),
-      border-color 0.4s var(--ease-expo);
+      background-color 0.35s ease,
+      color 0.35s ease,
+      border-color 0.35s ease;
   }
 
-  .pkg-select:hover {
-    background: var(--acid);
-    border-color: var(--acid);
-    color: var(--acid-ink);
+  .pc-cta:hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
   }
 
-  .is-featured .pkg-select {
+  .pc.is-featured .pc-cta {
     background: var(--acid-ink);
     border-color: var(--acid-ink);
     color: var(--acid);
   }
 
-  .is-featured .pkg-select:hover {
-    background: var(--bg);
-    border-color: var(--bg);
-    color: var(--ink);
+  .pc.is-featured .pc-cta:hover {
+    background: #000;
   }
 
-  /* ---- à la carte ---- */
+  .pc-cta:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 3px;
+  }
+
+  .pc.is-featured .pc-cta:focus-visible {
+    outline-color: var(--acid-ink);
+  }
+
+  /* ---- one-off jobs ---- */
   .single-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.8rem;
   }
 
   .single-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    background: var(--bg-card);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.6rem;
+    padding: 1.15rem 1.2rem;
+    border-radius: 0.9rem;
     border: 1px solid var(--line);
-    border-radius: 1rem;
-    padding: 1.3rem;
-    transition:
-      transform 0.5s var(--ease-expo),
-      border-color 0.5s var(--ease-expo);
-  }
-
-  .single-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--ink-faint);
+    background: var(--bg-card);
   }
 
   .single-top {
     display: flex;
-    align-items: flex-start;
     justify-content: space-between;
-    gap: 0.6rem;
+    align-items: baseline;
+    gap: 0.8rem;
   }
 
   .single-title {
@@ -977,47 +1099,39 @@ const trust = [
     font-weight: 600;
     font-size: 1.02rem;
     line-height: 1.15;
+    text-transform: uppercase;
   }
 
   .single-time {
-    flex-shrink: 0;
-    font-size: 0.56rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    flex: none;
+    font-size: 0.72rem;
+    font-weight: 600;
     color: var(--acid);
-    border: 1px solid color-mix(in srgb, var(--acid) 40%, transparent);
-    border-radius: 100px;
-    padding: 0.22rem 0.55rem;
     white-space: nowrap;
   }
 
   .single-desc {
+    font-size: 0.88rem;
+    line-height: 1.45;
     color: var(--ink-dim);
-    font-size: 0.82rem;
-    line-height: 1.55;
-    flex: 1;
   }
 
   .single-select {
-    align-self: flex-start;
-    font-family: var(--font-body);
-    font-size: 0.78rem;
+    justify-self: start;
+    font-size: 0.82rem;
     font-weight: 700;
-    color: var(--ink-dim);
-    background: none;
-    border: none;
-    border-bottom: 1.5px solid transparent;
-    padding-bottom: 0.1rem;
+    color: var(--acid);
     cursor: pointer;
-    transition:
-      color 0.3s ease,
-      border-color 0.3s ease;
   }
 
   .single-select:hover {
-    color: var(--acid);
-    border-bottom-color: var(--acid);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .single-select:focus-visible {
+    outline: 2px solid var(--acid);
+    outline-offset: 3px;
   }
 
   /* ---- trust strip ---- */
@@ -1025,26 +1139,22 @@ const trust = [
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem 2.2rem;
     justify-content: center;
-    margin-top: clamp(2.2rem, 4vw, 3.2rem);
-    padding-top: 1.6rem;
-    border-top: 1px solid var(--line);
+    gap: 0.6rem 2rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    font-size: 0.86rem;
+    color: var(--ink-dim);
   }
 
   .pkg-trust li {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--ink-dim);
   }
 
   .trust-tick {
     color: var(--acid);
     font-weight: 700;
-    font-size: 0.78rem;
   }
 
   /* ---- modal ---- */
@@ -1538,33 +1648,49 @@ const trust = [
     overflow: hidden;
   }
 
-  @media (max-width: 1080px) {
-    .pkg-grid.cols-4 {
-      grid-template-columns: repeat(2, 1fr);
+  @media (max-width: 1180px) {
+    .pkg-grid.cols-4,
+    .pkg-guide-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .single-grid {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
   @media (max-width: 900px) {
+    .pkg-head {
+      grid-template-columns: 1fr;
+    }
+
     .pkg-grid.cols-3 {
       grid-template-columns: 1fr;
     }
 
     .single-grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
   @media (max-width: 640px) {
-    .pkg-grid.cols-4 {
+    .pkg-grid.cols-4,
+    .single-grid,
+    .pkg-guide-list {
       grid-template-columns: 1fr;
     }
 
-    .single-grid {
-      grid-template-columns: 1fr;
+    /* one swipeable row of tabs */
+    .pkg-tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      margin-inline: calc(-1 * var(--gutter));
+      padding-inline: var(--gutter);
+    }
+
+    .pkg-tab {
+      flex: none;
     }
 
     .pkg-fields {
