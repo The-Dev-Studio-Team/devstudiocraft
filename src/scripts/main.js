@@ -13,7 +13,7 @@ import {
   stickyRun,
   onReady,
 } from './core.js';
-import { initMagnetic, initNav, initServicePreview, initAmbientVideos } from './interactions.js';
+import { initMagnetic, initNav, initAmbientVideos } from './interactions.js';
 
 /* ---------- hero intro: the headline rises as the session intro opens ---------- */
 function initIntro() {
@@ -155,6 +155,33 @@ function initTradePicker() {
   });
 }
 
+/* ---------- services: each card's film loads and plays only while it is hovered ---------- */
+function initServiceFilms() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  document.querySelectorAll('[data-sv-card]').forEach((card) => {
+    const id = card.dataset.svCard;
+    if (!id) return;
+    const base = id === 'reel' ? '/media/work/reel' : `/media/work/film-${id}`;
+    let video = null;
+    card.addEventListener('pointerenter', () => {
+      if (!video) {
+        video = document.createElement('video');
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.setAttribute('aria-hidden', 'true');
+        video.innerHTML = `<source src="${base}.webm" type="video/webm"><source src="${base}.mp4" type="video/mp4">`;
+        card.querySelector('.sv-media').append(video);
+      }
+      video
+        .play()
+        .then(() => video.classList.add('is-playing'))
+        .catch(() => {});
+    });
+    card.addEventListener('pointerleave', () => video?.pause());
+  });
+}
+
 /* ---------- manifesto word scrub ---------- */
 function initManifesto() {
   const el = document.querySelector('[data-manifesto]');
@@ -261,7 +288,7 @@ function boot() {
   initHeroScreen();
   initAmbientVideos();
   initTradePicker();
-  initServicePreview();
+  initServiceFilms();
   initReveals();
   initSplitHeadings();
   initManifesto();
