@@ -19,10 +19,11 @@ const total = String(sites.length).padStart(2, '0');
 
 <section class="chapter trades" id="trades" aria-labelledby="trades-heading" data-chapter="trades">
   <ChapterHead n="01" label="The trade series" id="trades-heading">
-    <Fragment slot="title">Ten trades. <em class="serif-i text-acid">Ten flagships.</em></Fragment>
-    The barber, the nail studio, the detailer, the gym, the physio, the spa, the dentist, the caterer and the
-    restaurant down the street. For each one we created a brand and built its website from scratch: name,
-    photos, film, booking and code. Open any of them. This is the level your business gets.
+    <Fragment slot="title">Every trade. <em class="serif-i text-acid">Its own flagship.</em></Fragment>
+    The barber and the colourist, the nail studio and the skin clinic, the detailer, the gym, the physio, the
+    spa, the dentist, the caterer and the restaurant down the street. For each one we created a brand and built
+    its website from scratch: name, photos, film, booking and code. Open any of them. This is the level your
+    business gets.
   </ChapterHead>
 
   <!-- desktop theatre -->
@@ -138,7 +139,7 @@ const total = String(sites.length).padStart(2, '0');
   /* ------------ desktop theatre ------------ */
   .th {
     position: relative;
-    height: calc(var(--n) * 52vh + 100vh);
+    height: calc(var(--n) * 40vh + 100vh);
   }
 
   .th-sticky {
@@ -169,7 +170,7 @@ const total = String(sites.length).padStart(2, '0');
     align-items: baseline;
     column-gap: 0.4rem;
     width: 100%;
-    padding-block: 0.42rem;
+    padding-block: clamp(0.18rem, 0.6vh, 0.42rem);
     text-align: left;
     color: rgb(242 239 232 / 0.46);
     transition: color 0.45s ease;
@@ -187,7 +188,7 @@ const total = String(sites.length).padStart(2, '0');
   .th-name {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(1.25rem, 0.6rem + 1.45vw, 2.15rem);
+    font-size: clamp(1.15rem, 0.5rem + 1.2vw, 1.85rem);
     line-height: 1;
     letter-spacing: -0.01em;
     text-transform: uppercase;
@@ -278,6 +279,8 @@ const total = String(sites.length).padStart(2, '0');
 
   .th-screen {
     position: relative;
+    /* short laptop screens: the browser shrinks so the words and button under it stay in view */
+    width: min(100%, calc((100vh - 24rem) * 1.6));
     border-radius: 0.9rem;
     overflow: clip;
     border: 1px solid rgba(242, 239, 232, 0.14);
