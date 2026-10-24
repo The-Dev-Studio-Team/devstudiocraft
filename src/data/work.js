@@ -372,6 +372,7 @@ export const industries = [
   { key: 'cafe', label: 'Cafés & coffee', short: 'Cafés', trade: true },
   { key: 'aviation', label: 'Aviation', short: 'Aviation' },
   { key: 'realestate', label: 'Real estate', short: 'Real estate' },
+  { key: 'keepsakes', label: 'Weddings & keepsakes', short: 'Weddings' },
   { key: 'identity', label: 'Brand identity', short: 'Identity' },
 ];
 
@@ -524,6 +525,23 @@ export const trades = [
   },
 ];
 
+/* ---------------------------------------------------------------------------
+   Keepsakes: personal sites made as a gift, one person at a time.
+--------------------------------------------------------------------------- */
+export const keepsakes = [
+  {
+    id: 'letter',
+    name: 'A Letter for Mia',
+    place: 'Wedding thank-you letter',
+    line: 'Thank you for marrying me.',
+    summary:
+      'A “thank you for marrying me” letter built as a website. A sealed envelope starts your song, a note waits on her phone, then the screen dives into eleven chapters of your story.',
+    palette: ['#93b3e4', '#fbf1ee', '#c3182b', '#2b3754'],
+    accent: '#f26b7e',
+    url: 'https://letter.devstudiocraft.com',
+  },
+];
+
 const hostOf = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
 /* the most colourful palette swatch that still reads as small text on the page (WCAG AA on #0b0b0e) */
@@ -593,6 +611,19 @@ export const allWork = [
     poster: `films/${s.id}.jpg`,
     film: s.id,
     series: 'Spaces',
+  })),
+  ...keepsakes.map((k) => ({
+    id: k.id,
+    name: k.name,
+    industry: 'keepsakes',
+    place: k.place,
+    line: k.line,
+    accent: k.accent,
+    url: k.url,
+    host: hostOf(k.url),
+    poster: `films/${k.id}.jpg`,
+    film: k.id,
+    series: 'Keepsakes',
   })),
   ...identities.map((b) => ({
     id: `id-${b.id}`,
