@@ -367,6 +367,7 @@ export const industries = [
   { key: 'physio', label: 'Physio & rehab', short: 'Physio', trade: true },
   { key: 'massage', label: 'Massage & spa', short: 'Massage', trade: true },
   { key: 'dental', label: 'Dental clinics', short: 'Dental', trade: true },
+  { key: 'cleaning', label: 'Cleaning & facility', short: 'Cleaning', trade: true },
   { key: 'events', label: 'Events & catering', short: 'Events', trade: true },
   { key: 'restaurant', label: 'Restaurants', short: 'Restaurants', trade: true },
   { key: 'cafe', label: 'Cafés & coffee', short: 'Cafés', trade: true },
@@ -593,6 +594,20 @@ export const trades = [
     accent: '#e0a64b',
     stat: { value: '7', label: 'pages, menu to gift cards' },
     url: 'https://anar.devstudiocraft.com',
+  },
+  {
+    id: 'voracht',
+    name: 'Vor Acht',
+    industry: 'cleaning',
+    city: 'Leipzig · Central Germany',
+    line: 'Fertig, bevor Sie kommen.',
+    summary:
+      'A concept for a German commercial cleaning company that sells on time, not adjectives. A photoreal section of an office building follows the real night shift, the first scroll dives into the floor being cleaned right now, and a calculator answers with the finish time.',
+    moves: ['A cut-open office building lit by the live night shift', 'A camera dive into the floor being cleaned right now, then the whole night from 18:00 to 08:00', 'A calculator that answers in time: crew, finish, example price'],
+    palette: ['#0e1211', '#e8eae5', '#868c87', '#2bd47d', '#ffc98a'],
+    accent: '#2bd47d',
+    stat: { value: '06:40', label: 'handover, every night' },
+    url: 'https://voracht.devstudiocraft.com',
   },
 ];
 
