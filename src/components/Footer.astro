@@ -5,6 +5,7 @@ interface Props {
 }
 
 const { base = '' } = Astro.props;
+const LAUNCH_YEAR = 2024;
 const year = new Date().getFullYear();
 ---
 
@@ -50,7 +51,7 @@ const year = new Date().getFullYear();
 
     <div class="footer-bottom">
       <span>
-        © {year} DevStudioCraft — a brand of
+        © {LAUNCH_YEAR}–{year} DevStudioCraft — a brand of
         <a href="https://m2a-group.de/" rel="noopener">M2A Group</a>, operated by
         <a href="https://m2a-fm.de/" rel="noopener">M2A Facility Management GmbH</a>.
       </span>
