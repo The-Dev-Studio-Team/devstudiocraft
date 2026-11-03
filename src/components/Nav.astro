@@ -1,6 +1,6 @@
 ---
 interface Props {
-  page?: 'home' | 'work';
+  page?: 'home' | 'work' | 'call';
 }
 
 const { page = 'home' } = Astro.props;
@@ -21,9 +21,15 @@ const home = page === 'home' ? '' : '/';
       <a href={`${home}#process`}>How it works</a>
       <a href={`${home}#packages`}>Packages</a>
     </nav>
-    <a href="#contact" class="btn btn-acid nav-cta" data-magnetic aria-label="Start a project">
+    <a
+      href="/call/"
+      class="btn btn-acid nav-cta"
+      data-magnetic
+      aria-label="Book a call"
+      aria-current={page === 'call' ? 'page' : undefined}
+    >
       <span class="btn-fill"></span>
-      <span>Start<span class="nav-cta-more"> a project</span></span>
+      <span>Book<span class="nav-cta-more"> a call</span></span>
     </a>
   </div>
 </header>
