@@ -1,16 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
 // cal.com event shown inline; the same link opens in a new tab if the embed cannot load
 const CAL_LINK = 'devstudiocraft/intro-call';
-
-const details = [
-  { term: 'Length', value: '20 minutes' },
-  { term: 'Where', value: 'Video call, or phone if you prefer' },
-  { term: 'When', value: 'Any day, 08:00 to 20:00 UK time' },
-  { term: 'After', value: 'A written plan and a fixed price within one working day' },
-];
 ---
 
 <Base
@@ -19,25 +13,26 @@ const details = [
   title="Book an intro call — DevStudioCraft"
   description="Pick a time for a 20-minute intro call with DevStudioCraft about your website, shop, app or brand. After the call you get a written plan and a fixed price within one working day."
 >
-  <header class="call-nav">
-    <div class="container call-nav-inner">
-      <a href="/" class="call-logo" aria-label="DevStudioCraft home">
-        DEVSTUDIOCRAFT<span class="text-acid">.</span>
-      </a>
-      <a href="/work/" class="call-back">See our work</a>
-    </div>
-  </header>
+  <Nav page="call" />
 
   <main class="call">
-    <div class="container call-grid">
+    <div class="container">
       <div class="call-head">
-        <p class="eyebrow">Intro call</p>
-        <h1 class="h-display call-title">
-          Book an intro <em class="serif-i text-acid">call.</em>
-        </h1>
-        <p class="call-sub">
-          Twenty minutes on your project: what you need, your timeline and your budget. Pick a time that suits you.
-        </p>
+        <div>
+          <p class="eyebrow">Intro call</p>
+          <h1 class="h-display call-title">
+            Book an intro <em class="serif-i text-acid">call.</em>
+          </h1>
+        </div>
+        <div class="call-intro">
+          <p class="call-sub">
+            Twenty minutes on your project: what you need, your timeline and your budget. After the call you get a
+            written plan and a fixed price within one working day.
+          </p>
+          <p class="call-alt">
+            Rather write? <a href="mailto:contact@devstudiocraft.com">contact@devstudiocraft.com</a>
+          </p>
+        </div>
       </div>
 
       <section class="call-cal" aria-label="Choose a time">
@@ -46,22 +41,6 @@ const details = [
           Calendar not loading? <a href={`https://cal.com/${CAL_LINK}`} target="_blank" rel="noopener">Open it in a new tab</a>
         </p>
       </section>
-
-      <div class="call-info">
-        <dl class="call-details">
-          {
-            details.map((d) => (
-              <div class="call-row">
-                <dt>{d.term}</dt>
-                <dd>{d.value}</dd>
-              </div>
-            ))
-          }
-        </dl>
-        <p class="call-alt">
-          Rather write? <a href="mailto:contact@devstudiocraft.com">contact@devstudiocraft.com</a>
-        </p>
-      </div>
     </div>
   </main>
 
@@ -69,6 +48,12 @@ const details = [
 </Base>
 
 <script>
+  // this page skips main.js, so the nav's scrolled state is toggled here
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav?.classList.toggle('is-scrolled', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
   // cal.com inline embed (official loader, trimmed): queues calls until embed.js arrives
   type CalFn = ((...args: unknown[]) => void) & { q?: unknown[][]; ns?: Record<string, CalFn>; loaded?: boolean };
   const w = window as unknown as { Cal?: CalFn };
@@ -112,84 +97,41 @@ const details = [
     });
     ns('ui', {
       theme: 'dark',
-      hideEventTypeDetails: true,
+      // phones: our heading already says what the call is, so cal.com shows only month and times
+      hideEventTypeDetails: !window.matchMedia('(min-width: 64rem)').matches,
       layout: 'month_view',
-      cssVarsPerTheme: { dark: { 'cal-brand': brand, 'cal-bg': token('--bg-soft') } },
+      cssVarsPerTheme: { dark: { 'cal-brand': brand, 'cal-bg': token('--bg-soft'), 'cal-bg-subtle': token('--bg') } },
     });
   }
 </script>
 
 <style>
-  .call-nav {
-    padding-block: 1.1rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .call-nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-  }
-
-  .call-logo {
-    font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    font-size: 1.05rem;
-  }
-
-  .call-back {
-    color: var(--ink-dim);
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
-  }
-
-  .call-back:hover {
-    color: var(--acid);
-  }
-
+  /* top padding clears the fixed site nav */
   .call {
-    padding-block: clamp(3rem, 2rem + 5vw, 7rem) clamp(4rem, 3rem + 5vw, 8rem);
+    padding-block: clamp(7rem, 5rem + 5vw, 10rem) clamp(4rem, 3rem + 5vw, 8rem);
   }
 
-  /* phone: heading, calendar, details; desktop: copy left, calendar right */
-  .call-grid {
+  /* heading left, intro right; the calendar runs full width below so cal.com shows
+     details, month and a scrolling times column side by side */
+  .call-head {
     display: grid;
-    gap: clamp(2rem, 4vw, 3rem) clamp(2.5rem, 5vw, 4.5rem);
-    align-items: start;
+    gap: 1.6rem clamp(2.5rem, 6vw, 6rem);
+    align-items: end;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
   }
 
   @media (min-width: 64rem) {
-    .call-grid {
-      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-      grid-template-areas:
-        'head cal'
-        'info cal';
-      grid-template-rows: auto 1fr;
-    }
-
     .call-head {
-      grid-area: head;
-    }
-
-    .call-cal {
-      grid-area: cal;
-    }
-
-    .call-info {
-      grid-area: info;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     }
   }
 
   .call-title {
     font-size: clamp(3rem, 1.6rem + 5.4vw, 6.6rem);
-    max-width: 9ch;
     margin-top: 1.2rem;
   }
 
   .call-sub {
-    margin-top: 1.6rem;
     max-width: 30rem;
     color: var(--ink-dim);
     font-size: var(--text-lg);
@@ -197,35 +139,9 @@ const details = [
     text-wrap: pretty;
   }
 
-  .call-details {
-    max-width: 30rem;
-    border-top: 1px solid var(--line);
-  }
-
-  .call-row {
-    display: grid;
-    grid-template-columns: 5.5rem 1fr;
-    gap: 1rem;
-    padding-block: 0.95rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .call-row dt {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-mute);
-    padding-top: 0.15rem;
-  }
-
-  .call-row dd {
-    color: var(--ink);
-  }
-
   .call-alt,
   .call-fallback {
-    margin-top: 1.4rem;
+    margin-top: 1.2rem;
     color: var(--ink-mute);
     font-size: 0.92rem;
   }
@@ -244,12 +160,9 @@ const details = [
     color: var(--acid);
   }
 
-  /* placeholder height while embed.js loads; the iframe then sizes itself */
+  /* cal.com draws its own card; this only holds the space while embed.js loads */
   .call-cal-frame {
     min-height: 26rem;
-    background: var(--bg-soft);
-    border: 1px solid var(--line);
-    overflow: clip;
   }
 
   .call-fallback {
