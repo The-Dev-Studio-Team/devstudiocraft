@@ -374,6 +374,7 @@ export const industries = [
   { key: 'fashion', label: 'Fashion & online shops', short: 'Fashion' },
   { key: 'aviation', label: 'Aviation', short: 'Aviation' },
   { key: 'realestate', label: 'Real estate', short: 'Real estate' },
+  { key: 'education', label: 'Schools & education', short: 'Education' },
   { key: 'keepsakes', label: 'Weddings & keepsakes', short: 'Weddings' },
   { key: 'identity', label: 'Brand identity', short: 'Identity' },
 ];
@@ -644,6 +645,18 @@ export const sites = [
       'The website of Dr. Youssef Nasser’s oral and maxillofacial surgery clinic in Nasr City, in English and Arabic: a line-drawn face as the opening, a before-and-after slider you drag, a case gallery you can filter, the partner hospitals and booking on WhatsApp.',
     accent: '#cdb98f',
     url: 'https://ozeamaxillofacialclinic.com',
+  },
+  {
+    id: 'irobo',
+    name: 'iRobo Education',
+    industry: 'education',
+    series: 'Client site',
+    place: 'Bremen · German & English',
+    line: 'Kinder bauen die Zukunft.',
+    summary:
+      'The rebuilt website of a Bremen robotics and coding school that runs after-school clubs at 33 schools, in German and English: clubs by age group, an iRobo Academy waitlist, a competitions hub with a full iRobo Sumo rulebook and a VEX IQ page, and contact forms for schools and parents.',
+    accent: '#ff7a1a',
+    url: 'https://www.irobo-edu.de',
   },
   {
     id: 'crwn',
