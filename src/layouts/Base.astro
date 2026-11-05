@@ -11,16 +11,80 @@ interface Props {
   intro?: boolean;
 }
 
+const HOME_DESCRIPTION =
+  'DevStudioCraft is a web studio in Bremen, Germany. We build websites, online shops, apps and brands that bring businesses more customers.';
+
 const {
   interactive = true,
   intro = true,
   title = 'DevStudioCraft — Websites, E-Commerce & Apps Built to Sell',
-  description =
-    'Websites, online shops, apps and brands for businesses that want more customers: barbers, salons, detailers, gyms, clinics, restaurants, cafés and more. Every project is live. Studio in Bremen.',
+  description = HOME_DESCRIPTION,
 } = Astro.props;
 
 const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.pathname;
 const ogImage = Astro.site ? new URL('/og.jpg', Astro.site).toString() : '/og.jpg';
+
+// One entity graph on every page: the studio and the site it publishes.
+// Facts only from the site itself (footer, Impressum, Services); no sameAs until real profiles exist.
+const SITE = 'https://www.devstudiocraft.com/';
+const ORG_ID = `${SITE}#organization`;
+const SERVICES = [
+  'Brand Identity',
+  'Web Design & Development',
+  'E-Commerce',
+  'Landing Pages',
+  'Mobile Apps',
+  'Motion & Content',
+];
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['Organization', 'ProfessionalService'],
+      '@id': ORG_ID,
+      name: 'DevStudioCraft',
+      url: SITE,
+      logo: { '@type': 'ImageObject', url: `${SITE}favicon.svg` },
+      image: `${SITE}og.jpg`,
+      description: HOME_DESCRIPTION,
+      email: 'contact@devstudiocraft.com',
+      telephone: '+49 1522 2002210',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Bürgermeister-Smidt-Straße 116',
+        postalCode: '28195',
+        addressLocality: 'Bremen',
+        addressCountry: 'DE',
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'sales',
+        email: 'contact@devstudiocraft.com',
+        telephone: '+49 1522 2002210',
+        url: `${SITE}call/`,
+      },
+      parentOrganization: {
+        '@type': 'Organization',
+        name: 'M2A Facility Management GmbH',
+        url: 'https://m2a-fm.de/',
+      },
+      areaServed: 'Worldwide',
+      knowsAbout: SERVICES,
+      makesOffer: SERVICES.map((name) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name },
+      })),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE}#website`,
+      name: 'DevStudioCraft',
+      url: SITE,
+      inLanguage: 'en',
+      publisher: { '@id': ORG_ID },
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -66,35 +130,7 @@ const ogImage = Astro.site ? new URL('/og.jpg', Astro.site).toString() : '/og.jp
     <script
       is:inline
       type="application/ld+json"
-      set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'ProfessionalService',
-        name: 'DevStudioCraft',
-        url: 'https://www.devstudiocraft.com',
-        email: 'contact@devstudiocraft.com',
-        telephone: '+49 1522 2002210',
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: 'Bürgermeister-Smidt-Straße 116',
-          postalCode: '28195',
-          addressLocality: 'Bremen',
-          addressCountry: 'DE',
-        },
-        parentOrganization: {
-          '@type': 'Organization',
-          name: 'M2A Facility Management GmbH',
-          url: 'https://m2a-fm.de/',
-        },
-        description,
-        areaServed: 'Worldwide',
-        makesOffer: [
-          { '@type': 'Offer', name: 'Brand Identity Design' },
-          { '@type': 'Offer', name: 'Web Design & Development' },
-          { '@type': 'Offer', name: 'E-Commerce Development' },
-          { '@type': 'Offer', name: 'Landing Page Development' },
-          { '@type': 'Offer', name: 'Mobile App Development' },
-        ],
-      })}
+      set:html={JSON.stringify(structuredData)}
     />
     <slot name="head" />
   </head>
