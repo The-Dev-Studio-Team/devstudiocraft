@@ -415,18 +415,18 @@ export const trades = [
     url: 'https://vernis.devstudiocraft.com',
   },
   {
-    id: 'kelvin',
-    name: 'KELVIN',
+    id: 'mirrorhall',
+    name: 'Mirrorhall',
     industry: 'detailing',
     city: 'Detroit',
-    line: 'Haze out. Depth back.',
+    line: 'Six bays. One finish.',
     summary:
-      'A paint-correction studio with one dark bay, one car and one light you hold. A real 911 Turbo S turns in 3D, the lamp’s colour temperature follows your pointer, and a garage swaps the car.',
-    moves: ['A 3D studio bay with a real Porsche 911 Turbo S', 'The lamp’s 1800–6500 K temperature follows the pointer', 'Garage swap: 911, G 63 or our own Kelvin GT'],
-    palette: ['#07080a', '#e8ecef', '#ff9a4a', '#9fd0ff'],
-    accent: '#ff9a4a',
-    stat: { value: '3', label: 'cars in one 3D bay' },
-    url: 'https://kelvin.devstudiocraft.com',
+      'A detailing house you walk through: six bays in a row, one stage of the work in each, a real car turning on a turntable in every one. You hold the inspection lamp, a line runs over the paint as the work is done, and the last bay is a hall of mirrors.',
+    moves: ['Six 3D bays in an enfilade, six real cars on turntables', 'A paint line runs over each car as its bay’s work is done', 'A front desk that prices the job as you build it'],
+    palette: ['#0e211d', '#e8eaec', '#ffb468', '#b3dcff'],
+    accent: '#ffb468',
+    stat: { value: '6', label: 'bays, six real cars in 3D' },
+    url: 'https://mirrorhall.devstudiocraft.com',
   },
   {
     id: 'ferro',
@@ -788,7 +788,7 @@ export const industryCounts = industries
 
 /* The studio reel (public/media/work/reel*.{webm,mp4}): which site is on screen from which second.
    Cut by work-page/tools/make_reel.py: 28 frames per site at 24 fps. */
-export const reelCuts = ['kelvin', 'ferro', 'namjim', 'bluehour', 'salus', 'longtable', 'firn', 'knip', 'vernis', 'loadtheory', 'kaiju', 'pilot100'].map(
+export const reelCuts = ['mirrorhall', 'ferro', 'namjim', 'bluehour', 'salus', 'longtable', 'firn', 'knip', 'vernis', 'loadtheory', 'kaiju', 'pilot100'].map(
   (id, i) => {
     const w = allWork.find((p) => p.id === id);
     const trade = industries.find((x) => x.key === w.industry);
