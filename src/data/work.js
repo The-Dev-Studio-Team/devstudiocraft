@@ -670,6 +670,30 @@ export const sites = [
     accent: '#d4a64a',
     url: 'https://crwn-psi.vercel.app',
   },
+  {
+    id: 'exquis',
+    name: 'EXQUIS',
+    industry: 'fashion',
+    series: 'Concept store',
+    place: 'Menswear · Shop the look',
+    line: 'Every top fits every bottom.',
+    summary:
+      'A concept shop-the-look for an invented menswear label: nine pieces cut on one block make 27 outfits. Faceless mannequins stand on a 3D turntable you drag to spin, the front outfit turns a full 360°, you flip panels of a folded paper to build your own look, and an “On him” list prices the whole outfit.',
+    accent: '#8590ff',
+    url: 'https://exquis.devstudiocraft.com',
+  },
+  {
+    id: 'unclaimed',
+    name: 'UNCLAIMED',
+    industry: 'fashion',
+    series: 'Concept store',
+    place: 'Menswear · 3D store',
+    line: 'Coats nobody came back for. Recut.',
+    summary:
+      'A concept 3D store for an invented menswear label cut from coats left at a 1962 dry-cleaner’s. The shop is a three.js conveyor: type a ticket number on the counter keypad and the loop brakes with that piece in front of you, turn it 360°, then shop six looks on faceless mannequins.',
+    accent: '#ff3d8b',
+    url: 'https://unclaimed.devstudiocraft.com',
+  },
 ];
 
 const hostOf = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
