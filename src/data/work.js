@@ -610,6 +610,34 @@ export const trades = [
     stat: { value: '06:40', label: 'handover, every night' },
     url: 'https://voracht.devstudiocraft.com',
   },
+  {
+    id: 'exquis',
+    name: 'EXQUIS',
+    industry: 'fashion',
+    city: 'Lyon',
+    line: 'Every top fits every bottom.',
+    summary:
+      'A concept shop-the-look for an invented menswear label: nine pieces cut on one block make 27 outfits. Faceless mannequins stand on a 3D turntable you drag to spin, the front outfit turns a full 360°, and you flip panels of a folded paper to build your own look.',
+    moves: ['A 3D turntable of 27 outfits on faceless mannequins', 'Drag the front outfit to turn it a full 360°', 'Flip a panel of the folded paper to change his top, trousers or shoes'],
+    palette: ['#161514', '#dedbd3', '#8e8a82', '#2b3cf0', '#c9361a'],
+    accent: '#8590ff',
+    stat: { value: '27', label: 'looks from nine pieces' },
+    url: 'https://exquis.devstudiocraft.com',
+  },
+  {
+    id: 'unclaimed',
+    name: 'UNCLAIMED',
+    industry: 'fashion',
+    city: 'Pressing Elba · 41 Rue Lamartine',
+    line: 'Coats nobody came back for. Recut.',
+    summary:
+      'A concept 3D store for an invented menswear label cut from coats left at a 1962 dry-cleaner’s. The shop is a three.js conveyor: type a ticket number on the counter keypad and the loop brakes with that piece in front of you, turn it 360°, then shop six looks on faceless mannequins.',
+    moves: ['A three.js dry-cleaner’s conveyor as the whole store', 'Type a ticket number and the loop brakes at that piece', 'Six looks on faceless mannequins you turn 360°'],
+    palette: ['#0d1414', '#eef1ee', '#8d9896', '#ff3d8b', '#ffd400'],
+    accent: '#ff3d8b',
+    stat: { value: '90', label: 'days on the hook, then recut' },
+    url: 'https://unclaimed.devstudiocraft.com',
+  },
 ];
 
 /* ---------------------------------------------------------------------------
